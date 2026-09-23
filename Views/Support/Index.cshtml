@@ -1,0 +1,20 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewData["Title"] = Model.Title;
+}
+
+<section class="portal-card p-4">
+    <h1 class="h4 mb-2">@Model.Title</h1>
+    <p class="text-secondary">@Model.Description</p>
+    @if (Model.Items.Count == 0) { <p class="border-top mt-4 pt-4 text-center text-secondary">@Model.EmptyMessage</p> }
+    else { foreach (var item in Model.Items) { <article class="border-top mt-4 pt-4"><strong>@item.Title</strong><p class="text-secondary mt-2">@item.Body</p>@if (!string.IsNullOrWhiteSpace(item.LinkUrl)) { <p><a href="@item.LinkUrl" target="_blank" rel="noopener">Open resource</a></p> }</article> } }
+</section>
+
+@section Styles {
+<style>
+:root { --green: #24272b; --deep: #14161a; --ink: #27372f; --muted: #7b857e; --paper: #fff; --bg: #f4f7f4; --line: #dce6de; }
+    * { box-sizing: border-box; } body { margin: 0; color: var(--ink); background: var(--bg); font-family: 'Segoe UI', Tahoma, sans-serif; } .shell { min-height: 100vh; display: flex; } aside { width: 248px; padding: 22px 14px; color: #dce9de; background: var(--deep); } .brand { display: flex; align-items: center; gap: 11px; padding: 8px 10px 27px; color: white; font: italic 700 25px Georgia, serif; } .leaf { width: 28px; height: 35px; border-radius: 100% 0 100% 0; background: #3a3f45; transform: rotate(-25deg); } nav a { display: flex; align-items: center; min-height: 39px; padding: 0 12px; border-radius: 5px; color: inherit; text-decoration: none; font-size: 13px; } nav a:hover, nav a.active { color: white; background: rgba(255,255,255,.13); } .main { flex: 1; } header { min-height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; color: white; background: var(--deep); } header a { color: #d8e9da; text-decoration: none; font-size: 13px; } main { width: min(calc(100% - 56px), 960px); margin: 28px auto 50px; } .panel { padding: 28px 30px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); box-shadow: 0 8px 24px rgba(30, 59, 39, .06); } h1 { margin: 0 0 8px; font-size: 22px; } p { margin: 0; color: var(--muted); font-size: 13px; } .empty { margin-top: 24px; padding: 35px 15px; border-top: 1px solid var(--line); text-align: center; } footer { padding: 20px 28px; color: var(--muted); font-size: 11px; } @@media (max-width: 700px) { aside { width: 62px; } aside span, aside nav { display: none; } main { width: calc(100% - 32px); } header { padding: 0 16px; } }
+</style>
+}
+
+

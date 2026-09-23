@@ -1,0 +1,1260 @@
+c:\Users\q658366\Downloads\New folder\New folder\Controllers\Portal\LogisticsAndComplianceControllers.cs(65,87): warning CS9113: Parameter 'users' is unread. [c:\Users\q658366\Downloads\New folder\New folder\VitalityPortal.csproj]
+c:\Users\q658366\Downloads\New folder\New folder\Controllers\Portal\LogisticsAndComplianceControllers.cs(160,57): warning CS9113: Parameter 'context' is unread. [c:\Users\q658366\Downloads\New folder\New folder\VitalityPortal.csproj]
+c:\Users\q658366\Downloads\New folder\New folder\Controllers\Portal\LogisticsAndComplianceControllers.cs(160,86): warning CS9113: Parameter 'users' is unread. [c:\Users\q658366\Downloads\New folder\New folder\VitalityPortal.csproj]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (36ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE IF NOT EXISTS Referrals (Id INTEGER PRIMARY KEY AUTOINCREMENT, UserId TEXT NOT NULL, FullName TEXT NOT NULL, Mobile TEXT NOT NULL, SponsorId TEXT NOT NULL, Rank TEXT NOT NULL, MonthlySales TEXT NOT NULL, Status TEXT NOT NULL, JoinedAt TEXT NOT NULL);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE IF NOT EXISTS Withdrawals (Id INTEGER PRIMARY KEY AUTOINCREMENT, Amount TEXT NOT NULL, PaymentMethod TEXT NOT NULL, RequestedAt TEXT NOT NULL, Status TEXT NOT NULL, Fee TEXT NOT NULL);
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Withdrawals ADD COLUMN UserId TEXT NOT NULL DEFAULT 'samkelisojam';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE PayoutSettings ADD COLUMN UserId TEXT NOT NULL DEFAULT 'samkelisojam';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE PortalMessages ADD COLUMN SenderUserId TEXT NOT NULL DEFAULT 'system';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE PortalMessages ADD COLUMN SenderName TEXT NOT NULL DEFAULT 'System';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Commissions ADD COLUMN OwnerUserId TEXT NOT NULL DEFAULT 'samkelisojam';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Purchases ADD COLUMN UserId TEXT NOT NULL DEFAULT 'samkelisojam';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Orders ADD COLUMN UserId TEXT NOT NULL DEFAULT 'samkelisojam';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Orders ADD COLUMN CourierName TEXT NULL DEFAULT 'The Courier Guy';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Orders ADD COLUMN TrackingNumber TEXT NULL DEFAULT 'TCG-89102ZA';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Orders ADD COLUMN ShippingStatus TEXT NULL DEFAULT 'Packed';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE Orders ADD COLUMN EstimatedDelivery TEXT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (21ms) [Parameters=[@__user_UserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(ef_sum(ef_multiply("p"."Amount", CAST("p"."Quantity" AS TEXT))), '0.0')
+      FROM "Purchases" AS "p"
+      WHERE "p"."UserId" = @__user_UserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__user_UserName_0 AND "r"."Status" = 'Active'
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 13)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(ef_sum(ef_multiply("p"."Amount", CAST("p"."Quantity" AS TEXT))), '0.0')
+      FROM "Purchases" AS "p"
+      WHERE "p"."UserId" = @__user_UserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 13)], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__user_UserName_0 AND "r"."Status" = 'Active'
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 10)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(ef_sum(ef_multiply("p"."Amount", CAST("p"."Quantity" AS TEXT))), '0.0')
+      FROM "Purchases" AS "p"
+      WHERE "p"."UserId" = @__user_UserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 10)], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__user_UserName_0 AND "r"."Status" = 'Active'
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(ef_sum("r"."MonthlySales"), '0.0')
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__user_UserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__user_UserName_0='?' (Size = 12), @__8__locals1_monthStart_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM "WalletTransactions" AS "w"
+          WHERE "w"."UserId" = @__user_UserName_0 AND "w"."Category" = 'Monthly Salary' AND "w"."OccurredAt" >= @__8__locals1_monthStart_1)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 13)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(ef_sum("r"."MonthlySales"), '0.0')
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__user_UserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__user_UserName_0='?' (Size = 10)], CommandType='Text', CommandTimeout='30']
+      SELECT COALESCE(ef_sum("r"."MonthlySales"), '0.0')
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__user_UserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__cutoff_0='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."Status" = 'Pending' AND "c"."EarnedAt" <= @__cutoff_0
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5199
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: c:\Users\q658366\Downloads\New folder\New folder
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Amount", "w"."PaymentMethod", "w"."RequestedAt", "w"."Status", "w"."Fee", "w"."Id"
+      FROM "Withdrawals" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+      ORDER BY "w"."RequestedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__ownerUserId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."Amount", "p"."IsBusinessKit", "p"."PaymentMethod", "p"."ProductName", "p"."PurchasedAt", "p"."Quantity", "p"."Status", "p"."UserId"
+      FROM "Purchases" AS "p"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."Amount", "p"."IsBusinessKit", "p"."PaymentMethod", "p"."ProductName", "p"."PurchasedAt", "p"."Quantity", "p"."Status", "p"."UserId"
+      FROM "Purchases" AS "p"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Amount", "w"."PaymentMethod", "w"."RequestedAt", "w"."Status", "w"."Fee", "w"."Id"
+      FROM "Withdrawals" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+      ORDER BY "w"."RequestedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Amount", "w"."PaymentMethod", "w"."RequestedAt", "w"."Status", "w"."Fee", "w"."Id"
+      FROM "Withdrawals" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+      ORDER BY "w"."RequestedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."Amount", "p"."IsBusinessKit", "p"."PaymentMethod", "p"."ProductName", "p"."PurchasedAt", "p"."Quantity", "p"."Status", "p"."UserId"
+      FROM "Purchases" AS "p"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "k"."Id", "k"."AddressDocumentName", "k"."IdDocumentName", "k"."IdNumber", "k"."IdType", "k"."ReviewNotes", "k"."ReviewedAt", "k"."Status", "k"."SubmittedAt", "k"."UserId"
+      FROM "KycRecords" AS "k"
+      WHERE "k"."UserId" = @__userId_0
+      ORDER BY "k"."Id" DESC
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "t"."Id", "t"."Action", "t"."Remarks", "t"."Status", "t"."IpAddress", "t"."OccurredAt"
+      FROM "TransactionPasswordLogs" AS "t"
+      WHERE "t"."UserId" = @__userId_0
+      ORDER BY "t"."OccurredAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "t"."Id", "t"."Action", "t"."Remarks", "t"."Status", "t"."IpAddress", "t"."OccurredAt"
+      FROM "TransactionPasswordLogs" AS "t"
+      WHERE "t"."UserId" = @__userId_0
+      ORDER BY "t"."OccurredAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Amount", "w"."PaymentMethod", "w"."RequestedAt", "w"."Status", "w"."Fee", "w"."Id"
+      FROM "Withdrawals" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+      ORDER BY "w"."RequestedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12), @__category_1='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0 AND "c"."Category" = @__category_1
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."OldRank", "r"."NewRank", "r"."Incentive", date("r"."ChangedAt")
+      FROM "RankHistory" AS "r"
+      WHERE "r"."UserId" = @__userId_0
+      ORDER BY "r"."ChangedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12), @__category_1='?' (Size = 6)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0 AND "c"."Category" = @__category_1
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Amount", "w"."PaymentMethod", "w"."RequestedAt", "w"."Status", "w"."Fee", "w"."Id"
+      FROM "Withdrawals" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+      ORDER BY "w"."RequestedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."AccountHolder", "p"."AccountNumber", "p"."AccountType", "p"."Address", "p"."BankName", "p"."Country", "p"."PostalCode"
+      FROM "PayoutSettings" AS "p"
+      ORDER BY "p"."Id" DESC
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."FullName", "r"."JoinedAt", "r"."Mobile", "r"."MonthlySales", "r"."Rank", "r"."SponsorId", "r"."Status", "r"."UserId"
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "o"."Id", "o"."Amount", "o"."CourierName", "o"."EstimatedDelivery", "o"."OrderNumber", "o"."OrderedAt", "o"."PaymentMethod", "o"."ShippingFee", "o"."ShippingStatus", "o"."Status", "o"."TrackingNumber", "o"."UserId"
+      FROM "Orders" AS "o"
+      WHERE "o"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."Amount", "p"."IsBusinessKit", "p"."PaymentMethod", "p"."ProductName", "p"."PurchasedAt", "p"."Quantity", "p"."Status", "p"."UserId"
+      FROM "Purchases" AS "p"
+      WHERE "p"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Id", "w"."Amount", "w"."Category", "w"."Comments", "w"."OccurredAt", "w"."UserId"
+      FROM "WalletTransactions" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."FullName", "r"."JoinedAt", "r"."Mobile", "r"."MonthlySales", "r"."Rank", "r"."SponsorId", "r"."Status", "r"."UserId"
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "o"."Id", "o"."Amount", "o"."CourierName", "o"."EstimatedDelivery", "o"."OrderNumber", "o"."OrderedAt", "o"."PaymentMethod", "o"."ShippingFee", "o"."ShippingStatus", "o"."Status", "o"."TrackingNumber", "o"."UserId"
+      FROM "Orders" AS "o"
+      WHERE "o"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."Amount", "p"."IsBusinessKit", "p"."PaymentMethod", "p"."ProductName", "p"."PurchasedAt", "p"."Quantity", "p"."Status", "p"."UserId"
+      FROM "Purchases" AS "p"
+      WHERE "p"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Id", "w"."Amount", "w"."Category", "w"."Comments", "w"."OccurredAt", "w"."UserId"
+      FROM "WalletTransactions" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."FullName", "r"."JoinedAt", "r"."Mobile", "r"."MonthlySales", "r"."Rank", "r"."SponsorId", "r"."Status", "r"."UserId"
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "o"."Id", "o"."Amount", "o"."CourierName", "o"."EstimatedDelivery", "o"."OrderNumber", "o"."OrderedAt", "o"."PaymentMethod", "o"."ShippingFee", "o"."ShippingStatus", "o"."Status", "o"."TrackingNumber", "o"."UserId"
+      FROM "Orders" AS "o"
+      WHERE "o"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."Amount", "p"."IsBusinessKit", "p"."PaymentMethod", "p"."ProductName", "p"."PurchasedAt", "p"."Quantity", "p"."Status", "p"."UserId"
+      FROM "Purchases" AS "p"
+      WHERE "p"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Id", "w"."Amount", "w"."Category", "w"."Comments", "w"."OccurredAt", "w"."UserId"
+      FROM "WalletTransactions" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."UserName" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."FullName", "r"."JoinedAt", "r"."Mobile", "r"."MonthlySales", "r"."Rank", "r"."SponsorId", "r"."Status", "r"."UserId"
+      FROM "Referrals" AS "r"
+      WHERE "r"."SponsorId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Amount", "c"."Category", "c"."EarnedAt", "c"."FromUserId", "c"."Level", "c"."Name", "c"."OwnerUserId", "c"."Status", "c"."Vat"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "o"."Id", "o"."Amount", "o"."CourierName", "o"."EstimatedDelivery", "o"."OrderNumber", "o"."OrderedAt", "o"."PaymentMethod", "o"."ShippingFee", "o"."ShippingStatus", "o"."Status", "o"."TrackingNumber", "o"."UserId"
+      FROM "Orders" AS "o"
+      WHERE "o"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."Amount", "p"."IsBusinessKit", "p"."PaymentMethod", "p"."ProductName", "p"."PurchasedAt", "p"."Quantity", "p"."Status", "p"."UserId"
+      FROM "Purchases" AS "p"
+      WHERE "p"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Id", "w"."Amount", "w"."Category", "w"."Comments", "w"."OccurredAt", "w"."UserId"
+      FROM "WalletTransactions" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "s"."Id", "s"."Category", "s"."CreatedAt", "s"."Priority", "s"."Status", "s"."Subject", "s"."TicketNumber", "s"."UpdatedAt", "s"."UserId"
+      FROM "SupportTickets" AS "s"
+      WHERE "s"."UserId" = @__userId_0
+      ORDER BY "s"."UpdatedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__ticketIds_0='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+      SELECT "s"."TicketId", "s"."Id", "s"."CreatedAt", "s"."IsStaff", "s"."Message", "s"."SenderName", "s"."SenderUserId"
+      FROM "SupportTicketMessages" AS "s"
+      WHERE "s"."TicketId" IN (
+          SELECT "t"."value"
+          FROM json_each(@__ticketIds_0) AS "t"
+      )
+      ORDER BY "s"."TicketId"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__ticketId_0='?' (DbType = Int32), @__userId_1='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "s"."Id", "s"."Category", "s"."CreatedAt", "s"."Priority", "s"."Status", "s"."Subject", "s"."TicketNumber", "s"."UpdatedAt", "s"."UserId"
+      FROM "SupportTickets" AS "s"
+      WHERE "s"."Id" = @__ticketId_0 AND "s"."UserId" = @__userId_1
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ticketId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT "s"."Id", "s"."TicketId", "s"."SenderUserId", "s"."SenderName", "s"."IsStaff", "s"."Message", "s"."CreatedAt"
+      FROM "SupportTicketMessages" AS "s"
+      WHERE "s"."TicketId" = @__ticketId_0
+      ORDER BY "s"."CreatedAt"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."SenderUserId", CASE
+          WHEN "p"."SenderName" = '' THEN CASE
+              WHEN "p"."SenderUserId" = 'system' THEN 'ScaleEngine System'
+              ELSE "p"."SenderUserId"
+          END
+          ELSE "p"."SenderName"
+      END, "p"."Recipient", "p"."Subject", "p"."Body", "p"."SentAt", "p"."IsRead"
+      FROM "PortalMessages" AS "p"
+      WHERE "p"."Recipient" = @__userId_0 OR "p"."Recipient" = 'all' OR "p"."Recipient" = 'partners' OR "p"."Recipient" IN ('admin', 'samkelisojam285@gmail.com')
+      ORDER BY "p"."SentAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "w"."Amount", "w"."PaymentMethod", "w"."RequestedAt", "w"."Status", "w"."Fee", "w"."Id"
+      FROM "Withdrawals" AS "w"
+      WHERE "w"."UserId" = @__userId_0
+      ORDER BY "w"."RequestedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."UserId", "r"."FullName", "r"."Mobile", "r"."SponsorId", "r"."Rank", "r"."MonthlySales", "r"."Status", date("r"."JoinedAt"), "r"."Id"
+      FROM "Referrals" AS "r"
+      ORDER BY "r"."Id"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__ownerUserId_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT date("c"."EarnedAt"), "c"."FromUserId", "c"."Name", "c"."Amount", "c"."Vat", ef_add("c"."Amount", "c"."Vat"), "c"."Status", "c"."Level"
+      FROM "Commissions" AS "c"
+      WHERE "c"."OwnerUserId" = @__ownerUserId_0
+      ORDER BY "c"."EarnedAt" DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 12)], CommandType='Text', CommandTimeout='30']
+      SELECT "a"."Id", "a"."AccessFailedCount", "a"."ActivatedAt", "a"."ConcurrencyStamp", "a"."Country", "a"."Email", "a"."EmailConfirmed", "a"."FirstName", "a"."IsActivated", "a"."LastName", "a"."LockoutEnabled", "a"."LockoutEnd", "a"."NormalizedEmail", "a"."NormalizedUserName", "a"."PasswordHash", "a"."PhoneNumber", "a"."PhoneNumberConfirmed", "a"."Rank", "a"."SecurityStamp", "a"."TransactionPasswordHash", "a"."TwoFactorEnabled", "a"."UserName"
+      FROM "AspNetUsers" AS "a"
+      WHERE "a"."NormalizedUserName" = @__normalizedUserName_0
+      LIMIT 1

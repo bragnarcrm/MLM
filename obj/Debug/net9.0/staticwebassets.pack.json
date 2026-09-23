@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "c:\\Users\\q658366\\Downloads\\New folder\\New folder\\wwwroot\\css\\portal-navigation.css",
+      "PackagePath": "staticwebassets\\css\\portal-navigation.css"
+    },
+    {
+      "Id": "c:\\Users\\q658366\\Downloads\\New folder\\New folder\\wwwroot\\js\\portal-session.js",
+      "PackagePath": "staticwebassets\\js\\portal-session.js"
+    },
+    {
+      "Id": "c:\\Users\\q658366\\Downloads\\New folder\\New folder\\wwwroot\\js\\portal-table.js",
+      "PackagePath": "staticwebassets\\js\\portal-table.js"
+    },
+    {
+      "Id": "c:\\Users\\q658366\\Downloads\\New folder\\New folder\\wwwroot\\js\\saas-engine.js",
+      "PackagePath": "staticwebassets\\js\\saas-engine.js"
+    },
+    {
+      "Id": "c:\\Users\\q658366\\Downloads\\New folder\\New folder\\wwwroot\\js\\translator-engine.js",
+      "PackagePath": "staticwebassets\\js\\translator-engine.js"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.VitalityPortal.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.VitalityPortal.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.VitalityPortal.props",
+      "PackagePath": "build\\VitalityPortal.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.VitalityPortal.props",
+      "PackagePath": "buildMultiTargeting\\VitalityPortal.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.VitalityPortal.props",
+      "PackagePath": "buildTransitive\\VitalityPortal.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,302 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "SARS IRP5 / IT3(a) Tax Certificates";
+}
+
+<div class="tax-page-container">
+  <!-- Controls Panel -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-icon"><i class="bi bi-file-earmark-ruled-fill"></i></div>
+      <div>
+        <h1>SARS IRP5 / IT3(a) Commission Tax Certificates</h1>
+        <p class="subtitle">Official South African Revenue Service compliant annual tax deduction certificates for independent marketing partners.</p>
+      </div>
+      <div class="tax-year-picker">
+        <label for="taxYearSelect">Select Tax Year:</label>
+        <select id="taxYearSelect">
+          <option value="2026" selected>2026 Tax Year (Current)</option>
+          <option value="2025">2025 Tax Year (Prior)</option>
+          <option value="2024">2024 Tax Year (Prior)</option>
+        </select>
+        <button type="button" class="btn-print-tax" id="printTaxBtn"><i class="bi bi-printer-fill"></i> Print IRP5</button>
+      </div>
+    </div>
+
+    <!-- Live Tax Overview Cards -->
+    <div class="tax-metrics-grid">
+      <div class="tax-card">
+        <small>GROSS COMMISSION (CODE 3605)</small>
+        <strong id="grossTax">R 4,140.00</strong>
+        <span>Pre-tax leadership &amp; direct bonuses</span>
+      </div>
+      <div class="tax-card">
+        <small>STANDARD 15% VAT PORTION</small>
+        <strong id="vatTax">R 621.00</strong>
+        <span>Included in invoice payouts</span>
+      </div>
+      <div class="tax-card warning">
+        <small>PROVISIONAL TAX WITHHELD (25%)</small>
+        <strong id="withholdingTax">R 1,035.00</strong>
+        <span>SARS independent contractor deduction</span>
+      </div>
+      <div class="tax-card success">
+        <small>NET SETTLEMENT TO PARTNER</small>
+        <strong id="netTax">R 3,726.00</strong>
+        <span>Dispatched to verified bank account</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Official SARS IRP5 / IT3(a) Document Sheet -->
+  <section class="panel sars-sheet-panel">
+    <div class="sars-sheet" id="printableIrp5">
+      <!-- SARS Official Header -->
+      <div class="sars-header">
+        <div class="sars-logo-box">
+          <div class="sars-brand-title">SARS</div>
+          <div>
+            <strong>South African Revenue Service</strong>
+            <small>eFiling Annual Tax Certificate &bull; EMP501 Reconciled</small>
+          </div>
+        </div>
+        <div class="sars-cert-tag">
+          <strong>IRP5 / IT3(a)</strong>
+          <span>TAX YEAR: <span id="certTaxYear">2026</span></span>
+        </div>
+      </div>
+
+      <!-- Section A: Employer / Principal Details -->
+      <div class="sars-section">
+        <h3>Section A &bull; Platform / Principal Information</h3>
+        <table class="sars-table">
+          <tr>
+            <th>Company Name</th>
+            <td>ScaleEngine MLM Platform (Pty) Ltd</td>
+            <th>PAYE Reference No.</th>
+            <td>7910892014</td>
+          </tr>
+          <tr>
+            <th>Registration No.</th>
+            <td>2026/08912/07</td>
+            <th>VAT Registration No.</th>
+            <td>4910283910</td>
+          </tr>
+          <tr>
+            <th>Physical Address</th>
+            <td colspan="3">ScaleEngine Tower, 100 West Street, Sandton, Gauteng, 2196</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Section B: Independent Contractor / Partner Details -->
+      <div class="sars-section">
+        <h3>Section B &bull; Partner / Contractor Information</h3>
+        <table class="sars-table">
+          <tr>
+            <th>Full Legal Name</th>
+            <td id="taxPartnerName">Samkeliso Ndlangamandla</td>
+            <th>Income Tax Ref No.</th>
+            <td id="taxRefNo">9823471029</td>
+          </tr>
+          <tr>
+            <th>ID / Passport No.</th>
+            <td id="taxIdNumber">9408125089087</td>
+            <th>Distributor ID</th>
+            <td id="taxDistId"><code>samkelisojam</code></td>
+          </tr>
+          <tr>
+            <th>Residential Address</th>
+            <td colspan="3" id="taxAddress">123 ScaleEngine Way, Sandton, Gauteng, 2196</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Section C: Gross Remuneration & SARS Source Codes -->
+      <div class="sars-section">
+        <h3>Section C &bull; Remuneration Breakdown &amp; Tax Codes</h3>
+        <table class="sars-table codes-table">
+          <thead>
+            <tr>
+              <th style="width:120px;">SARS Code</th>
+              <th>Description</th>
+              <th style="width:160px; text-align:right;">Amount (ZAR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>3605</code></td>
+              <td><strong>Commission &amp; Multi-Tier Affiliate Income</strong> (Independent Contractor)</td>
+              <td style="text-align:right;" id="code3605">R 4,140.00</td>
+            </tr>
+            <tr>
+              <td><code>3696</code></td>
+              <td>Gross Non-Taxable Benefit / Expense Reimbursement</td>
+              <td style="text-align:right;">R 0.00</td>
+            </tr>
+            <tr>
+              <td><code>4102</code></td>
+              <td><strong>PAYE / Statutory Withholding Tax Deduction (25%)</strong></td>
+              <td style="text-align:right; color:#dc2626;" id="code4102">R 1,035.00</td>
+            </tr>
+            <tr>
+              <td><code>4141</code></td>
+              <td>UIF Contribution (Exempt under Section 1(1) for Commission Agents)</td>
+              <td style="text-align:right;">EXEMPT</td>
+            </tr>
+            <tr>
+              <td><code>4142</code></td>
+              <td>SDL Contribution (Skills Development Levy)</td>
+              <td style="text-align:right;">EXEMPT</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="sars-total-row">
+              <td colspan="2" style="text-align:right; font-weight:800;">TOTAL NET PAID TO INDEPENDENT CONTRACTOR:</td>
+              <td style="text-align:right;"><strong id="totalNetPaid" style="font-size:16px;">R 3,726.00</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Section D: Declaration & Verification Seal -->
+      <div class="sars-footer">
+        <p>I declare that this certificate is an accurate and true reflection of all commission and affiliate remuneration credited and taxes withheld during the assessed tax period.</p>
+        <div class="sars-sign-row">
+          <div>
+            <strong>ScaleEngine Tax Accounting Officer</strong>
+            <small>Issued on <span id="taxIssuedDate">2026-09-18</span> &bull; Verified Electronic Filing</small>
+          </div>
+          <div class="sars-qr-box">
+            <i class="bi bi-qr-code"></i>
+            <small>SARS CERTIFICATE VERIFIED</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+@section Styles {
+<style>
+  :root {
+    --dark: #0f172a;
+    --line: #e2e8f0;
+    --paper: #fff;
+    --muted: #64748b;
+    --success: #16a34a;
+    --danger: #dc2626;
+  }
+  * { box-sizing: border-box; }
+
+  .tax-page-container { max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+  .panel-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 10px; background: #0f172a; color: #fff; font-size: 22px; flex-shrink: 0; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .tax-year-picker { display: flex; align-items: center; gap: 10px; }
+  .tax-year-picker label { font-size: 13px; font-weight: 600; color: #475569; }
+  .tax-year-picker select { height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px; outline: none; background: #fff; }
+  
+  .btn-print-tax { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border: 0; border-radius: 6px; background: var(--dark); color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; transition: background .15s; }
+  .btn-print-tax:hover { background: #000; }
+
+  /* Metrics Grid */
+  .tax-metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .tax-card { padding: 18px 16px; border-radius: 8px; border: 1px solid var(--line); background: #f8fafc; }
+  .tax-card small { display: block; font-size: 10px; font-weight: 700; color: #64748b; letter-spacing: .06em; margin-bottom: 4px; }
+  .tax-card strong { font-size: 20px; font-weight: 900; color: #0f172a; display: block; margin-bottom: 2px; }
+  .tax-card span { font-size: 11.5px; color: var(--muted); }
+  .tax-card.warning { border-left: 4px solid #f59e0b; }
+  .tax-card.success { border-left: 4px solid #16a34a; }
+
+  /* SARS IRP5 Document Sheet */
+  .sars-sheet-panel { background: #fdfdfd; padding: 24px; }
+  .sars-sheet { border: 2px solid #0f172a; border-radius: 8px; padding: 30px; background: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  
+  .sars-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 20px; }
+  .sars-logo-box { display: flex; align-items: center; gap: 14px; }
+  .sars-brand-title { font-size: 26px; font-weight: 900; color: #0f172a; letter-spacing: .08em; border-right: 2px solid #cbd5e1; padding-right: 14px; }
+  .sars-logo-box strong { display: block; font-size: 15px; color: #0f172a; }
+  .sars-logo-box small { color: var(--muted); font-size: 11.5px; }
+
+  .sars-cert-tag { text-align: right; }
+  .sars-cert-tag strong { display: block; font-size: 20px; font-weight: 900; color: #0f172a; }
+  .sars-cert-tag span { font-size: 11.5px; font-weight: 700; color: #0284c7; }
+
+  .sars-section { margin-bottom: 20px; }
+  .sars-section h3 { font-size: 12.5px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 8px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+
+  .sars-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .sars-table th, .sars-table td { padding: 9px 12px; border: 1px solid #cbd5e1; text-align: left; }
+  .sars-table th { background: #f8fafc; color: #475569; font-weight: 600; width: 170px; }
+  .sars-table.codes-table th { background: #f1f5f9; font-weight: 700; }
+  .sars-total-row td { background: #f8fafc; border-top: 2px solid #0f172a; font-weight: 700; padding: 12px; }
+
+  .sars-footer { margin-top: 24px; border-top: 1px dashed #cbd5e1; padding-top: 16px; font-size: 11.5px; color: #64748b; }
+  .sars-footer p { margin: 0 0 12px; }
+  .sars-sign-row { display: flex; justify-content: space-between; align-items: center; }
+  .sars-sign-row strong { display: block; font-size: 12px; color: #0f172a; }
+  .sars-qr-box { display: flex; align-items: center; gap: 8px; font-size: 24px; color: #0f172a; }
+  .sars-qr-box small { font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+
+  @@media (max-width: 820px) {
+    .tax-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .tax-year-picker { width: 100%; justify-content: space-between; }
+  }
+
+  @@media print {
+    body * { visibility: hidden; }
+    .sars-sheet, .sars-sheet * { visibility: visible; }
+    .sars-sheet { position: absolute; left: 0; top: 0; width: 100%; border: 0; padding: 0; }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+(() => {
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  const taxYearSelect = document.querySelector('#taxYearSelect');
+  const printTaxBtn = document.querySelector('#printTaxBtn');
+
+  printTaxBtn.addEventListener('click', () => window.print());
+
+  const loadTaxData = async (year) => {
+    if (!token) return;
+    try {
+      const res = await fetch(`/api/tax/irp5?taxYear=${encodeURIComponent(year)}`, { headers: authHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+
+      document.querySelector('#grossTax').textContent = `R ${Number(data.grossCommission).toFixed(2)}`;
+      document.querySelector('#vatTax').textContent = `R ${Number(data.vatAmount).toFixed(2)}`;
+      document.querySelector('#withholdingTax').textContent = `R ${Number(data.withholdingTaxDeduction).toFixed(2)}`;
+      document.querySelector('#netTax').textContent = `R ${Number(data.netPayable).toFixed(2)}`;
+
+      document.querySelector('#certTaxYear').textContent = data.taxYear;
+      document.querySelector('#taxPartnerName').textContent = data.partnerName;
+      document.querySelector('#taxRefNo').textContent = data.taxNumber;
+      document.querySelector('#taxIdNumber').textContent = data.idOrPassportNumber;
+      document.querySelector('#taxDistId').innerHTML = `<code>${data.partnerUserId}</code>`;
+      document.querySelector('#taxAddress').textContent = data.address;
+
+      document.querySelector('#code3605').textContent = `R ${Number(data.grossCommission).toFixed(2)}`;
+      document.querySelector('#code4102').textContent = `R ${Number(data.withholdingTaxDeduction).toFixed(2)}`;
+      document.querySelector('#totalNetPaid').textContent = `R ${Number(data.netPayable).toFixed(2)}`;
+      document.querySelector('#taxIssuedDate').textContent = new Date(data.issuedAt).toISOString().slice(0, 10);
+    } catch { }
+  };
+
+  taxYearSelect.addEventListener('change', () => {
+    loadTaxData(taxYearSelect.value);
+  });
+
+  loadTaxData(taxYearSelect.value);
+})();
+</script>
+}

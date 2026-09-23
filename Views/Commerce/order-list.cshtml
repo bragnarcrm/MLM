@@ -1,0 +1,138 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Order List";
+}
+
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h1><i class="bi bi-receipt"></i> Orders &amp; Delivery Tracking</h1>
+      <p class="subtitle">Review your order history, download official tax invoices, and track live courier shipments.</p>
+    </div>
+    <a href="product_cart.html" class="btn-primary-action"><i class="bi bi-bag-check-fill"></i> View Cart &amp; Reorder</a>
+  </div>
+
+  <div class="toolbar">
+    <label>Show <select id="entries"><option>10</option><option>25</option><option>50</option><option>100</option></select> entries</label>
+    <label>Search: <input id="search" placeholder="Search order / tracking..."></label>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>SL No.</th>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Order Total (R)</th>
+          <th>Shipping</th>
+          <th>Payment</th>
+          <th>Courier &amp; Tracking</th>
+          <th>Delivery Status</th>
+          <th>Tax Invoice</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td class="empty" colspan="9" id="empty">Loading your orders...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="table-footer">
+    <span id="count">Showing 0 to 0 of 0 entries</span>
+    <span class="pager">
+      <button type="button" id="prevPage">Previous</button>
+      <button type="button" id="nextPage">Next</button>
+    </span>
+  </div>
+</section>
+
+@section Styles {
+<style>
+  :root { --dark: #0f172a; --deep: #0d0f12; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0; --paper: #fff; --bg: #f8fafc; --success: #16a34a; --warning: #d97706; }
+  * { box-sizing: border-box; }
+  
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 9px; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .btn-primary-action { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 16px; border: 0; border-radius: 6px; color: white; background: var(--dark); text-decoration: none; font-size: 13px; font-weight: 600; }
+  .btn-primary-action:hover { background: #000; color: #fff; }
+
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; color: var(--muted); font-size: 12.5px; }
+  .toolbar label { display: flex; align-items: center; gap: 7px; }
+  select, input { height: 38px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: var(--paper); font-size: 13px; outline: none; }
+  input { width: 220px; }
+  input:focus { border-color: var(--dark); }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 14px 12px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  th { background: #f8fafc; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  tbody tr:hover { background: #f8fafc; }
+  td.empty { padding: 32px; color: var(--muted); text-align: center; }
+
+  .badge-ship { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .badge-ship.placed { background: #e0f2fe; color: #0369a1; }
+  .badge-ship.packed { background: #fef3c7; color: #b45309; }
+  .badge-ship.in-transit, .badge-ship.out-for-delivery { background: #ede9fe; color: #6d28d9; }
+  .badge-ship.delivered { background: #dcfce7; color: #15803d; }
+
+  .tracking-cell { display: flex; flex-direction: column; gap: 2px; cursor: pointer; }
+  .tracking-cell code { font-size: 12px; color: #0284c7; font-weight: 700; text-decoration: underline; }
+  .tracking-cell small { color: var(--muted); font-size: 11px; }
+
+  .btn-invoice { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 5px; color: var(--dark); background: #fff; font-size: 12px; font-weight: 600; text-decoration: none; }
+  .btn-invoice:hover { background: #f1f5f9; color: #000; }
+
+  .table-footer { display: flex; justify-content: space-between; margin-top: 14px; color: var(--muted); font-size: 12px; }
+  .pager { display: flex; gap: 14px; }
+  .pager button { border: 0; color: var(--muted); background: transparent; cursor: pointer; }
+</style>
+}
+
+@section Scripts {
+<script src="/js/portal-table.js"></script>
+<script>
+  const openTracker = (trackingNum, courier) => {
+    alert(`📦 ${courier || 'The Courier Guy'} Live Tracking: ${trackingNum}\nStatus: In Transit to Local Delivery Hub\nDestination: Sandton / Johannesburg\nETA: Today by 16:00`);
+  };
+
+  initPortalTable({
+    url: '/api/commerce/orders?page=1&pageSize=100',
+    columnCount: 9,
+    prevBtn: document.querySelector('#prevPage'),
+    nextBtn: document.querySelector('#nextPage'),
+    matches: (item, term) => `${item.orderId} ${item.paymentMethod} ${item.trackingNumber} ${item.shippingStatus}`.toLowerCase().includes(term),
+    searchMessage: 'No matching orders',
+    errorMessage: 'Unable to load orders.',
+    renderRow: (item, index) => {
+      const shipClass = (item.shippingStatus || 'Packed').toLowerCase().replace(/\s+/g, '-');
+      const courier = item.courierName || 'The Courier Guy';
+      const tracking = item.trackingNumber || 'TCG-89102ZA';
+
+      return `<tr>
+        <td>${index + 1}</td>
+        <td><strong>${item.orderId}</strong></td>
+        <td>${item.date}</td>
+        <td><strong>R ${Number(item.total).toFixed(2)}</strong></td>
+        <td>${item.shippingFee > 0 ? `R ${Number(item.shippingFee).toFixed(2)}` : '<span class="text-success font-weight-bold">FREE</span>'}</td>
+        <td>${item.paymentMethod}</td>
+        <td>
+          <div class="tracking-cell" onclick="openTracker('${tracking}', '${courier}')" title="Click to track with ${courier}">
+            <code>${tracking}</code>
+            <small><i class="bi bi-truck"></i> ${courier}</small>
+          </div>
+        </td>
+        <td><span class="badge-ship ${shipClass}"><i class="bi bi-truck"></i> ${item.shippingStatus || 'Packed'}</span></td>
+        <td style="text-align:right;">
+          <a class="btn-invoice" href="${item.invoiceUrl}" target="_blank" rel="noopener"><i class="bi bi-file-earmark-pdf-fill" style="color:#ef4444;"></i> Tax Invoice</a>
+        </td>
+      </tr>`;
+    }
+  });
+</script>
+}
+
+

@@ -1,0 +1,212 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EntryPointFilePath = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = VitalityPortal
+build_property.RootNamespace = VitalityPortal
+build_property.ProjectDir = C:\Users\BhekaLuthuli\Downloads\MLM\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\BhekaLuthuli\Downloads\MLM
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/activation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxhY3RpdmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/change-password.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxjaGFuZ2UtcGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/change-trans-password.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxjaGFuZ2UtdHJhbnMtcGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/forgot-password.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxmb3Jnb3QtcGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxsb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/payfast-checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxwYXlmYXN0LWNoZWNrb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxwcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Account/vitality-registration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFx2aXRhbGl0eS1yZWdpc3RyYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Commerce/autoship.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVyY2VcYXV0b3NoaXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Commerce/order-list.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVyY2Vcb3JkZXItbGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Commerce/product_cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVyY2VccHJvZHVjdF9jYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Commerce/purchase-list.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVyY2VccHVyY2hhc2UtbGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Commerce/replicated-store.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVyY2VccmVwbGljYXRlZC1zdG9yZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Commerce/shopping.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVyY2Vcc2hvcHBpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Communications/messages.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbXVuaWNhdGlvbnNcbWVzc2FnZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Communications/news.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbXVuaWNhdGlvbnNcbmV3cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Communications/team-chat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbXVuaWNhdGlvbnNcdGVhbS1jaGF0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Communications/zoom-meetings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbXVuaWNhdGlvbnNcem9vbS1tZWV0aW5ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Dashboard/dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXGRhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Home/compensation-plan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjb21wZW5zYXRpb24tcGxhbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Home/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxpbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/direct-referral-bonus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXGRpcmVjdC1yZWZlcnJhbC1ib251cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/level-bonus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXGxldmVsLWJvbnVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/level-turnover.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXGxldmVsLXR1cm5vdmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/monthly-salary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXG1vbnRobHktc2FsYXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/my-commission.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXG15LWNvbW1pc3Npb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/my-income.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXG15LWluY29tZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/rank-bonus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXHJhbmstYm9udXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/rank-history.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXHJhbmstaGlzdG9yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Income/tax-irp5.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5jb21lXHRheC1pcnA1LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Network/add-member.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV0d29ya1xhZGQtbWVtYmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Network/my-referrals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV0d29ya1xteS1yZWZlcnJhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Network/referral-tree.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV0d29ya1xyZWZlcnJhbC10cmVlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Network/tree-view.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV0d29ya1x0cmVlLXZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Portal/ai-assistant.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ydGFsXGFpLWFzc2lzdGFudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Portal/compliance-audit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ydGFsXGNvbXBsaWFuY2UtYXVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Portal/plan-builder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ydGFsXHBsYW4tYnVpbGRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Shared/_PortalNavigation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qb3J0YWxOYXZpZ2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Support/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwcG9ydFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Support/support.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwcG9ydFxzdXBwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Wallet/cancelled-withdrawal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XGNhbmNlbGxlZC13aXRoZHJhd2FsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Wallet/ewallet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XGV3YWxsZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Wallet/payout-settings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XHBheW91dC1zZXR0aW5ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Wallet/withdraw-money.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XHdpdGhkcmF3LW1vbmV5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/Wallet/withdrawal-summary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FsbGV0XHdpdGhkcmF3YWwtc3VtbWFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/BhekaLuthuli/Downloads/MLM/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,339 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Payout Settings & Bank Details";
+}
+
+<div class="payout-container">
+  <!-- Update / Link Bank Details Panel -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-icon"><i class="bi bi-bank2"></i></div>
+      <div>
+        <h1>Bank Account Details</h1>
+        <p class="subtitle">Link your South African or regional bank account for direct commission withdrawals and monthly salary payouts.</p>
+      </div>
+    </div>
+
+    <form id="bankForm" novalidate>
+      <div class="grid">
+        <div class="field">
+          <label for="holder">Account Holder Name *</label>
+          <input id="holder" placeholder="Full name as registered at bank" required>
+        </div>
+
+        <div class="field">
+          <label for="bank">Bank Name *</label>
+          <select id="bank" required>
+            <option value="">Select your bank</option>
+            <option value="Capitec Bank">Capitec Bank</option>
+            <option value="FNB (First National Bank)">FNB (First National Bank)</option>
+            <option value="Standard Bank">Standard Bank</option>
+            <option value="ABSA Bank">ABSA Bank</option>
+            <option value="Nedbank">Nedbank</option>
+            <option value="TymeBank">TymeBank</option>
+            <option value="Investec">Investec</option>
+            <option value="African Bank">African Bank</option>
+            <option value="Discovery Bank">Discovery Bank</option>
+            <option value="Other Regional Bank">Other Regional Bank</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="number">Account Number *</label>
+          <input id="number" inputmode="numeric" placeholder="e.g. 1029384756" required>
+        </div>
+
+        <div class="field">
+          <label for="type">Account Type *</label>
+          <select id="type" required>
+            <option value="Savings">Savings Account</option>
+            <option value="Cheque / Current">Cheque / Current Account</option>
+            <option value="Transmission">Transmission Account</option>
+            <option value="Business">Business Account</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="address">Physical / Residential Address *</label>
+          <input id="address" placeholder="Street address, suburb, city" required>
+        </div>
+
+        <div class="field">
+          <label for="country">Country *</label>
+          <select id="country" required>
+            <option value="">Select country</option>
+            <option value="South Africa" selected>South Africa</option>
+            <option value="Botswana">Botswana</option>
+            <option value="Lesotho">Lesotho</option>
+            <option value="Namibia">Namibia</option>
+            <option value="Eswatini">Eswatini</option>
+            <option value="Zimbabwe">Zimbabwe</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="zip">Postal / Zip Code *</label>
+          <input id="zip" placeholder="e.g. 2001" required>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="saveBankBtn" class="btn-save-bank"><i class="bi bi-check2-circle"></i> Save &amp; Link Bank Account</button>
+        <span class="status-msg" id="status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </section>
+
+  <!-- Linked Bank Accounts Display Underneath -->
+  <section class="panel linked-panel" id="linkedBankSection" style="display:none;">
+    <div class="linked-head">
+      <div>
+        <h2><i class="bi bi-shield-check text-success"></i> Active Linked Bank Account</h2>
+        <p class="subtitle">This account is currently verified and configured for automatic wallet withdrawals.</p>
+      </div>
+      <span class="badge-status-verified"><i class="bi bi-patch-check-fill"></i> Verified for Payouts</span>
+    </div>
+
+    <div class="bank-card-visual" id="bankCardVisual">
+      <div class="bank-card-top">
+        <div class="bank-brand-title" id="linkedBankName">Capitec Bank</div>
+        <i class="bi bi-credit-card-2-front card-chip-icon"></i>
+      </div>
+      <div class="bank-card-number" id="linkedAccountNumber">•••• •••• •••• 1234</div>
+      <div class="bank-card-meta">
+        <div>
+          <small>ACCOUNT HOLDER</small>
+          <strong id="linkedHolderName">Samkeliso Ndlangamandla</strong>
+        </div>
+        <div>
+          <small>ACCOUNT TYPE</small>
+          <strong id="linkedAccountType">Savings Account</strong>
+        </div>
+        <div>
+          <small>LOCATION</small>
+          <strong id="linkedLocation">South Africa (2001)</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="linked-table-wrap">
+      <table class="linked-details-table">
+        <tbody>
+          <tr>
+            <th>Bank Name</th>
+            <td id="tableBankName">-</td>
+            <th>Account Holder</th>
+            <td id="tableHolderName">-</td>
+          </tr>
+          <tr>
+            <th>Account Number</th>
+            <td id="tableAccountNumber"><code>-</code></td>
+            <th>Account Type</th>
+            <td id="tableAccountType">-</td>
+          </tr>
+          <tr>
+            <th>Billing Address</th>
+            <td id="tableAddress">-</td>
+            <th>Country / Postal Code</th>
+            <td id="tableCountryZip">-</td>
+          </tr>
+          <tr>
+            <th>Payout Verification</th>
+            <td colspan="3"><span class="badge-payout-ready"><i class="bi bi-check-circle-fill"></i> Eligible for instant &amp; scheduled commission withdrawals</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+@section Styles {
+<style>
+  :root {
+    --dark: #0f172a;
+    --line: #e2e8f0;
+    --paper: #fff;
+    --muted: #64748b;
+    --success: #16a34a;
+    --danger: #dc2626;
+  }
+  * { box-sizing: border-box; }
+
+  .payout-container { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 26px; }
+
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .panel-head { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .panel-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 10px; background: #0f172a; color: #fff; font-size: 22px; flex-shrink: 0; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); }
+  h2 { margin: 0 0 4px; font-size: 17px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 22px; }
+  .full { grid-column: 1 / -1; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label { font-size: 13px; font-weight: 600; color: #334155; }
+  input, select { width: 100%; height: 44px; padding: 0 13px; border: 1px solid var(--line); border-radius: 6px; color: #1e293b; background: #fdfdfd; font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; outline: none; }
+  input:focus, select:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(15, 23, 42, .08); background: #fff; }
+
+  .form-actions { display: flex; align-items: center; gap: 16px; margin-top: 22px; }
+  .btn-save-bank { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 24px; border: 0; border-radius: 6px; background: var(--dark); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: background .15s; }
+  .btn-save-bank:hover { background: #000; }
+  .status-msg { font-size: 13.5px; font-weight: 600; color: var(--success); }
+  .status-msg.error { color: var(--danger); }
+
+  /* Linked Bank Display Underneath */
+  .linked-panel { border: 1px solid #cbd5e1; background: #ffffff; }
+  .linked-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; flex-wrap: wrap; gap: 12px; }
+  
+  .badge-status-verified { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; font-size: 12px; font-weight: 700; }
+
+  .bank-card-visual { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; border-radius: 12px; padding: 22px 26px; margin-bottom: 22px; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, .3); }
+  .bank-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .bank-brand-title { font-size: 18px; font-weight: 700; letter-spacing: .02em; color: #38bdf8; }
+  .card-chip-icon { font-size: 28px; color: #f8fafc; }
+  .bank-card-number { font-family: monospace; font-size: 20px; font-weight: 700; letter-spacing: .15em; margin-bottom: 20px; color: #f1f5f9; }
+  .bank-card-meta { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid rgba(255,255,255,.12); padding-top: 14px; }
+  .bank-card-meta small { display: block; font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: .08em; margin-bottom: 2px; }
+  .bank-card-meta strong { font-size: 13.5px; font-weight: 600; color: #fff; }
+
+  .linked-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+  .linked-details-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .linked-details-table th, .linked-details-table td { padding: 12px 16px; border-bottom: 1px solid var(--line); text-align: left; }
+  .linked-details-table th { background: #f8fafc; color: #64748b; font-weight: 600; width: 160px; font-size: 12px; }
+  .linked-details-table code { font-size: 13px; color: #0f172a; font-weight: 700; }
+  
+  .badge-payout-ready { display: inline-flex; align-items: center; gap: 6px; color: #15803d; font-weight: 600; font-size: 12.5px; }
+
+  @@media (max-width: 650px) {
+    .panel { padding: 22px 18px; }
+    .grid { grid-template-columns: 1fr; }
+    .bank-card-meta { flex-direction: column; gap: 10px; }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+(() => {
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  const form = document.querySelector('#bankForm');
+  const status = document.querySelector('#status');
+  const saveBtn = document.querySelector('#saveBankBtn');
+
+  const holderInput = document.querySelector('#holder');
+  const bankInput = document.querySelector('#bank');
+  const numberInput = document.querySelector('#number');
+  const typeInput = document.querySelector('#type');
+  const addressInput = document.querySelector('#address');
+  const countryInput = document.querySelector('#country');
+  const zipInput = document.querySelector('#zip');
+
+  const linkedSection = document.querySelector('#linkedBankSection');
+  const linkedBankName = document.querySelector('#linkedBankName');
+  const linkedAccountNumber = document.querySelector('#linkedAccountNumber');
+  const linkedHolderName = document.querySelector('#linkedHolderName');
+  const linkedAccountType = document.querySelector('#linkedAccountType');
+  const linkedLocation = document.querySelector('#linkedLocation');
+
+  const tableBankName = document.querySelector('#tableBankName');
+  const tableHolderName = document.querySelector('#tableHolderName');
+  const tableAccountNumber = document.querySelector('#tableAccountNumber');
+  const tableAccountType = document.querySelector('#tableAccountType');
+  const tableAddress = document.querySelector('#tableAddress');
+  const tableCountryZip = document.querySelector('#tableCountryZip');
+
+  const renderLinkedAccount = (data) => {
+    if (!data || !data.accountNumber || !data.bankName) {
+      linkedSection.style.display = 'none';
+      return;
+    }
+
+    linkedSection.style.display = 'block';
+
+    const rawNum = String(data.accountNumber).trim();
+    const masked = rawNum.length > 4 ? `•••• •••• •••• ${rawNum.slice(-4)}` : rawNum;
+
+    linkedBankName.textContent = data.bankName || 'Linked Bank';
+    linkedAccountNumber.textContent = masked;
+    linkedHolderName.textContent = data.accountHolder || 'Partner Account';
+    linkedAccountType.textContent = data.accountType || 'Savings';
+    linkedLocation.textContent = `${data.country || 'South Africa'} (${data.postalCode || ''})`;
+
+    tableBankName.textContent = data.bankName || '-';
+    tableHolderName.textContent = data.accountHolder || '-';
+    tableAccountNumber.innerHTML = `<code>${masked}</code>`;
+    tableAccountType.textContent = data.accountType || '-';
+    tableAddress.textContent = data.address || '-';
+    tableCountryZip.textContent = `${data.country || 'South Africa'}, ${data.postalCode || ''}`;
+  };
+
+  const loadSettings = async () => {
+    if (!token) return;
+    try {
+      const res = await fetch('/api/payout-settings', { headers: authHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data && data.accountNumber) {
+        holderInput.value = data.accountHolder || '';
+        bankInput.value = data.bankName || '';
+        numberInput.value = data.accountNumber || '';
+        typeInput.value = data.accountType || 'Savings';
+        addressInput.value = data.address || '';
+        countryInput.value = data.country || 'South Africa';
+        zipInput.value = data.postalCode || '';
+        renderLinkedAccount(data);
+      }
+    } catch { }
+  };
+
+  loadSettings();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    saveBtn.disabled = true;
+    status.className = 'status-msg';
+    status.textContent = 'Saving bank details...';
+
+    const payload = {
+      accountHolder: holderInput.value.trim(),
+      bankName: bankInput.value.trim(),
+      accountNumber: numberInput.value.trim(),
+      accountType: typeInput.value.trim(),
+      address: addressInput.value.trim(),
+      country: countryInput.value.trim(),
+      postalCode: zipInput.value.trim()
+    };
+
+    try {
+      const res = await fetch('/api/payout-settings', {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        status.className = 'status-msg';
+        status.textContent = result.message || 'Bank details saved and linked successfully!';
+        renderLinkedAccount(payload);
+      } else {
+        status.className = 'status-msg error';
+        status.textContent = result.message || 'Could not save bank details.';
+      }
+    } catch {
+      status.className = 'status-msg error';
+      status.textContent = 'Unable to connect to server.';
+    } finally {
+      saveBtn.disabled = false;
+    }
+  });
+})();
+</script>
+}
+
+

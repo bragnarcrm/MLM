@@ -1,0 +1,255 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Auto-Ship Subscriptions";
+}
+
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h1><i class="bi bi-arrow-repeat"></i> Auto-Ship Subscriptions</h1>
+      <p class="subtitle">Set up automated recurring monthly purchases to guarantee your personal sales qualification and bonus eligibility.</p>
+    </div>
+    <button type="button" class="btn-primary-action" id="openAutoShipModalBtn">
+      <i class="bi bi-plus-lg"></i> Create Auto-Ship Plan
+    </button>
+  </div>
+
+  <div class="autoship-banner">
+    <i class="bi bi-lightning-charge-fill"></i>
+    <div>
+      <strong>Never Miss Your R720 Monthly Qualification</strong>
+      <span>Active Auto-Ships process automatically on your selected schedule, maintaining your rank and keeping residual commission payouts unlocked.</span>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="autoship-table">
+      <thead>
+        <tr>
+          <th>Plan ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Interval</th>
+          <th>Monthly Total</th>
+          <th>Next Run Date</th>
+          <th>Payment Method</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="autoshipRows">
+        <tr><td colspan="9" class="empty-cell">Loading your Auto-Ship subscriptions...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Create AutoShip Modal -->
+<div class="modal-backdrop" id="autoShipModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <header class="modal-header">
+      <h2><i class="bi bi-arrow-repeat"></i> Create Auto-Ship Subscription</h2>
+      <button class="modal-close" type="button" id="closeAutoShipModalBtn">&times;</button>
+    </header>
+    <form id="autoShipForm">
+      <div class="modal-body">
+        <div class="field">
+          <label for="autoProduct">Select Product Plan *</label>
+          <select id="autoProduct" required>
+            <option value="Herbal Tea Pack (4 Boxes - R720 Qualification Pack)" selected>Herbal Tea Pack (4 Boxes - R720 Full Qualification Pack)</option>
+            <option value="Herbal Tea Pack (Single Box - R199)">Herbal Tea Pack (Single Box - R199.00)</option>
+            <option value="Business Starter Kit (R499)">Business Starter Kit (R499.00)</option>
+            <option value="Wellness Bundle (R799)">Wellness Bundle (R799.00)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="autoQuantity">Quantity</label>
+          <input id="autoQuantity" type="number" min="1" max="20" value="1" required>
+        </div>
+
+        <div class="field">
+          <label for="autoFrequency">Recurring Frequency</label>
+          <select id="autoFrequency" required>
+            <option value="30" selected>Every 30 Days (Monthly Qualification)</option>
+            <option value="14">Every 14 Days (Bi-Weekly)</option>
+            <option value="60">Every 60 Days (Bi-Monthly)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="autoPayment">Billing Method</label>
+          <select id="autoPayment" required>
+            <option value="Card" selected>Saved Credit / Debit Card</option>
+            <option value="PayFast Token">PayFast Recurring Token</option>
+            <option value="Wallet">Scale Wallet Auto-Deduction</option>
+          </select>
+        </div>
+      </div>
+      <footer class="modal-footer">
+        <button type="submit" class="btn-primary-action"><i class="bi bi-check2-circle"></i> Activate Subscription</button>
+        <button type="button" class="btn-secondary-action" id="cancelAutoShipModalBtn">Cancel</button>
+        <span class="status-msg" id="autoShipStatus"></span>
+      </footer>
+    </form>
+  </div>
+</div>
+
+@section Styles {
+<style>
+  :root { --dark: #0f172a; --deep: #0d0f12; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0; --paper: #fff; --bg: #f8fafc; --success: #16a34a; --warning: #d97706; --danger: #dc2626; }
+  * { box-sizing: border-box; }
+
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 9px; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .autoship-banner { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 8px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; margin-bottom: 24px; font-size: 13.5px; line-height: 1.5; }
+  .autoship-banner i { font-size: 26px; color: #3b82f6; flex-shrink: 0; }
+  .autoship-banner strong { display: block; font-size: 14.5px; margin-bottom: 2px; }
+
+  .table-wrap { overflow-x: auto; }
+  .autoship-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .autoship-table th, .autoship-table td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .autoship-table th { background: #f8fafc; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .autoship-table tbody tr:hover { background: #f8fafc; }
+  .empty-cell { padding: 32px 14px; text-align: center; color: var(--muted); }
+
+  .badge-status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .badge-status.active { background: #dcfce7; color: #15803d; }
+  .badge-status.paused { background: #fef3c7; color: #b45309; }
+
+  .btn-action-sm { padding: 4px 10px; border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--ink); font-size: 12px; font-weight: 600; cursor: pointer; }
+  .btn-action-sm:hover { background: #f1f5f9; }
+  .btn-action-sm.danger { color: #dc2626; border-color: #fecaca; }
+  .btn-action-sm.danger:hover { background: #fee2e2; }
+
+  .btn-primary-action { display: inline-flex; align-items: center; gap: 7px; height: 42px; padding: 0 18px; border: 0; border-radius: 6px; color: white; background: var(--dark); cursor: pointer; font-size: 13.5px; font-weight: 600; transition: background .15s; }
+  .btn-primary-action:hover { background: #000; }
+  .btn-secondary-action { display: inline-flex; align-items: center; height: 42px; padding: 0 16px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); background: #fff; cursor: pointer; font-size: 13.5px; font-weight: 500; }
+
+  /* Modal */
+  .modal-backdrop { position: fixed; inset: 0; z-index: 200; display: none; place-items: center; padding: 18px; background: rgba(0, 0, 0, .6); backdrop-filter: blur(2px); }
+  .modal-backdrop.is-open { display: grid; animation: appear .2s ease-out both; }
+  .modal-dialog { position: relative; z-index: 201; width: min(100%, 520px); background: #fff; border-radius: 10px; border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0, 0, 0, .25); overflow: hidden; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+  .modal-header h2 { margin: 0; font-size: 16px; font-weight: 700; color: var(--dark); }
+  .modal-close { border: 0; background: transparent; font-size: 22px; cursor: pointer; color: var(--muted); }
+  .modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .modal-footer { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-top: 1px solid var(--line); background: #f8fafc; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 600; color: #334155; }
+  .field input, .field select { width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px; font: 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); background: #fff; outline: none; }
+  .field input:focus, .field select:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(15, 23, 42, .1); }
+
+  .status-msg { font-size: 12.5px; font-weight: 600; margin-left: 8px; color: var(--success); }
+  .status-msg.error { color: var(--danger); }
+
+  @@keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+}
+
+@section Scripts {
+<script>
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  const modal = document.querySelector('#autoShipModal');
+  const openModal = () => { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); };
+  const closeModal = () => { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.querySelector('#autoShipForm').reset(); };
+
+  document.querySelector('#openAutoShipModalBtn').addEventListener('click', openModal);
+  document.querySelector('#closeAutoShipModalBtn').addEventListener('click', closeModal);
+  document.querySelector('#cancelAutoShipModalBtn').addEventListener('click', closeModal);
+
+  const loadAutoShips = async () => {
+    if (!token) return;
+    try {
+      const res = await fetch('/api/autoship', { headers: authHeaders() });
+      const items = res.ok ? await res.json() : [];
+      const rowsEl = document.querySelector('#autoshipRows');
+
+      if (items.length === 0) {
+        rowsEl.innerHTML = '<tr><td colspan="9" class="empty-cell">No active Auto-Ship subscriptions. Click "Create Auto-Ship Plan" to set up recurring qualification orders.</td></tr>';
+        return;
+      }
+
+      rowsEl.innerHTML = items.map((a) => {
+        const statusClass = a.status.toLowerCase();
+        const nextAction = a.status === 'Active' ? 'Pause' : 'Resume';
+        const newStatus = a.status === 'Active' ? 'Paused' : 'Active';
+        const idFormatted = String(a.id).padStart(3, '0');
+        return `<tr>
+          <td><strong>#AS-${idFormatted}</strong></td>
+          <td>${a.productName}</td>
+          <td>${a.quantity}</td>
+          <td>Every ${a.frequencyDays} Days</td>
+          <td><strong>R ${Number(a.total).toFixed(2)}</strong></td>
+          <td><span class="text-primary font-weight-bold">${a.nextRunDate}</span></td>
+          <td>${a.paymentMethod}</td>
+          <td><span class="badge-status ${statusClass}">${a.status}</span></td>
+          <td>
+            <button type="button" class="btn-action-sm" onclick="toggleStatus(${a.id}, '${newStatus}')">${nextAction}</button>
+            <button type="button" class="btn-action-sm danger" onclick="deletePlan(${a.id})">Cancel</button>
+          </td>
+        </tr>`;
+      }).join('');
+    } catch {
+      document.querySelector('#autoshipRows').innerHTML = '<tr><td colspan="9" class="empty-cell">Unable to load subscriptions.</td></tr>';
+    }
+  };
+
+  window.toggleStatus = async (id, newStatus) => {
+    await fetch(`/api/autoship/${id}/status`, {
+      method: 'PUT',
+      headers: authHeaders(),
+      body: JSON.stringify({ status: newStatus })
+    });
+    loadAutoShips();
+  };
+
+  window.deletePlan = async (id) => {
+    if (!confirm('Cancel this recurring Auto-Ship subscription?')) return;
+    await fetch(`/api/autoship/${id}`, { method: 'DELETE', headers: authHeaders() });
+    loadAutoShips();
+  };
+
+  document.querySelector('#autoShipForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const statusEl = document.querySelector('#autoShipStatus');
+    statusEl.className = 'status-msg';
+    statusEl.textContent = 'Activating plan...';
+
+    try {
+      const res = await fetch('/api/autoship', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({
+          productName: document.querySelector('#autoProduct').value,
+          quantity: Number(document.querySelector('#autoQuantity').value),
+          frequencyDays: Number(document.querySelector('#autoFrequency').value),
+          paymentMethod: document.querySelector('#autoPayment').value
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        statusEl.textContent = data.message;
+        setTimeout(() => {
+          closeModal();
+          loadAutoShips();
+        }, 500);
+      } else {
+        statusEl.className = 'status-msg error';
+        statusEl.textContent = data.message || 'Failed to create subscription.';
+      }
+    } catch {
+      statusEl.className = 'status-msg error';
+      statusEl.textContent = 'Unable to connect to server.';
+    }
+  });
+
+  loadAutoShips();
+</script>
+}

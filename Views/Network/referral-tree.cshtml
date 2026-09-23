@@ -1,0 +1,34 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Referral Tree";
+}
+
+<section class="panel"><h1>Reference List</h1><ul class="ref-list" id="referralList"></ul><p class="empty" id="empty">No referral data available.</p></section>
+
+@section Styles {
+<style>
+:root { --green: #24272b; --deep: #14161a; --ink: #27372f; --muted: #7b857e; --paper: #fff; --bg: #f4f7f4; --line: #dce6de; }
+    * { box-sizing: border-box; } body { margin: 0; color: var(--ink); background: var(--bg); font-family: 'Segoe UI', Tahoma, sans-serif; }
+    .sidebar { position: fixed; inset: 0 auto 0 0; z-index: 2; width: 248px; padding: 22px 14px; color: #dce9de; background: var(--deep); } .brand { display: flex; align-items: center; gap: 11px; padding: 8px 10px 27px; color: white; font: italic 700 25px Georgia, serif; } .leaf { width: 28px; height: 35px; border-radius: 100% 0 100% 0; background: #3a3f45; transform: rotate(-25deg); }
+    nav a, .nav-label { display: flex; align-items: center; gap: 12px; min-height: 40px; padding: 0 12px; border-radius: 5px; color: inherit; text-decoration: none; font-size: 13px; } nav a:hover, nav a.active { color: white; background: rgba(255,255,255,.13); } .icon { width: 19px; text-align: center; font-size: 16px; } .nav-label { min-height: 30px; margin-top: 12px; color: #8daf98; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .top { min-height: 68px; margin-left: 248px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; color: white; background: var(--deep); } .top a { color: #d8e9da; font-size: 13px; text-decoration: none; }
+    main { width: min(calc(100% - 280px), 1050px); margin: 28px auto 50px; } .panel { padding: 25px 30px 35px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); box-shadow: 0 8px 24px rgba(30, 59, 39, .06); } h1 { margin: 0 0 24px; font-size: 21px; } .ref-list { margin: 0; padding: 0; list-style: none; } .ref-row { border-bottom: 1px solid var(--line); } .ref-row:last-child { border-bottom: 0; } .ref-button { width: 100%; display: flex; align-items: center; gap: 10px; padding: 15px 4px; border: 0; color: var(--ink); background: transparent; cursor: pointer; text-align: left; font-size: 14px; } .ref-button:hover { color: var(--green); } .plus { display: grid; place-items: center; width: 23px; height: 23px; border: 1px solid #bfd0c2; border-radius: 4px; color: var(--green); background: #f5faf5; font-size: 18px; line-height: 1; } .children { display: none; margin: 0 0 10px 37px; padding-left: 20px; border-left: 1px solid #bdd1c0; } .children.open { display: block; } .children .ref-button { padding: 11px 4px; font-size: 13px; } .children .plus { width: 19px; height: 19px; font-size: 15px; } .empty { display: none; margin: 17px 0 0; color: var(--muted); font-size: 13px; }
+    footer { margin-left: 248px; padding: 20px; color: var(--muted); text-align: center; font-size: 11px; } @@media (max-width: 800px) { .sidebar { width: 62px; padding-left: 14px; padding-right: 14px; } .sidebar .brand span, .sidebar nav a span, .sidebar .nav-label { display: none; } nav a { justify-content: center; padding: 0; } .top, footer { margin-left: 62px; } main { width: min(calc(100% - 94px), 1050px); } } @@media (max-width: 620px) { .sidebar { display: none; } .top, footer { margin-left: 0; } main { width: calc(100% - 20px); margin-top: 14px; } .panel { padding: 21px 17px 28px; } .top { padding: 0 16px; } }
+</style>
+}
+
+@section Scripts {
+<script>
+    const list = document.querySelector('#referralList'); const empty = document.querySelector('#empty');
+    const authHeaders = { Authorization: `Bearer ${localStorage.getItem('vitality.accessToken') || ''}` };
+    const renderNode = (node) => `<li class="ref-row"><button class="ref-button" aria-expanded="false"><span class="plus">+</span><strong>${node.name}</strong><span>(${node.userId})</span></button><div class="children">${node.children.map(renderNode).join('')}</div></li>`;
+    fetch('/api/profile', { headers: authHeaders })
+      .then((response) => response.ok ? response.json() : Promise.reject())
+      .then((profile) => fetch(`/api/network/tree/${encodeURIComponent(profile.username)}`, { headers: authHeaders }))
+      .then((response) => response.ok ? response.json() : null)
+      .then((tree) => { if (!tree) { empty.style.display = 'block'; return; } list.innerHTML = renderNode(tree); list.querySelectorAll('.ref-button').forEach((button) => button.addEventListener('click', () => { const children = button.nextElementSibling; const open = children.classList.toggle('open'); button.setAttribute('aria-expanded', String(open)); button.querySelector('.plus').textContent = open ? '\u2212' : '+'; })); })
+      .catch(() => { empty.style.display = 'block'; });
+  </script>
+}
+
+

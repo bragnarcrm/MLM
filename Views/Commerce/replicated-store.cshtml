@@ -1,0 +1,450 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Official Partner Store &bull; ScaleEngine Direct Retail</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --dark: #0f172a;
+      --deep: #080a0d;
+      --card-bg: #11151c;
+      --line: #1e2633;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-green: #10b981;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--deep);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Top Distributor Header Banner */
+    .replicated-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 24px;
+    }
+    .banner-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .distributor-badge { display: flex; align-items: center; gap: 12px; }
+    .dist-avatar { width: 44px; height: 44px; border-radius: 50%; background: #0284c7; color: #fff; font-size: 18px; font-weight: 800; display: grid; place-items: center; border: 2px solid #38bdf8; }
+    .dist-info strong { display: block; font-size: 15px; color: #fff; }
+    .dist-info small { color: #94a3b8; font-size: 12px; }
+    .dist-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; background: rgba(56,189,248,0.15); color: #38bdf8; font-size: 10.5px; font-weight: 700; margin-left: 6px; }
+
+    .banner-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-contact-dist { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; background: #25d366; color: #fff; font-size: 12.5px; font-weight: 700; text-decoration: none; }
+    .btn-cart-view { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 6px; background: #0284c7; color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; position: relative; }
+    .cart-count { background: #fff; color: #0f172a; border-radius: 999px; padding: 1px 7px; font-size: 11px; margin-left: 4px; }
+
+    /* Main Store Container */
+    .store-container { max-width: 1240px; margin: 30px auto 60px; padding: 0 24px; }
+
+    .store-hero { text-align: center; margin-bottom: 36px; }
+    .store-hero h1 { font-size: 32px; font-weight: 900; color: #fff; margin: 0 0 8px; }
+    .store-hero p { color: var(--muted); font-size: 14.5px; max-width: 600px; margin: 0 auto; }
+
+    /* Complete Filter Toolbar & Grid */
+    .store-layout { display: grid; grid-template-columns: 260px 1fr; gap: 28px; align-items: start; }
+
+    /* Sidebar Filters */
+    .filter-sidebar { background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px; padding: 22px 20px; }
+    .filter-sidebar h3 { font-size: 14px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 16px; display: flex; align-items: center; gap: 7px; }
+    
+    .filter-group { margin-bottom: 22px; }
+    .filter-group label { display: block; font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 8px; text-transform: uppercase; }
+    .filter-group select, .filter-group input[type="text"] { width: 100%; height: 38px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; background: #1a2230; color: #fff; font-size: 13px; outline: none; }
+    .filter-group select:focus, .filter-group input:focus { border-color: #38bdf8; }
+
+    .category-pills { display: flex; flex-direction: column; gap: 6px; }
+    .cat-btn { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: #94a3b8; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; transition: all .15s; }
+    .cat-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .cat-btn.active { background: rgba(56,189,248,0.12); color: #38bdf8; border-color: rgba(56,189,248,0.3); }
+    .cat-badge { font-size: 11px; background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 999px; }
+
+    .price-range-box { display: flex; flex-direction: column; gap: 6px; }
+    .price-display { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+    .checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #cbd5e1; cursor: pointer; text-transform: none !important; }
+    .checkbox-label input { accent-color: #0284c7; }
+
+    /* Top Bar: Results Count, Sort & View Switcher */
+    .catalog-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 18px; }
+    .results-count { font-size: 13px; color: var(--muted); }
+    .results-count strong { color: #fff; }
+    
+    .view-controls { display: flex; align-items: center; gap: 12px; }
+    .sort-wrap { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+    .sort-select { height: 34px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; background: #1a2230; color: #fff; font-size: 12.5px; outline: none; }
+    
+    .view-btn-group { display: flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .view-mode-btn { width: 34px; height: 34px; border: 0; background: #1a2230; color: #94a3b8; cursor: pointer; font-size: 14px; display: grid; place-items: center; }
+    .view-mode-btn.active { background: #0284c7; color: #fff; }
+
+    /* Complete Filterable Product Table View */
+    .table-view-container { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card-bg); }
+    .products-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .products-table th, .products-table td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; }
+    .products-table th { background: #161c26; color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+    .products-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+    .p-thumb-cell { display: flex; align-items: center; gap: 12px; }
+    .p-icon { width: 42px; height: 42px; border-radius: 8px; background: #1e293b; color: #38bdf8; font-size: 20px; display: grid; place-items: center; flex-shrink: 0; }
+    .p-title { font-weight: 700; color: #fff; font-size: 14px; }
+    .p-desc { font-size: 11.5px; color: var(--muted); max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .badge-pv { display: inline-block; padding: 2px 7px; border-radius: 4px; background: rgba(245, 158, 11, 0.15); color: #f59e0b; font-size: 11px; font-weight: 800; }
+    .badge-stock { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #10b981; font-size: 11px; font-weight: 700; }
+
+    .btn-table-add { height: 34px; padding: 0 14px; border: 0; border-radius: 6px; background: #0284c7; color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: background .15s; }
+    .btn-table-add:hover { background: #0369a1; }
+
+    /* Card Grid View */
+    .card-grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .store-product-card { border: 1px solid var(--line); border-radius: 12px; background: var(--card-bg); padding: 22px 20px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+    .store-product-card:hover { border-color: #38bdf8; }
+    .card-icon-box { width: 48px; height: 48px; border-radius: 10px; background: #1e293b; color: #38bdf8; display: grid; place-items: center; font-size: 22px; margin-bottom: 14px; }
+    .store-product-card h4 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: #fff; }
+    .store-product-card p { font-size: 12.5px; color: var(--muted); margin: 0 0 16px; flex: 1; }
+    .card-footer-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 14px; }
+    .card-price { font-size: 19px; font-weight: 900; color: #fff; }
+
+    /* Toast */
+    .toast-box { position: fixed; bottom: 24px; right: 24px; background: #0284c7; color: #fff; padding: 14px 20px; border-radius: 8px; display: none; align-items: center; gap: 10px; font-size: 13.5px; z-index: 9999; box-shadow: 0 10px 25px rgba(0,0,0,.5); }
+    .toast-box.show { display: flex; animation: toastUp .2s ease-out; }
+    @@keyframes toastUp { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    @@media (max-width: 900px) {
+      .store-layout { grid-template-columns: 1fr; }
+      .card-grid-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Replicated Distributor Top Bar -->
+  <header class="replicated-banner">
+    <div class="banner-inner">
+      <div class="distributor-badge">
+        <div class="dist-avatar" id="distAvatar">S</div>
+        <div class="dist-info">
+          <div>
+            <strong id="distName">Samkeliso Ndlangamandla</strong>
+            <span class="dist-tag">VERIFIED DISTRIBUTOR</span>
+          </div>
+          <small>Independent Partner ID: <code id="distUserId" style="color:#38bdf8;">samkelisojam</code> &bull; Sandton, South Africa</small>
+        </div>
+      </div>
+
+      <div class="banner-actions">
+        <a href="https://wa.me/27768313287" target="_blank" class="btn-contact-dist"><i class="bi bi-whatsapp"></i> Chat with Partner</a>
+        <a href="product_cart.html" class="btn-cart-view"><i class="bi bi-cart3"></i> Cart <span class="cart-count" id="headerCartCount">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Store Container -->
+  <main class="store-container">
+    <div class="store-hero">
+      <h1>Natural Wellness &amp; Business Products</h1>
+      <p>Order direct non-GMO herbal teas, metabolic tonics, and starter packs. All purchases are dispatched via The Courier Guy with door-to-door tracking.</p>
+    </div>
+
+    <div class="store-layout">
+      <!-- Filter Sidebar -->
+      <aside class="filter-sidebar">
+        <h3><i class="bi bi-funnel-fill"></i> Filter Products</h3>
+
+        <!-- Search Filter -->
+        <div class="filter-group">
+          <label>Search Products</label>
+          <input type="text" id="storeSearch" placeholder="Type name, tea, pack...">
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-group">
+          <label>Category</label>
+          <div class="category-pills">
+            <button type="button" class="cat-btn active" data-cat="all">All Products <span class="cat-badge">6</span></button>
+            <button type="button" class="cat-btn" data-cat="kits">Starter Kits <span class="cat-badge">2</span></button>
+            <button type="button" class="cat-btn" data-cat="teas">Botanical Teas <span class="cat-badge">2</span></button>
+            <button type="button" class="cat-btn" data-cat="wellness">Wellness Bundles <span class="cat-badge">2</span></button>
+          </div>
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-group">
+          <label>Max Price</label>
+          <div class="price-range-box">
+            <input type="range" id="priceRange" min="100" max="1500" step="50" value="1500" style="width:100%; accent-color:#0284c7;">
+            <div class="price-display">
+              <span>R 100</span>
+              <strong id="priceRangeVal" style="color:#38bdf8;">R 1,500.00</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- In Stock Filter -->
+        <div class="filter-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="inStockOnly" checked>
+            <span>In-Stock Only</span>
+          </label>
+        </div>
+      </aside>
+
+      <!-- Products Content Area -->
+      <div class="store-main-content">
+        <!-- Top Controls Bar -->
+        <div class="catalog-top-bar">
+          <div class="results-count">
+            Showing <strong id="visibleCount">6</strong> products in catalog
+          </div>
+
+          <div class="view-controls">
+            <div class="sort-wrap">
+              <span>Sort:</span>
+              <select class="sort-select" id="sortSelect">
+                <option value="featured">Featured / Best Match</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="pv-desc">Highest PV Points</option>
+              </select>
+            </div>
+
+            <div class="view-btn-group">
+              <button type="button" class="view-mode-btn active" id="btnTableView" title="Table View"><i class="bi bi-table"></i></button>
+              <button type="button" class="view-mode-btn" id="btnGridView" title="Grid Card View"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table View Container -->
+        <div class="table-view-container" id="tableView">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th>Product &amp; Details</th>
+                <th style="width:130px;">Category</th>
+                <th style="width:110px;">PV Points</th>
+                <th style="width:110px;">Status</th>
+                <th style="width:130px;">Price (ZAR)</th>
+                <th style="width:130px; text-align:right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Grid View Container -->
+        <div class="card-grid-container" id="gridView" style="display:none;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Added Toast -->
+  <div class="toast-box" id="storeToast">
+    <i class="bi bi-check-circle-fill"></i>
+    <span id="toastText">Item added to your shopping cart!</span>
+  </div>
+
+  <script>
+  (() => {
+    // 6 Master Replicated Catalog Products with PV points
+    const CATALOG = [
+      { id: 1, name: 'Business Starter Kit', cat: 'kits', price: 499.00, pv: 50, inStock: true, icon: 'bi-briefcase-fill', desc: 'Distributor license, official catalogs, welcome handbook & sample tea pack.' },
+      { id: 2, name: 'Growth Builder Kit', cat: 'kits', price: 1200.00, pv: 120, inStock: true, icon: 'bi-box-seam-fill', desc: 'Reseller inventory booster kit with 6 tea packs and promo flyers.' },
+      { id: 3, name: 'Herbal Detox Tea Pack (30 Bags)', cat: 'teas', price: 199.00, pv: 20, inStock: true, icon: 'bi-cup-hot-fill', desc: 'Natural antioxidant detox blend for daily metabolism and stamina.' },
+      { id: 4, name: 'Moringa Green Vitality Tea', cat: 'teas', price: 219.00, pv: 22, inStock: true, icon: 'bi-flower1', desc: 'Cellular nutrition infusion packed with essential amino acids and minerals.' },
+      { id: 5, name: 'Flat Tummy Botanical Capsules (60s)', cat: 'wellness', price: 289.00, pv: 30, inStock: true, icon: 'bi-capsule', desc: 'Herbal digestive wellness formula for reducing bloating naturally.' },
+      { id: 6, name: '90-Day Complete Detox & Wellness Bundle', cat: 'wellness', price: 799.00, pv: 85, inStock: true, icon: 'bi-heart-pulse-fill', desc: 'Full 3-month complete daytime vitality and evening soothing tea assortment.' }
+    ];
+
+    // Read URL params for distributor ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const distId = urlParams.get('distributor') || 'samkelisojam';
+    document.querySelector('#distUserId').textContent = distId;
+    document.querySelector('#distAvatar').textContent = distId.charAt(0).toUpperCase();
+
+    let activeCategory = 'all';
+    let currentView = 'table'; // 'table' or 'grid'
+
+    const tbody = document.querySelector('#productsTableBody');
+    const gridView = document.querySelector('#gridView');
+    const tableView = document.querySelector('#tableView');
+    const visibleCount = document.querySelector('#visibleCount');
+    const searchInput = document.querySelector('#storeSearch');
+    const priceRange = document.querySelector('#priceRange');
+    const priceRangeVal = document.querySelector('#priceRangeVal');
+    const inStockOnly = document.querySelector('#inStockOnly');
+    const sortSelect = document.querySelector('#sortSelect');
+    const toast = document.querySelector('#storeToast');
+    const cartCountEl = document.querySelector('#headerCartCount');
+
+    const updateCartCount = () => {
+      try {
+        const cart = JSON.parse(localStorage.getItem('scale_cart') || '[]');
+        const count = cart.reduce((sum, i) => sum + (i.qty || 1), 0);
+        cartCountEl.textContent = String(count);
+      } catch { }
+    };
+    updateCartCount();
+
+    const showToast = (msg) => {
+      document.querySelector('#toastText').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    };
+
+    const addToCart = (product) => {
+      const cart = JSON.parse(localStorage.getItem('scale_cart') || '[]');
+      const exist = cart.find(c => c.name === product.name);
+      if (exist) {
+        exist.qty = (exist.qty || 1) + 1;
+      } else {
+        cart.push({ name: product.name, price: product.price, qty: 1, isBusinessKit: product.cat === 'kits', distSponsor: distId });
+      }
+      localStorage.setItem('scale_cart', JSON.stringify(cart));
+      updateCartCount();
+      showToast(`Added 1x ${product.name} to Cart!`);
+    };
+
+    const renderProducts = () => {
+      const term = searchInput.value.trim().toLowerCase();
+      const maxPrice = Number(priceRange.value);
+      const stockOnly = inStockOnly.checked;
+      const sortBy = sortSelect.value;
+
+      let filtered = CATALOG.filter(p => {
+        if (activeCategory !== 'all' && p.cat !== activeCategory) return false;
+        if (p.price > maxPrice) return false;
+        if (stockOnly && !p.inStock) return false;
+        if (term && !p.name.toLowerCase().includes(term) && !p.desc.toLowerCase().includes(term)) return false;
+        return true;
+      });
+
+      // Sorting
+      if (sortBy === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+      else if (sortBy === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+      else if (sortBy === 'pv-desc') filtered.sort((a,b) => b.pv - a.pv);
+
+      visibleCount.textContent = String(filtered.length);
+
+      // Render Table View
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:36px; color:#94a3b8;">No products match your filter criteria.</td></tr>`;
+      } else {
+        tbody.innerHTML = filtered.map(p => `
+          <tr>
+            <td>
+              <div class="p-thumb-cell">
+                <div class="p-icon"><i class="bi ${p.icon}"></i></div>
+                <div>
+                  <div class="p-title">${p.name}</div>
+                  <div class="p-desc">${p.desc}</div>
+                </div>
+              </div>
+            </td>
+            <td><span style="text-transform:capitalize; color:#94a3b8; font-weight:600;">${p.cat}</span></td>
+            <td><span class="badge-pv">${p.pv} PV</span></td>
+            <td><span class="badge-stock"><i class="bi bi-check-circle-fill"></i> In Stock</span></td>
+            <td><strong style="color:#fff; font-size:14.5px;">R ${p.price.toFixed(2)}</strong></td>
+            <td style="text-align:right;">
+              <button type="button" class="btn-table-add" data-id="${p.id}">
+                <i class="bi bi-cart-plus"></i> Add to Cart
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Render Grid View
+      gridView.innerHTML = filtered.map(p => `
+        <div class="store-product-card">
+          <div>
+            <div class="card-icon-box"><i class="bi ${p.icon}"></i></div>
+            <h4>${p.name}</h4>
+            <div style="display:flex; gap:6px; margin-bottom:10px;">
+              <span class="badge-pv">${p.pv} PV</span>
+              <span class="badge-stock">In Stock</span>
+            </div>
+            <p>${p.desc}</p>
+          </div>
+          <div class="card-footer-row">
+            <span class="card-price">R ${p.price.toFixed(2)}</span>
+            <button type="button" class="btn-table-add" data-id="${p.id}"><i class="bi bi-cart-plus"></i> Add</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Wire Add to Cart clicks
+      document.querySelectorAll('.btn-table-add').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = Number(btn.dataset.id);
+          const p = CATALOG.find(item => item.id === id);
+          if (p) addToCart(p);
+        });
+      });
+    };
+
+    // Category Pill events
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.cat;
+        renderProducts();
+      });
+    });
+
+    priceRange.addEventListener('input', () => {
+      priceRangeVal.textContent = `R ${Number(priceRange.value).toLocaleString()}.00`;
+      renderProducts();
+    });
+
+    searchInput.addEventListener('input', renderProducts);
+    inStockOnly.addEventListener('change', renderProducts);
+    sortSelect.addEventListener('change', renderProducts);
+
+    // View toggle buttons
+    document.querySelector('#btnTableView').addEventListener('click', () => {
+      document.querySelector('#btnTableView').classList.add('active');
+      document.querySelector('#btnGridView').classList.remove('active');
+      tableView.style.display = 'block';
+      gridView.style.display = 'none';
+    });
+
+    document.querySelector('#btnGridView').addEventListener('click', () => {
+      document.querySelector('#btnGridView').classList.add('active');
+      document.querySelector('#btnTableView').classList.remove('active');
+      tableView.style.display = 'none';
+      gridView.style.display = 'grid';
+    });
+
+    renderProducts();
+  })();
+  </script>
+</body>
+</html>

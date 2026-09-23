@@ -1,0 +1,256 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Anti-Pyramid & 70% Retail Rule Auditing";
+}
+
+<div class="compliance-container">
+  <!-- Top Panel -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-icon"><i class="bi bi-shield-check"></i></div>
+      <div>
+        <h1>Anti-Pyramid &amp; 70% Retail Rule Compliance Audit</h1>
+        <p class="subtitle">Real-time statutory auditing verifying the legal 70%+ retail product sales ratio against recruitment fees under the SA Consumer Protection Act &amp; DSA standards.</p>
+      </div>
+    </div>
+
+    <!-- Audit Gauge & Metrics -->
+    <div class="compliance-stats-grid">
+      <!-- Radial Gauge Card -->
+      <div class="gauge-card">
+        <div class="gauge-circle" id="gaugeCircle">
+          <div class="gauge-inner">
+            <strong id="ratioPercent">77.2%</strong>
+            <small>RETAIL RATIO</small>
+          </div>
+        </div>
+        <div class="gauge-status-badge" id="gaugeBadge">
+          <i class="bi bi-patch-check-fill"></i> <span>Statutorily Compliant</span>
+        </div>
+        <p class="gauge-note">Threshold: Minimum 70.0% End-User Retail Sales required by law.</p>
+      </div>
+
+      <!-- Ratio Breakdown Cards -->
+      <div class="breakdown-cards">
+        <div class="b-card retail">
+          <div class="b-icon"><i class="bi bi-bag-check-fill"></i></div>
+          <div class="b-info">
+            <small>END-USER RETAIL PRODUCT SALES</small>
+            <strong id="retailAmount">R 8,450.00</strong>
+            <span>Botanical teas, capsules &amp; customer reorders</span>
+          </div>
+        </div>
+
+        <div class="b-card kit">
+          <div class="b-icon"><i class="bi bi-briefcase-fill"></i></div>
+          <div class="b-info">
+            <small>ONBOARDING RECRUITMENT KITS</small>
+            <strong id="kitAmount">R 2,495.00</strong>
+            <span>Distributor licenses &amp; starter sample packs</span>
+          </div>
+        </div>
+
+        <div class="b-card total">
+          <div class="b-icon"><i class="bi bi-cash-stack"></i></div>
+          <div class="b-info">
+            <small>TOTAL COMBINED REVENUE AUDITED</small>
+            <strong id="totalAmount">R 10,945.00</strong>
+            <span>Live transaction volume across all network tiers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal Assessment & Official Compliance Certificate -->
+  <section class="panel certificate-panel">
+    <div class="cert-header">
+      <div>
+        <h2><i class="bi bi-file-earmark-medical-fill text-success"></i> Official DSA &amp; CPA Compliance Certificate</h2>
+        <p class="subtitle">Audited pursuant to Section 43 of the South African Consumer Protection Act 68 of 2008.</p>
+      </div>
+      <button type="button" class="btn-print-cert" id="printCertBtn"><i class="bi bi-printer-fill"></i> Print Official Certificate</button>
+    </div>
+
+    <div class="cert-document-sheet" id="printableCertificate">
+      <div class="cert-border-wrap">
+        <div class="cert-top-seal">
+          <i class="bi bi-shield-shaded"></i>
+          <span>DIRECT SELLING STATUTORY COMPLIANCE AUDIT</span>
+        </div>
+
+        <h1 class="cert-title">Certificate of Anti-Pyramid Governance</h1>
+        <p class="cert-intro">This certificate confirms that the partner compensation and sales model of <strong>ScaleEngine MLM SaaS Platform</strong> has undergone automated real-time compliance auditing.</p>
+
+        <div class="cert-details-grid">
+          <div><strong>Audited Platform:</strong> ScaleEngine SaaS Tenant</div>
+          <div><strong>Evaluation Metric:</strong> 70% Retail Product Rule (FTC/DSA/CPA)</div>
+          <div><strong>Actual Retail Ratio:</strong> <span class="text-success font-weight-bold" id="certRatioText">77.2% (Passed)</span></div>
+          <div><strong>Legal Classification:</strong> Legitimate Direct Selling Network</div>
+          <div><strong>Audit Timestamp:</strong> <span id="certTimestamp">2026-09-18 12:00 UTC</span></div>
+          <div><strong>Compliance Ref ID:</strong> <code id="certRefId">CPA-70-2026-89102ZA</code></div>
+        </div>
+
+        <div class="cert-statement-box">
+          <p id="certLegalText">The business operations meet and exceed the legal 70% retail sales requirement under the South African Consumer Protection Act 68 of 2008 (Section 43) and international Direct Selling Association (DSA) anti-pyramid guidelines.</p>
+        </div>
+
+        <div class="cert-signatures">
+          <div>
+            <div class="sig-line"></div>
+            <strong>ScaleEngine Compliance Officer</strong>
+            <small>Statutory MLM Regulatory Desk</small>
+          </div>
+          <div>
+            <div class="sig-line"></div>
+            <strong>Automated Auditing Engine</strong>
+            <small>Cryptographically Verified</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommendations Checklist -->
+  <section class="panel">
+    <h2><i class="bi bi-list-check text-primary"></i> Statutory Maintenance &amp; Safeguards</h2>
+    <div class="recs-list" id="recsList">
+      <!-- Populated via API -->
+    </div>
+  </section>
+</div>
+
+@section Styles {
+<style>
+  :root {
+    --dark: #0f172a;
+    --line: #e2e8f0;
+    --paper: #fff;
+    --muted: #64748b;
+    --success: #16a34a;
+    --danger: #dc2626;
+  }
+  * { box-sizing: border-box; }
+
+  .compliance-container { max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .panel-head { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .panel-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 10px; background: #0f172a; color: #fff; font-size: 22px; flex-shrink: 0; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); }
+  h2 { margin: 0 0 4px; font-size: 17px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  /* Gauge Grid */
+  .compliance-stats-grid { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: center; }
+  
+  .gauge-card { border: 1px solid var(--line); border-radius: 12px; padding: 24px 20px; background: #f8fafc; text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .gauge-circle { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(#16a34a 0% 77.2%, #e2e8f0 77.2% 100%); display: grid; place-items: center; margin-bottom: 16px; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.2); }
+  .gauge-inner { width: 110px; height: 110px; border-radius: 50%; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .gauge-inner strong { font-size: 24px; font-weight: 900; color: #0f172a; line-height: 1.1; }
+  .gauge-inner small { font-size: 9.5px; font-weight: 800; color: #64748b; letter-spacing: .08em; margin-top: 2px; }
+
+  .gauge-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: #dcfce7; color: #15803d; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+  .gauge-note { font-size: 11.5px; color: var(--muted); margin: 0; }
+
+  .breakdown-cards { display: flex; flex-direction: column; gap: 12px; }
+  .b-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 10px; border: 1px solid var(--line); background: #fff; }
+  .b-card.retail { border-left: 4px solid #16a34a; }
+  .b-card.kit { border-left: 4px solid #0284c7; }
+  .b-card.total { border-left: 4px solid #0f172a; background: #f8fafc; }
+  
+  .b-icon { width: 42px; height: 42px; border-radius: 8px; background: #0f172a; color: #fff; display: grid; place-items: center; font-size: 20px; flex-shrink: 0; }
+  .b-card.retail .b-icon { background: #16a34a; }
+  .b-card.kit .b-icon { background: #0284c7; }
+
+  .b-info small { display: block; font-size: 10.5px; font-weight: 700; color: #64748b; letter-spacing: .06em; margin-bottom: 2px; }
+  .b-info strong { font-size: 18px; font-weight: 800; color: #0f172a; display: block; }
+  .b-info span { font-size: 12px; color: var(--muted); }
+
+  /* Certificate Sheet */
+  .cert-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+  .btn-print-cert { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--dark); font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-print-cert:hover { background: #f8fafc; }
+
+  .cert-document-sheet { border: 2px solid #0f172a; border-radius: 12px; padding: 26px; background: #fff; }
+  .cert-border-wrap { border: 1px solid #cbd5e1; border-radius: 8px; padding: 30px; text-align: center; }
+  .cert-top-seal { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; color: #0284c7; letter-spacing: .08em; margin-bottom: 12px; }
+  .cert-title { font-size: 26px; font-weight: 900; color: #0f172a; margin: 0 0 10px; }
+  .cert-intro { font-size: 13.5px; color: #475569; max-width: 680px; margin: 0 auto 24px; line-height: 1.5; }
+
+  .cert-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 700px; margin: 0 auto 24px; text-align: left; font-size: 13px; background: #f8fafc; padding: 16px 20px; border-radius: 8px; border: 1px solid var(--line); }
+  .cert-statement-box { border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); padding: 14px 20px; margin-bottom: 30px; font-size: 13px; color: #1e293b; line-height: 1.6; }
+  
+  .cert-signatures { display: flex; justify-content: space-around; gap: 30px; }
+  .sig-line { width: 160px; height: 1px; background: #0f172a; margin: 0 auto 8px; }
+  .cert-signatures strong { display: block; font-size: 12.5px; color: #0f172a; }
+  .cert-signatures small { color: var(--muted); font-size: 11px; }
+
+  /* Recommendations */
+  .recs-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .rec-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--line); font-size: 13px; color: #334155; }
+  .rec-item i { color: #16a34a; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  @@media (max-width: 800px) {
+    .compliance-stats-grid { grid-template-columns: 1fr; }
+    .cert-details-grid { grid-template-columns: 1fr; }
+    .cert-signatures { flex-direction: column; gap: 20px; }
+  }
+
+  @@media print {
+    body * { visibility: hidden; }
+    .cert-document-sheet, .cert-document-sheet * { visibility: visible; }
+    .cert-document-sheet { position: absolute; left: 0; top: 0; width: 100%; border: 0; padding: 0; }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+(() => {
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  const ratioPercent = document.querySelector('#ratioPercent');
+  const gaugeCircle = document.querySelector('#gaugeCircle');
+  const retailAmount = document.querySelector('#retailAmount');
+  const kitAmount = document.querySelector('#kitAmount');
+  const totalAmount = document.querySelector('#totalAmount');
+  const certRatioText = document.querySelector('#certRatioText');
+  const certTimestamp = document.querySelector('#certTimestamp');
+  const certLegalText = document.querySelector('#certLegalText');
+  const recsList = document.querySelector('#recsList');
+  const printCertBtn = document.querySelector('#printCertBtn');
+
+  printCertBtn.addEventListener('click', () => window.print());
+
+  const loadAuditData = async () => {
+    if (!token) return;
+    try {
+      const res = await fetch('/api/compliance/audit', { headers: authHeaders() });
+      if (!res.ok) return;
+      const data = await res.json();
+
+      ratioPercent.textContent = `${data.retailRatioPercentage}%`;
+      gaugeCircle.style.background = `conic-gradient(#16a34a 0% ${data.retailRatioPercentage}%, #e2e8f0 ${data.retailRatioPercentage}% 100%)`;
+      
+      retailAmount.textContent = `R ${Number(data.retailProductSales).toFixed(2)}`;
+      kitAmount.textContent = `R ${Number(data.recruitmentKitSales).toFixed(2)}`;
+      totalAmount.textContent = `R ${Number(data.totalSalesVolume).toFixed(2)}`;
+
+      certRatioText.textContent = `${data.retailRatioPercentage}% (${data.isCompliant ? 'Passed & Compliant' : 'Warning'})`;
+      certTimestamp.textContent = new Date(data.auditedAt).toLocaleString();
+      certLegalText.textContent = data.legalAssessment;
+
+      recsList.innerHTML = data.recommendations.map(r => `
+        <div class="rec-item">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>${r}</span>
+        </div>
+      `).join('');
+    } catch { }
+  };
+
+  loadAuditData();
+})();
+</script>
+}

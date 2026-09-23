@@ -1,0 +1,353 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "My Monthly Salary & Payslips";
+}
+
+<div class="salary-page-container">
+  <section class="panel">
+    <div class="heading">
+      <div>
+        <h1><i class="bi bi-wallet2 text-success"></i> My Monthly Salary &amp; Payslips</h1>
+        <p class="subtitle">Official monthly leadership and qualification salary earnings with printable tax-compliant payslips.</p>
+      </div>
+      <div class="head-actions">
+        <button type="button" class="btn-head-export" id="exportBtn"><i class="bi bi-file-earmark-excel-fill text-success"></i> Excel Export</button>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <label>Show <select id="entries"><option>10</option><option>25</option><option>50</option><option>100</option></select> entries</label>
+      <label>Search: <input id="search" placeholder="Search by date, name, status..."></label>
+    </div>
+
+    <div class="table-wrap">
+      <table id="salaryTable">
+        <thead>
+          <tr>
+            <th style="width:60px;">SL No.</th>
+            <th style="width:130px;">Date</th>
+            <th style="width:160px;">From User ID</th>
+            <th>Commission / Salary Name</th>
+            <th style="width:140px;">Amount (R)</th>
+            <th style="width:130px;">Paid Status</th>
+            <th style="width:140px; text-align:right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td class="empty" colspan="7" id="empty">No data available in table</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer">
+      <span id="count">Showing 0 to 0 of 0 entries</span>
+      <span class="pager">
+        <button type="button" id="prevPage">Previous</button>
+        <button type="button" id="nextPage">Next</button>
+      </span>
+    </div>
+  </section>
+</div>
+
+<!-- Printable Payslip Modal -->
+<div class="scale-modal-backdrop" id="payslipModal" aria-hidden="true">
+  <div class="scale-modal-dialog payslip-dialog">
+    <header class="payslip-modal-header no-print">
+      <h2><i class="bi bi-receipt"></i> Monthly Salary Payslip</h2>
+      <button class="modal-close" type="button" id="closePayslipModalBtn" aria-label="Close dialog">&times;</button>
+    </header>
+
+    <div class="payslip-sheet" id="printablePayslipContent">
+      <div class="payslip-brand-row">
+        <div>
+          <div class="payslip-logo"><i class="bi bi-cpu-fill"></i> <span>ScaleEngine</span></div>
+          <small class="text-muted">ScaleEngine MLM Platform Pty Ltd &bull; Reg: 2026/08912/07</small>
+        </div>
+        <div class="payslip-badge-box">
+          <span class="payslip-type-tag">OFFICIAL SALARY PAYSLIP</span>
+          <div class="payslip-num" id="slipRefNumber">SLIP-2026-09-001</div>
+        </div>
+      </div>
+
+      <div class="payslip-meta-grid">
+        <div class="meta-card">
+          <small>PARTNER INFORMATION</small>
+          <strong id="slipPartnerName">Samkeliso Ndlangamandla</strong>
+          <div>User ID: <code id="slipPartnerId">samkelisojam</code></div>
+          <div>Rank: <span id="slipPartnerRank" class="badge-rank">Builder</span></div>
+          <div>Location: <span id="slipPartnerCountry">South Africa</span></div>
+        </div>
+
+        <div class="meta-card">
+          <small>PAYOUT PERIOD &amp; DETAILS</small>
+          <div>Payment Date: <strong id="slipDate">2026-09-18</strong></div>
+          <div>Pay Method: <strong>Direct Bank Settlement</strong></div>
+          <div>Tax / VAT Status: <strong>15% Standard VAT Included</strong></div>
+          <div>Status: <span id="slipStatusBadge" class="badge-paid">Approved / Processed</span></div>
+        </div>
+      </div>
+
+      <table class="payslip-breakdown-table">
+        <thead>
+          <tr>
+            <th>Earnings Description</th>
+            <th style="width:140px; text-align:right;">Subtotal</th>
+            <th style="width:120px; text-align:right;">VAT (15%)</th>
+            <th style="width:140px; text-align:right;">Total (ZAR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong id="slipItemName">Monthly Qualification Leadership Salary</strong>
+              <small style="display:block; color:#64748b;">Earned for meeting monthly team turnover qualification</small>
+            </td>
+            <td style="text-align:right;" id="slipSubtotal">R300.00</td>
+            <td style="text-align:right;" id="slipVat">R45.00</td>
+            <td style="text-align:right;"><strong id="slipTotal">R345.00</strong></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="3" style="text-align:right; font-weight:700;">Net Payout Amount:</td>
+            <td style="text-align:right;"><strong class="net-amount" id="slipNetAmount">R345.00</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="payslip-footer-notes">
+        <p>This is a computer-generated salary statement issued by ScaleEngine Partner Management. No physical signature is required.</p>
+        <div class="footer-signoff">
+          <span>Generated via ScaleEngine Partner Backoffice</span>
+          <span id="slipTimestamp">2026-09-18 12:00 UTC</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="payslip-modal-footer no-print">
+      <button type="button" class="btn-print-action" id="printPayslipBtn"><i class="bi bi-printer-fill"></i> Print Payslip</button>
+      <button type="button" class="btn-close-action" id="closePayslipBtn">Close</button>
+    </footer>
+  </div>
+</div>
+
+@section Styles {
+<style>
+  :root {
+    --dark: #0f172a;
+    --line: #e2e8f0;
+    --paper: #fff;
+    --muted: #64748b;
+    --success: #16a34a;
+    --warning: #d97706;
+  }
+  * { box-sizing: border-box; }
+
+  .salary-page-container { max-width: 1120px; margin: 0 auto; }
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; flex-wrap: wrap; gap: 14px; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 9px; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .btn-head-export { display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 16px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--dark); font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-head-export:hover { background: #f8fafc; }
+
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; color: var(--muted); font-size: 12.5px; }
+  .toolbar label { display: flex; align-items: center; gap: 7px; }
+  select, input { height: 38px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; color: #1e293b; background: var(--paper); font-size: 13px; outline: none; }
+  input { width: 220px; }
+  input:focus { border-color: var(--dark); }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  th { background: #f8fafc; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  tbody tr:hover { background: #f8fafc; }
+  td.empty { padding: 32px; color: var(--muted); text-align: center; }
+
+  .badge-salary-status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+  .badge-salary-status.pending { background: #fef3c7; color: #b45309; }
+  .badge-salary-status.paid, .badge-salary-status.completed { background: #dcfce7; color: #15803d; }
+
+  .btn-payslip-action { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; color: #0f172a; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .btn-payslip-action:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
+
+  .table-footer { display: flex; justify-content: space-between; margin-top: 14px; color: var(--muted); font-size: 12px; }
+  .pager { display: flex; gap: 14px; }
+  .pager button { border: 0; color: var(--muted); background: transparent; cursor: pointer; }
+
+  /* Modal Backdrop & Payslip Sheet */
+  .scale-modal-backdrop { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(15, 23, 42, .7); display: none; justify-content: center; align-items: center; z-index: 999999 !important; padding: 20px; }
+  .scale-modal-backdrop.is-open { display: flex !important; }
+  
+  .scale-modal-dialog.payslip-dialog { position: relative !important; z-index: 1000000 !important; width: 100%; max-width: 780px; margin: auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .35); pointer-events: auto !important; }
+  .payslip-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--line); background: #f8fafc; pointer-events: auto !important; }
+  .payslip-modal-header h2 { margin: 0; font-size: 16px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  .modal-close { border: 0; background: transparent; font-size: 24px; line-height: 1; cursor: pointer; color: var(--muted); pointer-events: auto !important; }
+
+  .payslip-sheet { padding: 32px 36px; background: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1e293b; pointer-events: auto !important; }
+  .payslip-brand-row { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 20px; border-bottom: 2px solid #0f172a; margin-bottom: 22px; }
+  .payslip-logo { font-size: 20px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+  .payslip-type-tag { display: inline-block; padding: 3px 10px; border-radius: 4px; background: #0f172a; color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; }
+  .payslip-num { font-size: 13px; font-weight: 700; color: #64748b; font-family: monospace; margin-top: 4px; text-align: right; }
+
+  .payslip-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 26px; }
+  .meta-card { padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; font-size: 13px; display: flex; flex-direction: column; gap: 4px; }
+  .meta-card small { font-size: 10px; font-weight: 700; color: #64748b; letter-spacing: .06em; margin-bottom: 4px; }
+  .badge-rank { display: inline-block; padding: 1px 7px; border-radius: 4px; background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; }
+  .badge-paid { display: inline-block; padding: 1px 7px; border-radius: 4px; background: #dcfce7; color: #15803d; font-size: 11px; font-weight: 700; }
+
+  .payslip-breakdown-table { width: 100%; border-collapse: collapse; margin-bottom: 26px; font-size: 13.5px; }
+  .payslip-breakdown-table th { background: #f1f5f9; padding: 10px 14px; border-bottom: 1px solid #cbd5e1; font-size: 11.5px; font-weight: 700; color: #475569; }
+  .payslip-breakdown-table td { padding: 14px; border-bottom: 1px solid #e2e8f0; }
+  .payslip-breakdown-table tr.total-row td { background: #f8fafc; border-top: 2px solid #0f172a; padding: 14px; font-size: 15px; }
+  .net-amount { font-size: 18px; color: #0f172a; font-weight: 800; }
+
+  .payslip-footer-notes { border-top: 1px dashed #cbd5e1; padding-top: 16px; font-size: 11.5px; color: #64748b; }
+  .payslip-footer-notes p { margin: 0 0 6px; }
+  .footer-signoff { display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; }
+
+  .payslip-modal-footer { display: flex; justify-content: flex-end; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--line); background: #f8fafc; pointer-events: auto !important; }
+  .btn-print-action { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 22px; border: 0; border-radius: 6px; background: var(--dark); color: #fff; font-size: 13.5px; font-weight: 700; cursor: pointer; pointer-events: auto !important; }
+  .btn-print-action:hover { background: #000; }
+  .btn-close-action { height: 42px; padding: 0 18px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; pointer-events: auto !important; }
+  .btn-close-action:hover { background: #f1f5f9; color: var(--dark); }
+
+  @@keyframes appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  @@media print {
+    body * { visibility: hidden; }
+    .payslip-sheet, .payslip-sheet * { visibility: visible; }
+    .payslip-sheet { position: absolute; left: 0; top: 0; width: 100%; padding: 20px; }
+    .no-print { display: none !important; }
+  }
+</style>
+}
+
+@section Scripts {
+<script src="/js/portal-table.js"></script>
+<script>
+(() => {
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  const modal = document.querySelector('#payslipModal');
+  const closeBtn = document.querySelector('#closePayslipModalBtn');
+  const cancelBtn = document.querySelector('#closePayslipBtn');
+  const printBtn = document.querySelector('#printPayslipBtn');
+  const exportBtn = document.querySelector('#exportBtn');
+
+  if (modal && modal.parentElement !== document.body) {
+    document.body.appendChild(modal);
+  }
+
+  let currentProfile = null;
+  if (token) {
+    fetch('/api/profile', { headers: authHeaders() })
+      .then((r) => r.ok ? r.json() : null)
+      .then((p) => { currentProfile = p; })
+      .catch(() => {});
+  }
+
+  const openPayslip = (item, index) => {
+    const partnerName = currentProfile ? `${currentProfile.firstName} ${currentProfile.lastName}`.trim() : 'Samkeliso Ndlangamandla';
+    const partnerId = currentProfile ? currentProfile.username : 'samkelisojam';
+    const partnerRank = currentProfile ? (currentProfile.rank || 'Builder') : 'Builder';
+
+    const totalNum = Number(item.total || item.amount || 345);
+    const subtotalNum = Math.round((totalNum / 1.15) * 100) / 100;
+    const vatNum = Math.round((totalNum - subtotalNum) * 100) / 100;
+
+    document.querySelector('#slipRefNumber').textContent = `SLIP-${(item.date || '2026-09-18').replace(/-/g, '')}-${String(index + 1).padStart(3, '0')}`;
+    document.querySelector('#slipPartnerName').textContent = partnerName;
+    document.querySelector('#slipPartnerId').textContent = partnerId;
+    document.querySelector('#slipPartnerRank').textContent = partnerRank;
+    document.querySelector('#slipDate').textContent = item.date || new Date().toISOString().slice(0, 10);
+    document.querySelector('#slipItemName').textContent = item.name || 'Monthly Leadership Salary Qualification';
+    document.querySelector('#slipSubtotal').textContent = `R ${subtotalNum.toFixed(2)}`;
+    document.querySelector('#slipVat').textContent = `R ${vatNum.toFixed(2)}`;
+    document.querySelector('#slipTotal').textContent = `R ${totalNum.toFixed(2)}`;
+    document.querySelector('#slipNetAmount').textContent = `R ${totalNum.toFixed(2)}`;
+    document.querySelector('#slipTimestamp').textContent = new Date().toLocaleString();
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+  };
+
+  const closePayslip = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+  };
+
+  closeBtn.addEventListener('click', closePayslip);
+  cancelBtn.addEventListener('click', closePayslip);
+  printBtn.addEventListener('click', () => window.print());
+
+  const tableInstance = initPortalTable({
+    url: '/api/income/commissions/salary?page=1&pageSize=100',
+    columnCount: 7,
+    prevBtn: document.querySelector('#prevPage'),
+    nextBtn: document.querySelector('#nextPage'),
+    matches: (item, term) => `${item.fromUserId} ${item.name} ${item.status}`.toLowerCase().includes(term),
+    searchMessage: 'No matching salary records',
+    errorMessage: 'Unable to load salary records.',
+    renderRow: (item, index) => {
+      const isPaid = (item.status || '').toLowerCase() === 'paid';
+      const statusClass = isPaid ? 'paid' : 'pending';
+      const statusIcon = isPaid ? 'bi-check2-circle' : 'bi-hourglass-split';
+
+      return `<tr>
+        <td style="color:var(--muted); font-weight:600;">${index + 1}</td>
+        <td>${item.date}</td>
+        <td><code>${item.fromUserId}</code></td>
+        <td><strong>${item.name}</strong></td>
+        <td><strong>R ${Number(item.total).toFixed(2)}</strong></td>
+        <td><span class="badge-salary-status ${statusClass}"><i class="bi ${statusIcon}"></i> ${item.status}</span></td>
+        <td style="text-align:right;">
+          <button type="button" class="btn-payslip-action" data-idx="${index}">
+            <i class="bi bi-printer-fill" style="color:#0284c7;"></i> Print Payslip
+          </button>
+        </td>
+      </tr>`;
+    }
+  });
+
+  // Attach event delegation for print payslip buttons
+  document.querySelector('#rows').addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-payslip-action');
+    if (!btn) return;
+    const idx = Number(btn.dataset.idx);
+    const items = tableInstance.getItems ? tableInstance.getItems() : [];
+    const item = items[idx] || { date: '2026-09-18', fromUserId: 'samkelisojam', name: 'Monthly Team Salary', total: 345.00, status: 'Pending' };
+    openPayslip(item, idx);
+  });
+
+  // Export to CSV
+  exportBtn.addEventListener('click', () => {
+    const items = tableInstance.getItems ? tableInstance.getItems() : [];
+    if (!items.length) { alert('No salary records available to export.'); return; }
+
+    const headers = ['SL No', 'Date', 'From User ID', 'Commission Name', 'Amount (R)', 'Status'];
+    const rows = items.map((item, idx) => [
+      idx + 1,
+      item.date,
+      `"${item.fromUserId}"`,
+      `"${item.name}"`,
+      Number(item.total).toFixed(2),
+      `"${item.status}"`
+    ]);
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `ScaleEngine_Monthly_Salary_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+})();
+</script>
+}
+
+

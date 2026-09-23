@@ -1,0 +1,619 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register Partner Account | ScaleEngine</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    :root {
+      --dark: #0f172a;
+      --deep: #0d0f12;
+      --text: #1e293b;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --error: #dc2626;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+    }
+
+    .page {
+      min-height: 100vh;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      padding: 36px 16px;
+    }
+
+    .panel {
+      width: min(720px, 100%);
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
+      animation: rise .45s ease both;
+    }
+
+    .panel-header {
+      padding: 32px 36px 28px;
+      color: white;
+      background: var(--deep);
+      border-bottom: 1px solid #1c212a;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      color: #fff;
+      background: linear-gradient(135deg, #252b36, #12161f);
+      border: 1px solid #323947;
+      font-size: 19px;
+    }
+
+    .brand-text strong {
+      display: block;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .brand-text span {
+      display: block;
+      margin-top: 1px;
+      color: #94a3b8;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .header-login-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all .15s ease;
+      white-space: nowrap;
+    }
+
+    .header-login-link:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    h1 { margin: 0 0 6px; font-size: 24px; font-weight: 700; color: #fff; }
+    .subtitle { margin: 0; color: #94a3b8; font-size: 13.5px; }
+
+    form { padding: 32px 36px 36px; }
+    
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      color: var(--dark);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .section-title i { color: #64748b; font-size: 16px; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+
+    label { font-size: 13px; font-weight: 600; color: #334155; }
+    label span { color: var(--error); }
+
+    input, select {
+      width: 100%;
+      height: 44px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--text);
+      background: #fdfdfd;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--dark);
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, .1);
+      background: #fff;
+    }
+
+    input[readonly] {
+      color: #64748b;
+      background: #f1f5f9;
+      cursor: not-allowed;
+    }
+
+    .hint { color: var(--muted); font-size: 11.5px; }
+    .divider { height: 1px; margin: 24px 0; background: var(--line); }
+
+    .agreement {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 22px 0 20px;
+      color: #475569;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .agreement input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: var(--dark);
+      cursor: pointer;
+    }
+
+    .agreement a { color: var(--dark); font-weight: 600; text-decoration: underline; }
+
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: #1e293b;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s ease;
+      margin-bottom: 14px;
+    }
+
+    .btn-google:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+    }
+
+    .btn-google svg { width: 18px; height: 18px; }
+
+    .social-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .social-divider::before, .social-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+    button[type="submit"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 48px;
+      border: 0;
+      border-radius: 6px;
+      color: white;
+      background: var(--dark);
+      cursor: pointer;
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      transition: background .15s, transform .15s;
+    }
+
+    button[type="submit"]:hover {
+      background: #000;
+      transform: translateY(-1px);
+    }
+
+    button[type="submit"]:disabled {
+      cursor: wait;
+      opacity: .65;
+      transform: none;
+    }
+
+    .status {
+      min-height: 20px;
+      margin: 14px 0 0;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .status.error { color: var(--error); }
+    .status.success { color: var(--success); }
+
+    .login-footer {
+      margin-top: 22px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .login-footer a {
+      color: var(--dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .success-view { display: none; padding: 44px 36px 40px; text-align: center; }
+    .success-view.visible { display: block; animation: rise .4s ease both; }
+    .success-mark {
+      display: grid;
+      place-items: center;
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      color: white;
+      background: var(--success);
+      font-size: 34px;
+      box-shadow: 0 6px 18px rgba(22, 163, 74, .25);
+    }
+
+    .success-view h2 { margin: 0 0 10px; color: var(--dark); font-size: 26px; font-weight: 800; }
+    .success-view p { margin: 0 0 10px; color: var(--muted); font-size: 15px; }
+    .success-view strong { color: var(--dark); }
+
+    .success-note {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 520px;
+      margin: 22px auto 28px;
+      padding: 16px 20px;
+      border-radius: 8px;
+      color: #334155;
+      background: #f1f5f9;
+      border: 1px solid var(--line);
+      text-align: left;
+      font-size: 13.5px;
+    }
+
+    .success-note i { font-size: 24px; color: #16a34a; }
+
+    .login-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 320px;
+      height: 48px;
+      border-radius: 6px;
+      color: white;
+      background: var(--dark);
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .15s ease;
+    }
+
+    .login-button:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    @@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @@media (max-width: 640px) {
+      .panel-header { padding: 24px 20px; flex-direction: column; }
+      .header-login-link { align-self: flex-start; }
+      form { padding: 24px 20px; }
+      .grid { grid-template-columns: 1fr; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="panel" aria-labelledby="title">
+      <header class="panel-header">
+        <div>
+          <div class="brand">
+            <div class="brand-badge"><i class="bi bi-cpu-fill"></i></div>
+            <div class="brand-text">
+              <strong>ScaleEngine</strong>
+              <span>MLM PLATFORM</span>
+            </div>
+          </div>
+          <h1 id="title">Create your partner account</h1>
+          <p class="subtitle">Join the partner network, build your team, and start earning bonuses.</p>
+        </div>
+        <a class="header-login-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i> Log In</a>
+      </header>
+
+      <form id="registrationForm" novalidate>
+        <h2 class="section-title"><i class="bi bi-person-badge"></i> Account Credentials</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="username">Username <span>*</span></label>
+            <input id="username" name="username" autocomplete="username" placeholder="Choose a username" required>
+          </div>
+          <div class="field">
+            <label for="email">Email Address <span>*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+          </div>
+          <div class="field">
+            <label for="sponsorId">Sponsor ID <span>*</span></label>
+            <input id="sponsorId" name="sponsorId" readonly>
+          </div>
+          <div class="field">
+            <label for="sponsorName">Sponsor's Full Name</label>
+            <input id="sponsorName" name="sponsorName" readonly>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title"><i class="bi bi-person-lines-fill"></i> Personal Details</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="firstName">First Name <span>*</span></label>
+            <input id="firstName" name="firstName" autocomplete="given-name" placeholder="First name" required>
+          </div>
+          <div class="field">
+            <label for="surname">Surname <span>*</span></label>
+            <input id="surname" name="surname" autocomplete="family-name" placeholder="Surname" required>
+          </div>
+          <div class="field">
+            <label for="country">Country <span>*</span></label>
+            <select id="country" name="country" required>
+              <option value="">Select country</option>
+              <option>South Africa</option><option>Botswana</option><option>Lesotho</option><option>Namibia</option><option>Eswatini</option><option>Zimbabwe</option><option>Zambia</option><option>Mozambique</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile Number <span>*</span></label>
+            <input id="mobile" name="mobile" type="tel" autocomplete="tel" placeholder="e.g. 0712345678" required>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2 class="section-title"><i class="bi bi-shield-lock"></i> Security</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="password">Password <span>*</span></label>
+            <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required>
+            <small class="hint">Must contain at least 8 characters.</small>
+          </div>
+          <div class="field">
+            <label for="confirmPassword">Confirm Password <span>*</span></label>
+            <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat password" required>
+          </div>
+        </div>
+
+        <label class="agreement">
+          <input id="terms" name="terms" type="checkbox" required>
+          <span>I agree to the <a href="rules.html" target="_blank">Terms &amp; Conditions</a> and understand the partner guidelines.</span>
+        </label>
+        
+        <button type="submit"><i class="bi bi-person-plus-fill"></i> Register Account</button>
+
+        <div class="social-divider"><span>or fast sign up with</span></div>
+
+        <button class="btn-google" id="googleRegBtn" type="button">
+          <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.25 21.36 7.33 24 12 24Z"/><path fill="#FBBC05" d="M5.28 14.27a7.17 7.17 0 0 1 0-4.54V6.58H1.26a11.96 11.96 0 0 0 0 10.84l4.02-3.15Z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.25 2.64 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.93 6.72-4.93Z"/></svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+
+        <p class="login-footer">Already have an account? <a href="login.html">Log In here</a></p>
+      </form>
+
+      <section id="successView" class="success-view" aria-live="polite">
+        <div class="success-mark" aria-hidden="true"><i class="bi bi-check-lg"></i></div>
+        <h2>Registration Successful!</h2>
+        <p>Welcome to <strong>ScaleEngine</strong></p>
+        <p>Your partner account has been created successfully.</p>
+        <div class="success-note">
+          <i class="bi bi-info-circle-fill"></i>
+          <div>You can now log in to access your dashboard, shopping catalog, team hierarchy, and commission tools.</div>
+        </div>
+        <a class="login-button" href="login.html"><i class="bi bi-box-arrow-in-right"></i> Log In to Dashboard</a>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector('#registrationForm');
+    const status = document.querySelector('#status');
+    const googleRegBtn = document.querySelector('#googleRegBtn');
+    const params = new URLSearchParams(window.location.search);
+    const sponsorId = params.get('ref') || params.get('recruiter') || 'bhekaragnar';
+    document.querySelector('#sponsorId').value = sponsorId;
+    document.querySelector('#sponsorName').value = params.get('name') || (sponsorId.toLowerCase() === 'bhekaragnar' ? 'Bheka Luthuli' : 'Referral partner');
+
+    let configuredGoogleClientId = null;
+
+    // Load Google OAuth Configuration from Backend
+    fetch('/api/auth/config')
+      .then((r) => r.ok ? r.json() : null)
+      .then((cfg) => {
+        if (cfg?.googleClientId && cfg.googleClientId.includes('.apps.googleusercontent.com') && !cfg.googleClientId.startsWith('YOUR_')) {
+          configuredGoogleClientId = cfg.googleClientId;
+          if (window.google?.accounts?.id) {
+            initGoogleGsi();
+          } else {
+            window.addEventListener('load', () => { if (window.google?.accounts?.id) initGoogleGsi(); });
+          }
+        }
+      })
+      .catch(() => {});
+
+    function handleGoogleRegResponse(response) {
+      if (!response.credential) return;
+      status.className = 'status';
+      status.style.color = '#0f172a';
+      status.textContent = 'Registering with Google...';
+      fetch('/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken: response.credential })
+      })
+      .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+      .then(({ ok, data }) => {
+        if (ok && data.accessToken) {
+          localStorage.setItem('vitality.accessToken', data.accessToken);
+          status.className = 'status success';
+          form.style.display = 'none';
+          document.querySelector('#successView').classList.add('visible');
+        } else {
+          status.className = 'status error';
+          status.textContent = data.message || 'Google registration failed.';
+        }
+      })
+      .catch(() => {
+        status.className = 'status error';
+        status.textContent = 'Unable to connect to authentication server.';
+      });
+    }
+
+    function initGoogleGsi() {
+      if (!configuredGoogleClientId || !window.google?.accounts?.id) return;
+      google.accounts.id.initialize({
+        client_id: configuredGoogleClientId,
+        callback: handleGoogleRegResponse,
+        auto_select: false
+      });
+    }
+
+    googleRegBtn.addEventListener('click', async () => {
+      if (configuredGoogleClientId && window.google?.accounts?.id) {
+        google.accounts.id.prompt((notification) => {
+          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            promptGoogleRegFallback();
+          }
+        });
+      } else {
+        promptGoogleRegFallback();
+      }
+    });
+
+    async function promptGoogleRegFallback() {
+      const userEmail = prompt('Enter your Google / Gmail address to sign up:', 'newpartner@gmail.com');
+      if (!userEmail) return;
+      status.className = 'status';
+      status.style.color = '#0f172a';
+      status.textContent = 'Registering with Google...';
+      try {
+        const response = await fetch('/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: userEmail, name: userEmail.split('@@')[0] })
+        });
+        const result = await response.json();
+        if (response.ok && result.accessToken) {
+          localStorage.setItem('vitality.accessToken', result.accessToken);
+          status.className = 'status success';
+          form.style.display = 'none';
+          document.querySelector('#successView').classList.add('visible');
+        } else {
+          status.className = 'status error';
+          status.textContent = result.message || 'Google registration failed.';
+        }
+      } catch {
+        status.className = 'status error';
+        status.textContent = 'Unable to connect to Google authentication service.';
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.className = 'status';
+      status.textContent = '';
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      if (document.querySelector('#password').value !== document.querySelector('#confirmPassword').value) {
+        status.className = 'status error';
+        status.textContent = 'Passwords do not match.';
+        return;
+      }
+      try {
+        const response = await fetch('/api/registration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: username.value,
+            email: email.value,
+            firstName: firstName.value,
+            lastName: surname.value,
+            country: country.value,
+            mobile: mobile.value,
+            password: password.value,
+            confirmPassword: confirmPassword.value,
+            sponsorId
+          })
+        });
+        const result = await response.json();
+        if (!response.ok) {
+          status.className = 'status error';
+          status.textContent = result.message || 'Registration could not be completed.';
+          return;
+        }
+        status.className = 'status success';
+        form.style.display = 'none';
+        document.querySelector('#successView').classList.add('visible');
+      } catch {
+        status.className = 'status error';
+        status.textContent = 'Unable to contact the server.';
+      }
+    });
+  </script>
+</body>
+</html>

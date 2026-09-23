@@ -1,0 +1,241 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Team Chat";
+}
+
+<div class="chat-layout">
+  <!-- Left: Contacts Sidebar (Upline Sponsor & Downline Partners) -->
+  <aside class="chat-contacts">
+    <div class="chat-contacts-header">
+      <h2><i class="bi bi-chat-dots-fill"></i> Team Chat</h2>
+      <span class="badge-role">Real-Time</span>
+    </div>
+    
+    <div class="contacts-search">
+      <i class="bi bi-search"></i>
+      <input id="contactSearch" placeholder="Search team member..." aria-label="Search contacts">
+    </div>
+
+    <div class="contacts-list" id="contactsList">
+      <div class="empty-hint">Loading team contacts...</div>
+    </div>
+  </aside>
+
+  <!-- Right: Active Chat Area -->
+  <main class="chat-conversation">
+    <div class="conversation-header" id="chatHeader" style="display:none;">
+      <div class="chat-user-badge">
+        <div class="avatar" id="activeAvatar">U</div>
+        <div>
+          <h3 id="activeName">Select a contact</h3>
+          <span class="user-role-label" id="activeRole">Upline Sponsor</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="btn-whatsapp-direct" id="activeWhatsappBtn" target="_blank" rel="noopener" title="Open in WhatsApp">
+          <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="conversation-messages" id="chatMessages">
+      <div class="chat-placeholder" id="noContactSelected">
+        <i class="bi bi-chat-square-quote"></i>
+        <h3>Select a Team Member</h3>
+        <p>Chat directly with your sponsor mentor or direct team partners in your network.</p>
+      </div>
+    </div>
+
+    <form class="conversation-footer" id="chatSendForm" style="display:none;">
+      <input type="text" id="chatInput" placeholder="Type a message to your partner..." autocomplete="off" required>
+      <button type="submit" id="sendBtn"><i class="bi bi-send-fill"></i> Send</button>
+    </form>
+  </main>
+</div>
+
+@section Styles {
+<style>
+  :root { --dark: #0f172a; --deep: #0d0f12; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0; --paper: #fff; --bg: #f8fafc; --success: #16a34a; }
+  * { box-sizing: border-box; }
+
+  .chat-layout { display: grid; grid-template-columns: 310px 1fr; height: calc(100vh - 160px); min-height: 520px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 6px 24px rgba(0,0,0,.04); }
+  
+  /* Contacts */
+  .chat-contacts { border-right: 1px solid var(--line); background: #fafbfc; display: flex; flex-direction: column; }
+  .chat-contacts-header { padding: 18px 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; background: #fff; }
+  .chat-contacts-header h2 { margin: 0; font-size: 16px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  .badge-role { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #dcfce7; color: #15803d; text-transform: uppercase; }
+
+  .contacts-search { padding: 12px 16px; border-bottom: 1px solid var(--line); position: relative; background: #fff; }
+  .contacts-search i { position: absolute; left: 28px; top: 22px; color: var(--muted); font-size: 13px; }
+  .contacts-search input { width: 100%; height: 36px; padding-left: 32px; border: 1px solid var(--line); border-radius: 6px; font-size: 12.5px; background: #f8fafc; outline: none; }
+  .contacts-search input:focus { border-color: var(--dark); background: #fff; }
+
+  .contacts-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+  .contact-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background .15s; }
+  .contact-item:hover { background: #f1f5f9; }
+  .contact-item.active { background: #e2e8f0; }
+
+  .contact-avatar { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: #334155; color: #fff; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .contact-item.sponsor .contact-avatar { background: #0f172a; border: 2px solid #3b82f6; }
+
+  .contact-info { flex: 1; min-width: 0; }
+  .contact-name { font-size: 13px; font-weight: 600; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .contact-sub { font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  
+  .empty-hint { padding: 24px 16px; text-align: center; color: var(--muted); font-size: 13px; }
+
+  /* Conversation */
+  .chat-conversation { display: flex; flex-direction: column; background: #fff; }
+  .conversation-header { padding: 14px 24px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; background: #fafbfc; }
+  .chat-user-badge { display: flex; align-items: center; gap: 12px; }
+  .chat-user-badge .avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #0f172a; color: #fff; font-size: 15px; font-weight: 700; }
+  .chat-user-badge h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--dark); }
+  .user-role-label { font-size: 11.5px; color: var(--muted); }
+
+  .btn-whatsapp-direct { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 6px; background: #25d366; color: #fff; text-decoration: none; font-size: 12px; font-weight: 700; }
+  .btn-whatsapp-direct:hover { background: #128c7e; color: #fff; }
+
+  .conversation-messages { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; background: #fdfdfd; }
+  
+  .chat-placeholder { margin: auto; text-align: center; color: var(--muted); max-width: 320px; }
+  .chat-placeholder i { font-size: 42px; color: #cbd5e1; margin-bottom: 10px; display: block; }
+  .chat-placeholder h3 { margin: 0 0 6px; font-size: 16px; color: var(--dark); }
+  .chat-placeholder p { margin: 0; font-size: 13px; line-height: 1.5; }
+
+  .chat-msg { display: flex; flex-direction: column; max-width: 72%; }
+  .chat-msg.mine { align-self: flex-end; align-items: flex-end; }
+  .chat-msg.theirs { align-self: flex-start; align-items: flex-start; }
+
+  .msg-bubble { padding: 10px 14px; border-radius: 8px; font-size: 13.5px; line-height: 1.45; }
+  .chat-msg.mine .msg-bubble { background: #0f172a; color: #fff; border-top-right-radius: 2px; }
+  .chat-msg.theirs .msg-bubble { background: #f1f5f9; border: 1px solid var(--line); color: var(--ink); border-top-left-radius: 2px; }
+  
+  .msg-time { font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+
+  .conversation-footer { padding: 14px 20px; border-top: 1px solid var(--line); display: flex; gap: 10px; background: #fff; }
+  .conversation-footer input { flex: 1; height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 6px; font-size: 13.5px; outline: none; }
+  .conversation-footer input:focus { border-color: var(--dark); }
+  .conversation-footer button { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 20px; border: 0; border-radius: 6px; background: var(--dark); color: #fff; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: background .15s; }
+  .conversation-footer button:hover { background: #000; }
+
+  @@media (max-width: 768px) {
+    .chat-layout { grid-template-columns: 1fr; height: auto; }
+    .chat-contacts { max-height: 220px; }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+  let activeContact = null;
+
+  const loadContacts = async () => {
+    if (!token) return;
+    try {
+      const res = await fetch('/api/team-chat/contacts', { headers: authHeaders() });
+      const contacts = res.ok ? await res.json() : [];
+      const listEl = document.querySelector('#contactsList');
+
+      if (contacts.length === 0) {
+        listEl.innerHTML = '<div class="empty-hint">No team partners in your network yet.</div>';
+        return;
+      }
+
+      listEl.innerHTML = contacts.map((c) => {
+        const initial = (c.fullName || c.userId)[0].toUpperCase();
+        const isSponsor = c.role.includes('Upline');
+        return `<div class="contact-item ${isSponsor ? 'sponsor' : ''}" data-userid="${c.userId}" data-name="${c.fullName}" data-role="${c.role}">
+          <div class="contact-avatar">${initial}</div>
+          <div class="contact-info">
+            <div class="contact-name">${c.fullName}</div>
+            <div class="contact-sub">${c.role} &bull; ${c.rank}</div>
+          </div>
+        </div>`;
+      }).join('');
+
+      document.querySelectorAll('.contact-item').forEach((item) => {
+        item.addEventListener('click', () => {
+          document.querySelectorAll('.contact-item').forEach((ci) => ci.classList.remove('active'));
+          item.classList.add('active');
+          selectContact({
+            userId: item.dataset.userid,
+            name: item.dataset.name,
+            role: item.dataset.role
+          });
+        });
+      });
+
+      // Auto-select first contact (sponsor)
+      if (contacts.length > 0 && !activeContact) {
+        document.querySelector('.contact-item')?.click();
+      }
+    } catch {
+      document.querySelector('#contactsList').innerHTML = '<div class="empty-hint">Failed to load contacts.</div>';
+    }
+  };
+
+  const selectContact = (contact) => {
+    activeContact = contact;
+    document.querySelector('#chatHeader').style.display = 'flex';
+    document.querySelector('#chatSendForm').style.display = 'flex';
+    document.querySelector('#noContactSelected')?.remove();
+    
+    document.querySelector('#activeName').textContent = contact.name;
+    document.querySelector('#activeRole').textContent = contact.role;
+    document.querySelector('#activeAvatar').textContent = contact.name[0].toUpperCase();
+    document.querySelector('#activeWhatsappBtn').href = `https://wa.me/?text=Hi%20${encodeURIComponent(contact.name)}`;
+
+    loadThread(contact.userId);
+  };
+
+  const loadThread = async (otherUserId) => {
+    try {
+      const res = await fetch(`/api/team-chat/thread/${encodeURIComponent(otherUserId)}`, { headers: authHeaders() });
+      const messages = res.ok ? await res.json() : [];
+      const msgContainer = document.querySelector('#chatMessages');
+
+      if (messages.length === 0) {
+        msgContainer.innerHTML = `<div class="chat-placeholder">
+          <i class="bi bi-chat-dots"></i>
+          <h3>Start a conversation</h3>
+          <p>Send a message directly to ${activeContact.name}.</p>
+        </div>`;
+        return;
+      }
+
+      msgContainer.innerHTML = messages.map((m) => {
+        const cls = m.isMine ? 'mine' : 'theirs';
+        const timeStr = new Date(m.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return `<div class="chat-msg ${cls}">
+          <div class="msg-bubble">${m.message}</div>
+          <span class="msg-time">${timeStr}</span>
+        </div>`;
+      }).join('');
+
+      msgContainer.scrollTop = msgContainer.scrollHeight;
+    } catch {}
+  };
+
+  document.querySelector('#chatSendForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!activeContact) return;
+    const input = document.querySelector('#chatInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    input.value = '';
+    await fetch('/api/team-chat/send', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ recipientUserId: activeContact.userId, message: msg })
+    });
+
+    loadThread(activeContact.userId);
+  });
+
+  loadContacts();
+</script>
+}

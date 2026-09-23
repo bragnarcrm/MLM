@@ -1,0 +1,472 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Shopping & Product Catalog";
+}
+
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h1><i class="bi bi-shop"></i> Partner Store &amp; Starter Packs</h1>
+      <p class="subtitle">Purchase official ScaleEngine business kits, natural wellness products, or add them to your cart for direct card checkout.</p>
+    </div>
+    <div class="head-cart-actions">
+      <a href="product_cart.html" class="btn-head-cart" id="headCartBtn">
+        <i class="bi bi-cart3"></i> <span>View Cart</span>
+        <span class="cart-count-badge" id="cartCountBadge">0</span>
+      </a>
+      <a href="order-list.html" class="btn-head-orders"><i class="bi bi-receipt"></i> Orders</a>
+    </div>
+  </div>
+
+  <!-- Featured Products Catalog -->
+  <div class="catalog-grid">
+    <!-- Item 1 -->
+    <div class="product-item-card" data-id="1" data-name="Business Starter Kit" data-price="499" data-kit="true">
+      <div class="product-badge-top">STARTER PACK</div>
+      <div class="product-icon-box"><i class="bi bi-briefcase-fill"></i></div>
+      <div class="product-info-wrap">
+        <h3>Business Starter Kit</h3>
+        <p class="desc">Official partner onboarding kit. Includes starter tea samples, marketing brochures, compliance guides, and full backoffice license.</p>
+        <div class="price-row">
+          <strong class="price-tag">R 499.00</strong>
+          <small class="tax-tag">Incl. 15% VAT</small>
+        </div>
+      </div>
+      <div class="product-card-actions">
+        <div class="qty-pill">
+          <button type="button" class="btn-qty-minus">-</button>
+          <input type="number" class="input-qty" value="1" min="1" max="50">
+          <button type="button" class="btn-qty-plus">+</button>
+        </div>
+        <button type="button" class="btn-card-add-cart"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="product-item-card" data-id="2" data-name="Herbal Tea Pack (30 Bags)" data-price="199" data-kit="false">
+      <div class="product-badge-top wellness">BEST SELLER</div>
+      <div class="product-icon-box tea"><i class="bi bi-cup-hot-fill"></i></div>
+      <div class="product-info-wrap">
+        <h3>Herbal Tea Pack (30 Bags)</h3>
+        <p class="desc">A curated box of our best-selling botanical herbal infusions. Rich in antioxidants and formulated for daily wellness and stamina.</p>
+        <div class="price-row">
+          <strong class="price-tag">R 199.00</strong>
+          <small class="tax-tag">Incl. 15% VAT</small>
+        </div>
+      </div>
+      <div class="product-card-actions">
+        <div class="qty-pill">
+          <button type="button" class="btn-qty-minus">-</button>
+          <input type="number" class="input-qty" value="1" min="1" max="50">
+          <button type="button" class="btn-qty-plus">+</button>
+        </div>
+        <button type="button" class="btn-card-add-cart"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="product-item-card" data-id="3" data-name="Wellness &amp; Detox Bundle" data-price="799" data-kit="false">
+      <div class="product-badge-top bundle">BEST VALUE</div>
+      <div class="product-icon-box bundle"><i class="bi bi-heart-pulse-fill"></i></div>
+      <div class="product-info-wrap">
+        <h3>Wellness &amp; Detox Bundle</h3>
+        <p class="desc">Complete 90-day supply of daytime energy blends and evening detox teas bundled together at our highest partner discount tier.</p>
+        <div class="price-row">
+          <strong class="price-tag">R 799.00</strong>
+          <small class="tax-tag">Incl. 15% VAT</small>
+        </div>
+      </div>
+      <div class="product-card-actions">
+        <div class="qty-pill">
+          <button type="button" class="btn-qty-minus">-</button>
+          <input type="number" class="input-qty" value="1" min="1" max="50">
+          <button type="button" class="btn-qty-plus">+</button>
+        </div>
+        <button type="button" class="btn-card-add-cart"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Direct Order & Instant Card Checkout Panel -->
+<section class="panel order-panel" id="place-order">
+  <h2><i class="bi bi-credit-card-2-front"></i> Quick Direct Card Checkout</h2>
+  <p class="subtitle">Select a package below to place a direct purchase with your Card, Instant EFT, or Scale Wallet.</p>
+
+  <form id="orderForm">
+    <div class="quick-order-layout">
+      <div class="product-picker-grid" id="productPicker">
+        <label class="product-picker-card selected" data-product="Business Starter Kit" data-price="499">
+          <input type="radio" name="product" value="Business Starter Kit" checked>
+          <div class="picker-icon"><i class="bi bi-briefcase-fill"></i></div>
+          <div class="picker-info">
+            <strong>Business Starter Kit</strong>
+            <small>Starter packs, business catalog &amp; samples</small>
+          </div>
+          <span class="picker-price">R 499.00</span>
+        </label>
+
+        <label class="product-picker-card" data-product="Herbal Tea Pack (30 Bags)" data-price="199">
+          <input type="radio" name="product" value="Herbal Tea Pack (30 Bags)">
+          <div class="picker-icon"><i class="bi bi-cup-hot-fill"></i></div>
+          <div class="picker-info">
+            <strong>Herbal Tea Pack (30 Bags)</strong>
+            <small>Daily natural antioxidant &amp; energy tea</small>
+          </div>
+          <span class="picker-price">R 199.00</span>
+        </label>
+
+        <label class="product-picker-card" data-product="Wellness &amp; Detox Bundle" data-price="799">
+          <input type="radio" name="product" value="Wellness &amp; Detox Bundle">
+          <div class="picker-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+          <div class="picker-info">
+            <strong>Wellness &amp; Detox Bundle</strong>
+            <small>Full 90-day complete wellness range</small>
+          </div>
+          <span class="picker-price">R 799.00</span>
+        </label>
+      </div>
+
+      <!-- Checkout Summary Box -->
+      <div class="quick-summary-box">
+        <h3><i class="bi bi-receipt"></i> Order Summary</h3>
+        
+        <div class="field">
+          <label for="quantity">Quantity</label>
+          <input id="quantity" type="number" min="1" max="99" value="1" required>
+        </div>
+
+        <div class="field">
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod" required>
+            <option value="Card">Credit / Debit Card</option>
+            <option value="Instant EFT">Instant EFT</option>
+            <option value="Capitec Pay">Capitec Pay</option>
+            <option value="PayFast">PayFast Gateway</option>
+            <option value="Wallet">Scale Wallet Balance</option>
+          </select>
+        </div>
+
+        <div class="summary-line">
+          <span>Subtotal (Excl. VAT)</span>
+          <span id="quickSubtotal">R 433.91</span>
+        </div>
+        <div class="summary-line">
+          <span>VAT (15%)</span>
+          <span id="quickVat">R 65.09</span>
+        </div>
+        <div class="summary-line total-line">
+          <span>Total (Incl. VAT)</span>
+          <strong id="orderTotal">R 499.00</strong>
+        </div>
+
+        <div class="summary-actions">
+          <button type="submit" class="btn-checkout-direct" id="directOrderBtn">
+            <i class="bi bi-shield-check"></i> Place Order &amp; Pay Now
+          </button>
+          <button type="button" class="btn-add-to-cart-sec" id="addToCartSecBtn">
+            <i class="bi bi-cart-plus"></i> Add to Shopping Cart
+          </button>
+        </div>
+
+        <p class="order-status" id="orderStatus" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- Added to Cart Toast -->
+<div class="cart-toast" id="cartToast">
+  <i class="bi bi-check-circle-fill text-success"></i>
+  <span id="toastMsg">Product added to your cart!</span>
+  <a href="product_cart.html" class="btn-toast-view">View Cart &rarr;</a>
+</div>
+
+@section Styles {
+<style>
+  :root {
+    --dark: #0f172a;
+    --deep: #0d0f12;
+    --ink: #1e293b;
+    --muted: #64748b;
+    --paper: #fff;
+    --bg: #f8fafc;
+    --line: #e2e8f0;
+    --success: #16a34a;
+    --danger: #dc2626;
+  }
+  * { box-sizing: border-box; }
+
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); margin-bottom: 24px; }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .head-cart-actions { display: flex; gap: 10px; }
+  .btn-head-cart { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 16px; border: 1px solid var(--dark); border-radius: 6px; background: var(--dark); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; position: relative; }
+  .btn-head-cart:hover { background: #000; color: #fff; }
+  .cart-count-badge { display: inline-block; padding: 1px 7px; border-radius: 999px; background: #38bdf8; color: #0f172a; font-size: 11px; font-weight: 800; margin-left: 4px; }
+  
+  .btn-head-orders { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); font-size: 13px; font-weight: 600; text-decoration: none; }
+  .btn-head-orders:hover { background: #f8fafc; color: var(--dark); }
+
+  /* Catalog Grid */
+  .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .product-item-card { border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 22px 20px; display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: all .15s; }
+  .product-item-card:hover { border-color: #cbd5e1; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+
+  .product-badge-top { position: absolute; top: 14px; right: 14px; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; background: #0f172a; color: #fff; letter-spacing: .06em; }
+  .product-badge-top.wellness { background: #0284c7; }
+  .product-badge-top.bundle { background: #16a34a; }
+
+  .product-icon-box { width: 48px; height: 48px; border-radius: 10px; background: #0f172a; color: #fff; display: grid; place-items: center; font-size: 22px; margin-bottom: 16px; }
+  .product-icon-box.tea { background: #0284c7; }
+  .product-icon-box.bundle { background: #16a34a; }
+
+  .product-info-wrap h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: var(--dark); }
+  .product-info-wrap .desc { margin: 0 0 16px; font-size: 12.5px; color: var(--muted); line-height: 1.5; min-height: 56px; }
+  
+  .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 18px; border-top: 1px dashed var(--line); padding-top: 12px; }
+  .price-tag { font-size: 20px; font-weight: 800; color: var(--dark); }
+  .tax-tag { font-size: 11px; color: var(--muted); }
+
+  .product-card-actions { display: flex; gap: 8px; align-items: center; }
+  .qty-pill { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 6px; background: #f8fafc; overflow: hidden; height: 38px; }
+  .btn-qty-minus, .btn-qty-plus { width: 28px; height: 38px; border: 0; background: transparent; cursor: pointer; font-size: 14px; font-weight: 700; color: #475569; }
+  .btn-qty-minus:hover, .btn-qty-plus:hover { background: #e2e8f0; }
+  .input-qty { width: 36px; height: 38px; border: 0; background: transparent; text-align: center; font-size: 13px; font-weight: 700; color: var(--dark); outline: none; }
+
+  .btn-card-add-cart { flex: 1; height: 38px; border: 0; border-radius: 6px; background: var(--dark); color: #fff; font-size: 12.5px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background .15s; }
+  .btn-card-add-cart:hover { background: #000; }
+
+  /* Direct Checkout Section */
+  .order-panel h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  
+  .quick-order-layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; margin-top: 20px; align-items: start; }
+  .product-picker-grid { display: flex; flex-direction: column; gap: 12px; }
+  
+  .product-picker-card { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 2px solid var(--line); border-radius: 8px; background: #fdfdfd; cursor: pointer; position: relative; transition: all .15s; }
+  .product-picker-card:hover { border-color: #cbd5e1; }
+  .product-picker-card input { position: absolute; opacity: 0; }
+  .product-picker-card.selected { border-color: var(--dark); background: #f8fafc; box-shadow: 0 0 0 3px rgba(15, 23, 42, .06); }
+  
+  .picker-icon { width: 42px; height: 42px; border-radius: 8px; background: #0f172a; color: #fff; display: grid; place-items: center; font-size: 18px; flex-shrink: 0; }
+  .picker-info { flex: 1; }
+  .picker-info strong { display: block; font-size: 14px; color: var(--dark); }
+  .picker-info small { color: var(--muted); font-size: 12px; }
+  .picker-price { font-size: 16px; font-weight: 800; color: var(--dark); white-space: nowrap; }
+
+  .quick-summary-box { padding: 22px 20px; border: 1px solid var(--line); border-radius: 10px; background: #f8fafc; }
+  .quick-summary-box h3 { margin: 0 0 16px; font-size: 15px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .field label { font-size: 12.5px; font-weight: 600; color: #475569; }
+  .field input, .field select { width: 100%; height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; font-size: 13.5px; outline: none; background: #fff; }
+  .field input:focus, .field select:focus { border-color: var(--dark); }
+
+  .summary-line { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .summary-line.total-line { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; color: var(--dark); font-size: 14px; }
+  .total-line strong { font-size: 18px; font-weight: 800; color: var(--dark); }
+
+  .summary-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+  .btn-checkout-direct { width: 100%; height: 44px; border: 0; border-radius: 6px; background: var(--dark); color: #fff; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .15s; }
+  .btn-checkout-direct:hover { background: #000; }
+  .btn-add-to-cart-sec { width: 100%; height: 40px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--dark); font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .btn-add-to-cart-sec:hover { background: #f1f5f9; }
+
+  .order-status { margin: 12px 0 0; font-size: 13px; font-weight: 600; color: var(--success); }
+  .order-status.error { color: var(--danger); }
+
+  /* Floating Toast */
+  .cart-toast { position: fixed; bottom: 24px; right: 24px; z-index: 10000; background: #0f172a; color: #fff; padding: 14px 20px; border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0,0,0,.4); display: none; align-items: center; gap: 12px; font-size: 13.5px; animation: slideUp .2s ease-out; }
+  .cart-toast.show { display: flex; }
+  .btn-toast-view { color: #38bdf8; font-weight: 700; text-decoration: none; margin-left: 8px; }
+  .btn-toast-view:hover { text-decoration: underline; }
+
+  @@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @@media (max-width: 900px) { .catalog-grid { grid-template-columns: 1fr; } .quick-order-layout { grid-template-columns: 1fr; } }
+</style>
+}
+
+@section Scripts {
+<script>
+(() => {
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  const cartToast = document.querySelector('#cartToast');
+  const toastMsg = document.querySelector('#toastMsg');
+  const cartBadge = document.querySelector('#cartCountBadge');
+
+  const getCart = () => {
+    try {
+      return JSON.parse(localStorage.getItem('scale_cart') || '[]');
+    } catch { return []; }
+  };
+
+  const saveCart = (cart) => {
+    localStorage.setItem('scale_cart', JSON.stringify(cart));
+    updateCartCount();
+  };
+
+  const updateCartCount = () => {
+    const cart = getCart();
+    const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+    if (cartBadge) cartBadge.textContent = String(count);
+  };
+
+  updateCartCount();
+
+  const showToast = (message) => {
+    toastMsg.textContent = message;
+    cartToast.classList.add('show');
+    setTimeout(() => { cartToast.classList.remove('show'); }, 3000);
+  };
+
+  const addToCart = (productName, price, qty, isBusinessKit) => {
+    const cart = getCart();
+    const existing = cart.find(item => item.name === productName);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      cart.push({ name: productName, price, qty, isBusinessKit: !!isBusinessKit });
+    }
+    saveCart(cart);
+    showToast(`Added ${qty}x ${productName} to Cart!`);
+  };
+
+  // Setup catalog card +/- buttons
+  document.querySelectorAll('.product-item-card').forEach((card) => {
+    const qtyInput = card.querySelector('.input-qty');
+    const minusBtn = card.querySelector('.btn-qty-minus');
+    const plusBtn = card.querySelector('.btn-qty-plus');
+    const addBtn = card.querySelector('.btn-card-add-cart');
+
+    minusBtn.addEventListener('click', () => {
+      const val = Math.max(1, (Number(qtyInput.value) || 1) - 1);
+      qtyInput.value = val;
+    });
+
+    plusBtn.addEventListener('click', () => {
+      const val = (Number(qtyInput.value) || 1) + 1;
+      qtyInput.value = val;
+    });
+
+    addBtn.addEventListener('click', () => {
+      const name = card.dataset.name;
+      const price = Number(card.dataset.price);
+      const isKit = card.dataset.kit === 'true';
+      const qty = Math.max(1, Number(qtyInput.value) || 1);
+      addToCart(name, price, qty, isKit);
+    });
+  });
+
+  // Direct Order Form Logic
+  const orderForm = document.querySelector('#orderForm');
+  const quantity = document.querySelector('#quantity');
+  const total = document.querySelector('#orderTotal');
+  const subtotal = document.querySelector('#quickSubtotal');
+  const vat = document.querySelector('#quickVat');
+  const status = document.querySelector('#orderStatus');
+  const directBtn = document.querySelector('#directOrderBtn');
+  const addToCartSec = document.querySelector('#addToCartSecBtn');
+
+  const getSelectedProduct = () => {
+    const checked = document.querySelector('input[name="product"]:checked');
+    const card = checked ? checked.closest('.product-picker-card') : null;
+    return {
+      name: checked ? checked.value : 'Business Starter Kit',
+      price: card ? Number(card.dataset.price || 499) : 499,
+      isKit: checked && checked.value.includes('Starter Kit')
+    };
+  };
+
+  const updateQuickTotal = () => {
+    const selected = getSelectedProduct();
+    const qty = Math.max(1, Number(quantity.value || 1));
+    const gross = selected.price * qty;
+    const net = Math.round((gross / 1.15) * 100) / 100;
+    const vatAmount = Math.round((gross - net) * 100) / 100;
+
+    subtotal.textContent = `R ${net.toFixed(2)}`;
+    vat.textContent = `R ${vatAmount.toFixed(2)}`;
+    total.textContent = `R ${gross.toFixed(2)}`;
+  };
+
+  document.querySelectorAll('.product-picker-card').forEach((label) => {
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.product-picker-card').forEach((c) => c.classList.remove('selected'));
+      label.classList.add('selected');
+      updateQuickTotal();
+    });
+  });
+
+  quantity.addEventListener('input', updateQuickTotal);
+  updateQuickTotal();
+
+  addToCartSec.addEventListener('click', () => {
+    const selected = getSelectedProduct();
+    const qty = Math.max(1, Number(quantity.value || 1));
+    addToCart(selected.name, selected.price, qty, selected.isKit);
+  });
+
+  orderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!orderForm.checkValidity()) { orderForm.reportValidity(); return; }
+
+    const selected = getSelectedProduct();
+    const qty = Math.max(1, Number(quantity.value || 1));
+    const gross = selected.price * qty;
+    const paymentMethod = document.querySelector('#paymentMethod').value;
+
+    if (paymentMethod === 'PayFast') {
+      window.location.href = `payfast-checkout.html?type=store&amount=${gross}&product=${encodeURIComponent(selected.name)}`;
+      return;
+    }
+
+    directBtn.disabled = true;
+    status.className = 'order-status';
+    status.textContent = 'Processing your order & generating tax invoice...';
+
+    try {
+      // Record Purchase
+      await fetch('/api/purchases', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({
+          productName: selected.name,
+          amount: selected.price,
+          isBusinessKit: selected.isKit,
+          quantity: qty,
+          paymentMethod
+        })
+      });
+
+      // Record Order
+      const orderRes = await fetch('/api/orders', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({
+          amount: gross,
+          shippingFee: 0,
+          paymentMethod
+        })
+      });
+
+      if (!orderRes.ok) throw new Error('Order recording failed');
+
+      status.innerHTML = `Order placed successfully! <a href="order-list.html" style="color:#15803d; font-weight:700; text-decoration:underline;">View Order &amp; Tax Invoice &rarr;</a>`;
+      quantity.value = '1';
+      updateQuickTotal();
+    } catch (err) {
+      status.className = 'order-status error';
+      status.textContent = err.message || 'Unable to place order.';
+    } finally {
+      directBtn.disabled = false;
+    }
+  });
+})();
+</script>
+}
+
+

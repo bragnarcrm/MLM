@@ -1,0 +1,563 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Messages";
+}
+
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h1><i class="bi bi-envelope-paper-fill"></i> Partner Mailbox</h1>
+      <p class="subtitle">Direct internal messaging between sponsors, team partners, and platform desks.</p>
+    </div>
+    <button type="button" class="btn-compose-top" id="topComposeBtn">
+      <i class="bi bi-pencil-square"></i> Compose Mail
+    </button>
+  </div>
+
+  <!-- Mail Navigation Tabs -->
+  <div class="mail-nav-tabs">
+    <button type="button" class="mail-tab-btn active" id="tabInbox" data-tab="inbox">
+      <i class="bi bi-inbox-fill"></i> Inbox
+      <span class="tab-badge" id="inboxUnreadBadge" style="display:none;">0</span>
+    </button>
+    <button type="button" class="mail-tab-btn" id="tabSent" data-tab="sent">
+      <i class="bi bi-send-check-fill"></i> Sent Messages
+    </button>
+    <button type="button" class="mail-tab-btn" id="tabCompose" data-tab="compose">
+      <i class="bi bi-pencil-fill"></i> Compose
+    </button>
+  </div>
+
+  <!-- Inbox / Sent View -->
+  <div class="mailbox-view" id="mailboxView">
+    <div class="mailbox-toolbar">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input id="mailSearch" placeholder="Search by sender, recipient, subject, or message...">
+      </div>
+      <div class="toolbar-actions">
+        <button type="button" class="btn-tool" id="refreshMailBtn" title="Refresh mailbox"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+        <button type="button" class="btn-tool" id="markAllReadBtn" title="Mark all as read"><i class="bi bi-check2-all text-primary"></i> Mark All Read</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="mail-table">
+        <thead>
+          <tr>
+            <th style="width:110px;">Status</th>
+            <th style="width:200px;" id="partyHeader">From</th>
+            <th>Subject &amp; Preview</th>
+            <th style="width:150px;">Date &amp; Time</th>
+            <th style="width:140px; text-align:right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="mailRows">
+          <tr><td colspan="5" class="empty-cell">Loading your messages...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer" id="mailFooter">
+      <span id="mailCount">Showing 0 messages</span>
+      <span class="pager">
+        <button type="button" id="prevMailPage" disabled>Previous</button>
+        <button type="button" id="nextMailPage" disabled>Next</button>
+      </span>
+    </div>
+  </div>
+
+  <!-- Compose Form View -->
+  <div class="compose-view" id="composeView" style="display:none;">
+    <form id="mailComposeForm">
+      <div class="quick-recipients">
+        <span class="quick-label">Quick Contacts:</span>
+        <button type="button" class="recipient-pill" data-recipient="bhekaragnar"><i class="bi bi-person-badge"></i> Bheka Luthuli (Sponsor)</button>
+        <button type="button" class="recipient-pill" data-recipient="support"><i class="bi bi-headset"></i> Support Desk</button>
+        <button type="button" class="recipient-pill" data-recipient="finance"><i class="bi bi-cash-coin"></i> Commission Desk</button>
+      </div>
+
+      <div class="field">
+        <label for="composeRecipient">Recipient User ID *</label>
+        <input id="composeRecipient" placeholder="Enter recipient username (e.g. bhekaragnar or demo-member-02)" required>
+      </div>
+
+      <div class="field">
+        <label for="composeSubject">Subject *</label>
+        <input id="composeSubject" placeholder="Message subject" required>
+      </div>
+
+      <div class="field">
+        <label for="composeBody">Message *</label>
+        <textarea id="composeBody" rows="6" placeholder="Write your message here..." required></textarea>
+      </div>
+
+      <div class="compose-actions">
+        <button type="submit" class="btn-send-mail" id="sendMailSubmitBtn"><i class="bi bi-send-fill"></i> Send Message</button>
+        <button type="button" class="btn-cancel-compose" id="cancelComposeBtn">Cancel</button>
+        <span class="status-msg" id="composeStatus"></span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- View Message Modal -->
+<div class="scale-modal-backdrop" id="messageModal" aria-hidden="true">
+  <div class="scale-modal-dialog">
+    <header class="modal-header">
+      <div>
+        <div class="modal-status-badge" id="modalStatusBadge">
+          <i class="bi bi-check2-all text-primary"></i> <span id="modalStatusText">Read</span>
+        </div>
+        <h2 id="modalSubject">Message Subject</h2>
+      </div>
+      <button class="modal-close" type="button" id="closeMsgModalBtn" aria-label="Close dialog">&times;</button>
+    </header>
+
+    <div class="modal-body">
+      <div class="message-meta-box">
+        <div class="meta-avatar" id="modalAvatar">S</div>
+        <div class="meta-info">
+          <div><strong id="modalPartyName">Sender Name</strong> &bull; <code id="modalPartyId">user_id</code></div>
+          <small id="modalDate">2026-09-18 10:30</small>
+        </div>
+      </div>
+
+      <div class="message-content-box" id="modalBody">
+        Message body text...
+      </div>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="button" class="btn-reply" id="modalReplyBtn"><i class="bi bi-reply-fill"></i> Reply</button>
+      <button type="button" class="btn-delete" id="modalDeleteBtn"><i class="bi bi-trash3"></i> Delete</button>
+      <button type="button" class="btn-secondary-action" id="modalCloseBtn">Close</button>
+    </footer>
+  </div>
+</div>
+
+@section Styles {
+<style>
+  :root { --dark: #0f172a; --deep: #0d0f12; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0; --paper: #fff; --bg: #f8fafc; --success: #16a34a; --danger: #dc2626; --accent-blue: #0284c7; }
+  * { box-sizing: border-box; }
+
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 9px; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .btn-compose-top { display: inline-flex; align-items: center; gap: 7px; height: 42px; padding: 0 18px; border: 0; border-radius: 6px; color: white; background: var(--dark); cursor: pointer; font-size: 13.5px; font-weight: 600; transition: background .15s; }
+  .btn-compose-top:hover { background: #000; }
+
+  /* Tabs */
+  .mail-nav-tabs { display: flex; gap: 10px; margin-bottom: 22px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+  .mail-tab-btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .mail-tab-btn:hover { background: #f8fafc; }
+  .mail-tab-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+  
+  .tab-badge { display: inline-block; padding: 1px 7px; border-radius: 999px; background: #ef4444; color: #fff; font-size: 11px; font-weight: 700; margin-left: 2px; }
+  .mail-tab-btn.active .tab-badge { background: #fff; color: #0f172a; }
+
+  /* Toolbar */
+  .mailbox-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 14px; flex-wrap: wrap; }
+  .search-box { position: relative; flex: 1; max-width: 480px; }
+  .search-box i { position: absolute; left: 14px; top: 12px; color: var(--muted); font-size: 14px; }
+  .search-box input { width: 100%; height: 38px; padding-left: 38px; padding-right: 14px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px; outline: none; background: #fdfdfd; }
+  .search-box input:focus { border-color: var(--dark); background: #fff; }
+
+  .toolbar-actions { display: flex; gap: 8px; }
+  .btn-tool { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+  .btn-tool:hover { background: #f8fafc; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+  .mail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .mail-table th, .mail-table td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; }
+  .mail-table th { background: #f8fafc; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .mail-table tbody tr { cursor: pointer; transition: background .12s; }
+  .mail-table tbody tr:hover { background: #f8fafc; }
+  .mail-table tbody tr.unread { background: #f0f9ff; }
+  .mail-table tbody tr.unread:hover { background: #e0f2fe; }
+  .empty-cell { padding: 36px 14px; text-align: center; color: var(--muted); }
+
+  /* Read / Unread Blue Ticket Badges */
+  .badge-read-ticket { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+  .badge-read-ticket i { font-size: 14px; color: #0284c7; }
+  
+  .badge-unread-ticket { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+  .badge-unread-ticket i { font-size: 12px; color: #d97706; }
+
+  .party-cell { display: flex; align-items: center; gap: 10px; }
+  .party-avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #334155; color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .party-name { font-weight: 600; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+
+  .subject-wrap { display: flex; flex-direction: column; gap: 2px; }
+  .subject-title { font-size: 13.5px; color: var(--dark); }
+  tr.unread .subject-title { font-weight: 700; color: #0f172a; }
+  .subject-preview { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 360px; }
+
+  .btn-msg-view { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: var(--dark); font-size: 12px; font-weight: 600; cursor: pointer; }
+  .btn-msg-view:hover { background: #f1f5f9; }
+  .btn-msg-delete { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid #fecaca; border-radius: 5px; background: #fff; color: #dc2626; cursor: pointer; margin-left: 4px; }
+  .btn-msg-delete:hover { background: #fee2e2; }
+
+  /* Compose */
+  .compose-view { padding: 10px 0; }
+  .quick-recipients { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .quick-label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+  .recipient-pill { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: #f8fafc; color: var(--ink); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .recipient-pill:hover { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .field label { font-size: 13px; font-weight: 600; color: #334155; }
+  .field input, .field textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; font: 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; outline: none; background: #fdfdfd; }
+  .field input:focus, .field textarea:focus { border-color: var(--dark); background: #fff; box-shadow: 0 0 0 3px rgba(15, 23, 42, .1); }
+
+  .compose-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .btn-send-mail { display: inline-flex; align-items: center; gap: 7px; height: 44px; padding: 0 24px; border: 0; border-radius: 6px; color: #fff; background: var(--dark); font-size: 14px; font-weight: 700; cursor: pointer; transition: background .15s; }
+  .btn-send-mail:hover { background: #000; }
+  .btn-cancel-compose { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--muted); font-size: 13.5px; font-weight: 600; cursor: pointer; }
+
+  .status-msg { font-size: 13px; font-weight: 600; color: var(--success); }
+  .status-msg.error { color: var(--danger); }
+
+  /* Reading Modal */
+  .scale-modal-backdrop { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 999999 !important; display: none; justify-content: center; align-items: center; padding: 20px; background: rgba(15, 23, 42, .7); }
+  .scale-modal-backdrop.is-open { display: flex !important; }
+  .scale-modal-dialog { position: relative !important; z-index: 1000000 !important; width: 100%; max-width: 640px; margin: auto; background: #fff; border-radius: 12px; border: 1px solid var(--line); box-shadow: 0 25px 50px -12px rgba(0,0,0,.35); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; pointer-events: auto !important; }
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 24px 16px; border-bottom: 1px solid var(--line); background: #f8fafc; pointer-events: auto !important; }
+  .modal-header h2 { margin: 6px 0 0; font-size: 17px; font-weight: 800; color: var(--dark); }
+  .modal-status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: #0284c7; }
+  .modal-close { border: 0; background: transparent; font-size: 24px; cursor: pointer; color: var(--muted); padding: 0; line-height: 1; pointer-events: auto !important; }
+  .modal-close:hover { color: var(--dark); }
+
+  .modal-body { padding: 20px 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; pointer-events: auto !important; }
+  .message-meta-box { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 8px; background: #f1f5f9; border: 1px solid var(--line); }
+  .meta-avatar { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: #0f172a; color: #fff; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .meta-info { flex: 1; font-size: 13px; color: var(--dark); }
+  .meta-info small { color: var(--muted); display: block; margin-top: 1px; }
+
+  .message-content-box { font-size: 14px; line-height: 1.6; color: #334155; white-space: pre-wrap; padding: 6px 4px; min-height: 100px; }
+
+  .modal-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-top: 1px solid var(--line); background: #f8fafc; pointer-events: auto !important; }
+  .btn-reply { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 18px; border-radius: 6px; border: 0; background: var(--dark); color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; pointer-events: auto !important; }
+  .btn-reply:hover { background: #000; }
+  .btn-delete { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: 6px; border: 1px solid #fecaca; background: #fff; color: #dc2626; font-size: 13px; font-weight: 600; cursor: pointer; pointer-events: auto !important; }
+  .btn-delete:hover { background: #fee2e2; }
+  .btn-secondary-action { height: 40px; padding: 0 16px; border-radius: 6px; border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; pointer-events: auto !important; }
+  .btn-secondary-action:hover { background: #f1f5f9; color: var(--dark); }
+
+  @@media (max-width: 650px) {
+    .panel { padding: 22px 18px; }
+    .mailbox-toolbar { flex-direction: column; align-items: stretch; }
+    .search-box { max-width: 100%; }
+  }
+</style>
+}
+}
+
+@section Scripts {
+<script>
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  let currentTab = 'inbox'; // 'inbox', 'sent', 'compose'
+  let cachedMessages = [];
+  let activeMessage = null;
+
+  const tabInbox = document.querySelector('#tabInbox');
+  const tabSent = document.querySelector('#tabSent');
+  const tabCompose = document.querySelector('#tabCompose');
+  const topComposeBtn = document.querySelector('#topComposeBtn');
+
+  const mailboxView = document.querySelector('#mailboxView');
+  const composeView = document.querySelector('#composeView');
+  const messageModal = document.querySelector('#messageModal');
+
+  // Hoist modal to body root to avoid any parent stacking context issues
+  if (messageModal && messageModal.parentElement !== document.body) {
+    document.body.appendChild(messageModal);
+  }
+
+  // Tab switching
+  const switchTab = (tab) => {
+    currentTab = tab;
+    tabInbox.classList.toggle('active', tab === 'inbox');
+    tabSent.classList.toggle('active', tab === 'sent');
+    tabCompose.classList.toggle('active', tab === 'compose');
+
+    if (tab === 'compose') {
+      mailboxView.style.display = 'none';
+      composeView.style.display = 'block';
+    } else {
+      composeView.style.display = 'none';
+      mailboxView.style.display = 'block';
+      document.querySelector('#partyHeader').textContent = tab === 'inbox' ? 'From' : 'To (Recipient)';
+      loadMessages();
+    }
+    window.location.hash = tab;
+  };
+
+  tabInbox.addEventListener('click', () => switchTab('inbox'));
+  tabSent.addEventListener('click', () => switchTab('sent'));
+  tabCompose.addEventListener('click', () => switchTab('compose'));
+  topComposeBtn.addEventListener('click', () => switchTab('compose'));
+
+  // Quick recipient buttons
+  document.querySelectorAll('.recipient-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelector('#composeRecipient').value = btn.dataset.recipient;
+      document.querySelector('#composeSubject').focus();
+    });
+  });
+
+  // Load Messages from API
+  const loadMessages = async () => {
+    if (!token) return;
+    const rowsEl = document.querySelector('#mailRows');
+    const endpoint = currentTab === 'sent' ? '/api/messages/sent' : '/api/messages/inbox';
+
+    try {
+      const res = await fetch(endpoint, { headers: authHeaders() });
+      const data = res.ok ? await res.json() : { items: [] };
+      cachedMessages = data.items || [];
+
+      // Update unread count badge
+      const unreadCount = cachedMessages.filter((m) => !m.isRead).length;
+      const unreadBadge = document.querySelector('#inboxUnreadBadge');
+      if (currentTab === 'inbox' && unreadCount > 0) {
+        unreadBadge.textContent = String(unreadCount);
+        unreadBadge.style.display = 'inline-block';
+      } else if (currentTab === 'inbox') {
+        unreadBadge.style.display = 'none';
+      }
+
+      renderMessageRows(cachedMessages);
+    } catch {
+      rowsEl.innerHTML = '<tr><td colspan="5" class="empty-cell">Unable to load messages.</td></tr>';
+    }
+  };
+
+  const renderMessageRows = (messages) => {
+    const rowsEl = document.querySelector('#mailRows');
+    const filterTerm = (document.querySelector('#mailSearch').value || '').toLowerCase().trim();
+
+    const filtered = messages.filter((m) => {
+      if (!filterTerm) return true;
+      return (
+        (m.senderName || '').toLowerCase().includes(filterTerm) ||
+        (m.senderUserId || '').toLowerCase().includes(filterTerm) ||
+        (m.recipient || '').toLowerCase().includes(filterTerm) ||
+        (m.subject || '').toLowerCase().includes(filterTerm) ||
+        (m.body || '').toLowerCase().includes(filterTerm)
+      );
+    });
+
+    document.querySelector('#mailCount').textContent = `Showing ${filtered.length} ${currentTab === 'inbox' ? 'inbox' : 'sent'} message(s)`;
+
+    if (filtered.length === 0) {
+      rowsEl.innerHTML = `<tr><td colspan="5" class="empty-cell">No ${currentTab === 'inbox' ? 'inbox' : 'sent'} messages to display.</td></tr>`;
+      return;
+    }
+
+    rowsEl.innerHTML = filtered.map((m) => {
+      const isInbox = currentTab === 'inbox';
+      const isUnread = isInbox && !m.isRead;
+      const partyDisplayName = isInbox ? (m.senderName || m.senderUserId || 'System') : m.recipient;
+      const initial = (partyDisplayName[0] || 'U').toUpperCase();
+      const timeStr = new Date(m.sentAt).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      // Blue ticket indicator for Read vs Unread
+      const statusBadge = isUnread
+        ? `<span class="badge-unread-ticket"><i class="bi bi-envelope-fill"></i> New</span>`
+        : `<span class="badge-read-ticket" title="Blue Ticket: Opened & Read"><i class="bi bi-check2-all"></i> Read</span>`;
+
+      return `<tr class="${isUnread ? 'unread' : ''}" data-id="${m.id}">
+        <td>${statusBadge}</td>
+        <td>
+          <div class="party-cell">
+            <div class="party-avatar">${initial}</div>
+            <div class="party-name" title="${partyDisplayName}">${partyDisplayName}</div>
+          </div>
+        </td>
+        <td>
+          <div class="subject-wrap">
+            <div class="subject-title">${m.subject}</div>
+            <div class="subject-preview">${m.body}</div>
+          </div>
+        </td>
+        <td style="color:var(--muted); font-size:12px;">${timeStr}</td>
+        <td style="text-align:right;">
+          <button type="button" class="btn-msg-view" data-id="${m.id}"><i class="bi bi-eye"></i> View</button>
+          <button type="button" class="btn-msg-delete" data-id="${m.id}" title="Delete message"><i class="bi bi-trash3"></i></button>
+        </td>
+      </tr>`;
+    }).join('');
+
+    // Wire row clicks & buttons
+    rowsEl.querySelectorAll('tr').forEach((row) => {
+      row.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-msg-delete')) return;
+        const id = Number(row.dataset.id);
+        const msg = cachedMessages.find((item) => item.id === id);
+        if (msg) openMessageModal(msg);
+      });
+    });
+
+    rowsEl.querySelectorAll('.btn-msg-delete').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const id = Number(btn.dataset.id);
+        if (!confirm('Delete this message?')) return;
+        await fetch(`/api/messages/${id}`, { method: 'DELETE', headers: authHeaders() });
+        loadMessages();
+      });
+    });
+  };
+
+  // Open & Read Message Modal
+  const openMessageModal = async (msg) => {
+    activeMessage = msg;
+    const subjectEl = document.querySelector('#modalSubject');
+    const partyNameEl = document.querySelector('#modalPartyName');
+    const partyIdEl = document.querySelector('#modalPartyId');
+    const avatarEl = document.querySelector('#modalAvatar');
+    const dateEl = document.querySelector('#modalDate');
+    const bodyEl = document.querySelector('#modalBody');
+    const statusBadge = document.querySelector('#modalStatusBadge');
+
+    if (subjectEl) subjectEl.textContent = msg.subject;
+    if (partyNameEl) partyNameEl.textContent = currentTab === 'inbox' ? (msg.senderName || msg.senderUserId) : `To: ${msg.recipient}`;
+    if (partyIdEl) partyIdEl.textContent = currentTab === 'inbox' ? msg.senderUserId : msg.recipient;
+    if (avatarEl) avatarEl.textContent = ((msg.senderName || msg.senderUserId || 'U')[0]).toUpperCase();
+    if (dateEl) dateEl.textContent = new Date(msg.sentAt).toLocaleString();
+    if (bodyEl) bodyEl.textContent = msg.body;
+    if (statusBadge) statusBadge.innerHTML = '<i class="bi bi-check2-all text-primary" style="font-size:16px;"></i> <span>Opened / Read</span>';
+
+    messageModal.classList.add('is-open');
+    messageModal.setAttribute('aria-hidden', 'false');
+
+    // Mark as read in backend if in inbox
+    if (currentTab === 'inbox' && !msg.isRead) {
+      msg.isRead = true;
+      fetch(`/api/messages/${msg.id}/read`, { method: 'PUT', headers: authHeaders() }).catch(() => {});
+      
+      // Update header notification dot if unread is 0
+      const remainingUnread = cachedMessages.filter((m) => !m.isRead).length;
+      const notifBadge = document.querySelector('#headerNotifBadge');
+      if (notifBadge) {
+        if (remainingUnread > 0) {
+          notifBadge.textContent = String(remainingUnread);
+          notifBadge.style.display = 'grid';
+        } else {
+          notifBadge.style.display = 'none';
+        }
+      }
+    }
+  };
+
+  const closeMessageModal = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    messageModal.classList.remove('is-open');
+    messageModal.setAttribute('aria-hidden', 'true');
+    activeMessage = null;
+    loadMessages();
+  };
+
+  document.querySelector('#closeMsgModalBtn').addEventListener('click', closeMessageModal);
+  document.querySelector('#modalCloseBtn').addEventListener('click', closeMessageModal);
+  document.querySelector('#messageModal .scale-modal-dialog')?.addEventListener('click', (e) => e.stopPropagation());
+  messageModal.addEventListener('click', (e) => {
+    if (e.target === messageModal) closeMessageModal(e);
+  });
+
+  // Reply button in modal
+  document.querySelector('#modalReplyBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!activeMessage) return;
+    const targetRecipient = currentTab === 'inbox' ? activeMessage.senderUserId : activeMessage.recipient;
+    const targetSubject = activeMessage.subject.startsWith('Re:') ? activeMessage.subject : `Re: ${activeMessage.subject}`;
+    const origBody = `\n\n--- Original Message from ${activeMessage.senderName || activeMessage.senderUserId} ---\n${activeMessage.body}`;
+    
+    closeMessageModal();
+    switchTab('compose');
+    document.querySelector('#composeRecipient').value = targetRecipient;
+    document.querySelector('#composeSubject').value = targetSubject;
+    document.querySelector('#composeBody').value = origBody;
+    document.querySelector('#composeBody').focus();
+  });
+
+  // Delete from modal
+  document.querySelector('#modalDeleteBtn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!activeMessage) return;
+    const msgId = activeMessage.id;
+    closeMessageModal();
+    try {
+      await fetch(`/api/messages/${msgId}`, { method: 'DELETE', headers: authHeaders() });
+    } catch { }
+    cachedMessages = cachedMessages.filter((m) => m.id !== msgId);
+    renderMessageRows(cachedMessages);
+    loadMessages();
+  });
+
+  // Mark all read button
+  document.querySelector('#markAllReadBtn').addEventListener('click', async () => {
+    const unreadMsgs = cachedMessages.filter((m) => !m.isRead);
+    for (const m of unreadMsgs) {
+      await fetch(`/api/messages/${m.id}/read`, { method: 'PUT', headers: authHeaders() });
+    }
+    loadMessages();
+  });
+
+  document.querySelector('#refreshMailBtn').addEventListener('click', loadMessages);
+  document.querySelector('#mailSearch').addEventListener('input', () => renderMessageRows(cachedMessages));
+
+  // Compose Submit
+  document.querySelector('#mailComposeForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const statusEl = document.querySelector('#composeStatus');
+    const recipient = document.querySelector('#composeRecipient').value.trim();
+    const subject = document.querySelector('#composeSubject').value.trim();
+    const body = document.querySelector('#composeBody').value.trim();
+
+    statusEl.className = 'status-msg';
+    statusEl.textContent = 'Sending message...';
+
+    try {
+      const res = await fetch('/api/messages', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ recipient, subject, body })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        statusEl.textContent = data.message || 'Message sent successfully!';
+        document.querySelector('#mailComposeForm').reset();
+        setTimeout(() => {
+          statusEl.textContent = '';
+          switchTab('sent');
+        }, 600);
+      } else {
+        statusEl.className = 'status-msg error';
+        statusEl.textContent = data.message || 'Failed to send message.';
+      }
+    } catch {
+      statusEl.className = 'status-msg error';
+      statusEl.textContent = 'Unable to connect to server.';
+    }
+  });
+
+  document.querySelector('#cancelComposeBtn').addEventListener('click', () => switchTab('inbox'));
+
+  // Route hash handling
+  if (window.location.hash === '#sent') switchTab('sent');
+  else if (window.location.hash === '#compose') switchTab('compose');
+  else switchTab('inbox');
+</script>
+}

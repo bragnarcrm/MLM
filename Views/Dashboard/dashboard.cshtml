@@ -1,0 +1,102 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-content">
+        <div class="welcome"><h1>Dashboard</h1><p>Welcome back, samkeliso ndlangamandla</p></div>
+        <div class="notice" id="notice"><span>?? <strong>Your account is not activated!</strong> Please pay your Activation Fee of <strong>R90</strong>. <a href="activation.html" id="payNow">Pay Now</a></span><button class="close" id="closeNotice" aria-label="Dismiss notice">�</button></div>
+        <div class="status-panel"><section class="panel sales-status"><h2>Personal Sales Status</h2><div class="inactive"><span class="inactive-badge">�</span> INACTIVE</div><p>You need to meet your monthly personal sales to become active and earn commissions.</p></section><section class="panel progress-panel"><small>This Month</small><h3>Personal Sales Progress</h3><div class="progress-value">R0 / R720</div><div class="progress-bar"><span></span></div><div class="remaining">Remaining to Activate: <strong>R720</strong></div></section></div>
+        <div class="metrics" id="metrics"></div>
+        <div class="section-grid"><section class="panel section"><h2>Rank Summary</h2><table><tbody><tr><td>Current Rank (Month)</td><td>N/A</td></tr><tr><td>Current Rank</td><td>N/A</td></tr><tr><td>Next Rank</td><td>Newbie</td></tr><tr><td>Active Referrals Needed</td><td>0</td></tr><tr><td>Team Sales Needed</td><td>R0</td></tr><tr><td>Personal Sales Needed</td><td>R720</td></tr></tbody></table></section><section class="panel section"><h2>Current Qualification Team Sales</h2><table><thead><tr><th>Level</th><th>Sales</th></tr></thead><tbody><tr><td>Level 1</td><td>R0.00</td></tr><tr><td>Level 2</td><td>R0.00</td></tr><tr><td>Level 3</td><td>R0.00</td></tr><tr><td>Level 4</td><td>R0.00</td></tr><tr><td>Level 5</td><td>R0.00</td></tr><tr><td>Total</td><td>0</td></tr></tbody></table></section></div>
+        <div class="section-grid"><section class="panel section"><h2>Personal Information</h2><table><tbody><tr><td>User ID</td><td>samkelisojam</td></tr><tr><td>Name</td><td>samkeliso ndlangamandla</td></tr><tr><td>E-mail</td><td>samkelisojam285@@gmail.com</td></tr><tr><td>Mobile</td><td>768313287</td></tr><tr><td>Rank</td><td>N/A</td></tr></tbody></table></section><section class="panel section"><h2>Sponsor Information</h2><table><tbody><tr><td>User ID</td><td>bhekaragnar</td></tr><tr><td>Name</td><td>Bheka Luthuli</td></tr><tr><td>Rank</td><td>N/A</td></tr></tbody></table></section></div>
+        <div class="section-grid"><section class="panel section"><h2>Current Pending Withdrawal</h2><div class="tools"><select aria-label="Show entries"><option>10</option><option>25</option><option>50</option></select><input placeholder="Search" aria-label="Search withdrawals"></div><table><thead><tr><th>Date</th><th>Amount (R)</th></tr></thead><tbody><tr><td class="empty" colspan="2">No data available in table</td></tr></tbody></table></section><section class="panel section"><h2>Direct Referrals</h2><div class="tools"><select aria-label="Show referral entries"><option>10</option><option>25</option><option>50</option></select><input id="referralSearch" placeholder="Search" aria-label="Search referrals"></div><table><thead><tr><th>Username</th><th>Name</th><th>Status</th></tr></thead><tbody id="referralRows"><tr><td class="empty" colspan="3">No data available in table</td></tr></tbody></table></section></div>
+      </div>
+
+@section Styles {
+<style>
+:root { --green: #24272b; --deep: #14161a; --ink: #26372f; --muted: #78827c; --paper: #fff; --bg: #f4f7f4; --line: #e2e8e3; --warning: #fff5da; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--bg); font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body.dark { --bg: #17231d; --paper: #223229; --ink: #edf4ee; --muted: #aab9ae; --line: #385144; --warning: #4d4127; }
+    .shell { min-height: 100vh; display: flex; }
+    aside { width: 248px; flex: 0 0 248px; padding: 22px 14px; color: #dce9de; background: var(--deep); transition: width .2s, flex-basis .2s; }
+    aside.collapsed { width: 62px; flex-basis: 62px; }
+    aside.collapsed .brand span, aside.collapsed nav a span, aside.collapsed .nav-label { display: none; }
+    aside.collapsed .brand { padding-left: 3px; }
+    aside.collapsed nav a { justify-content: center; padding: 0; }
+    .brand { display: flex; align-items: center; gap: 11px; padding: 8px 10px 27px; color: #fff; font: italic 700 25px Georgia, serif; }
+    .brand-mark { width: 29px; height: 35px; border-radius: 100% 0 100% 0; background: #4b9d42; transform: rotate(-25deg); }
+    nav a, .nav-label { display: flex; align-items: center; gap: 12px; min-height: 42px; padding: 0 12px; border-radius: 5px; color: inherit; text-decoration: none; font-size: 13px; }
+    nav a:hover, nav a.active { color: #fff; background: rgba(255,255,255,.13); }
+    .icon { width: 20px; text-align: center; font-size: 16px; }
+    .nav-label { margin-top: 14px; color: #8daf98; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .main { min-width: 0; flex: 1; }
+    header { min-height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; border-bottom: 1px solid var(--line); background: var(--paper); }
+    .menu { border: 0; color: var(--ink); background: transparent; cursor: pointer; font-size: 23px; }
+    .top-actions { display: flex; align-items: center; gap: 19px; color: var(--muted); }
+    .top-actions button, .top-actions a { border: 0; color: inherit; background: transparent; cursor: pointer; font-size: 18px; text-decoration: none; }
+    .profile { display: flex; align-items: center; gap: 9px; color: var(--ink); font-size: 13px; }
+    .avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: #fff; background: #5b8b68; font-size: 12px; }
+    main { max-width: 1500px; margin: 0 auto; padding: 24px 28px 50px; }
+    .welcome { margin-bottom: 18px; }
+    h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 5px; color: var(--ink); font-size: 25px; } .welcome p { margin: 0; color: var(--muted); font-size: 13px; }
+    .notice { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; padding: 12px 16px; border: 1px solid #eedb9c; border-radius: 5px; color: #684f12; background: var(--warning); font-size: 13px; }
+    .notice a { margin-left: 8px; color: #8b6711; font-weight: 700; } .close { border: 0; color: inherit; background: transparent; cursor: pointer; font-size: 20px; }
+    .status-panel { display: grid; grid-template-columns: minmax(240px, 1fr) 1.4fr; gap: 20px; margin-bottom: 20px; }
+    .panel, .metric { border: 1px solid var(--line); border-radius: 7px; background: var(--paper); box-shadow: 0 3px 14px rgba(37, 62, 45, .04); }
+    .sales-status { padding: 20px; } .sales-status h2 { margin-bottom: 14px; font-size: 17px; } .inactive { display: flex; align-items: center; gap: 12px; color: #bd4a42; font-size: 22px; font-weight: 700; } .inactive-badge { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #fff; background: #d56a61; }
+    .sales-status p { margin: 13px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .progress-panel { padding: 20px; } .progress-panel small { color: var(--muted); } .progress-panel h3 { margin: 7px 0; font-size: 14px; } .progress-value { margin: 10px 0 8px; font-size: 24px; font-weight: 700; } .progress-bar { height: 9px; overflow: hidden; border-radius: 9px; background: #e5ece6; } .progress-bar span { display: block; width: 0; height: 100%; background: var(--green); } .remaining { margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; } .remaining strong { color: var(--ink); }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 20px; } .metric { display: block; padding: 17px; color: var(--ink); text-decoration: none; } .metric:hover { border-color: #93b49a; } .metric .metric-icon { float: right; color: #8caf91; font-size: 20px; } .metric strong { display: block; margin-bottom: 5px; font-size: 21px; } .metric span { color: var(--muted); font-size: 12px; }
+    .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; } .section { padding: 19px; } .section h2 { margin-bottom: 16px; font-size: 16px; } table { width: 100%; border-collapse: collapse; font-size: 12px; } th, td { padding: 10px 7px; border-bottom: 1px solid var(--line); text-align: left; } th { color: var(--muted); font-size: 11px; font-weight: 600; } td:last-child, th:last-child { text-align: right; } .empty { padding: 20px 7px; color: var(--muted); text-align: center; }
+    .tools { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 10px; } .tools input, .tools select { min-height: 34px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--paper); } .tools input { width: 160px; }
+    footer { padding: 20px 28px; color: var(--muted); font-size: 11px; }
+    @@media (max-width: 950px) { aside { width: 62px; flex-basis: 62px; } aside .brand span, aside nav a span, aside .nav-label { display: none; } .brand { padding-left: 3px; } nav a { justify-content: center; padding: 0; } .status-panel, .section-grid { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @@media (max-width: 580px) { aside { display: none; } header, main { padding-left: 16px; padding-right: 16px; } .metrics { grid-template-columns: 1fr 1fr; gap: 8px; } .metric { padding: 13px; } .metric strong { font-size: 17px; } .notice { align-items: flex-start; } }
+</style>
+}
+
+@section Scripts {
+<script>
+  (() => {
+    const metricData = [['R0.0', 'Total Earned', 'bi-graph-up-arrow', 'my-income.html'], ['R0.0', 'Total Withdrawal', 'bi-graph-down-arrow', 'withdrawal-summary.html'], ['R0.00', 'Ewallet', 'bi-wallet2', 'ewallet.html'], ['0', 'Direct Referrals', 'bi-people', 'my-referrals.html'], ['R0.0', 'Direct Referral Bonus', 'bi-gift', 'direct-referral-bonus.html'], ['R0.0', 'Direct Commission', 'bi-cash-stack', 'my-commission.html'], ['R0.0', 'Level Bonus', 'bi-award', 'level-bonus.html'], ['N/A', 'Your Rank', 'bi-trophy', 'rank-history.html']];
+    document.querySelector('#metrics').innerHTML = metricData.map(([value, label, icon, href]) => `<a class="metric" href="${href}"><i class="bi ${icon} metric-icon"></i><strong>${value}</strong><span>${label}</span></a>`).join('');
+    document.querySelector('#closeNotice')?.addEventListener('click', () => document.querySelector('#notice')?.remove());
+    document.querySelector('#payNow')?.addEventListener('click', () => { window.location.href = 'activation.html'; });
+    const renderReferrals = (referrals) => { document.querySelector('#referralRows').innerHTML = referrals.length ? referrals.map((referral) => `<tr><td>${referral.userId}</td><td>${referral.fullName}</td><td>${referral.status}</td></tr>`).join('') : '<tr><td class="empty" colspan="3">No data available in table</td></tr>'; };
+    document.querySelector('#referralSearch')?.addEventListener('input', (event) => { const search = event.target.value.toLowerCase(); renderReferrals((window.dashboardReferrals || []).filter((referral) => `${referral.userId} ${referral.fullName} ${referral.status}`.toLowerCase().includes(search))); });
+    const token = localStorage.getItem('vitality.accessToken');
+    window.dashboardReferrals = [];
+    if (token) {
+      const headers = { Authorization: `Bearer ${token}` };
+      Promise.all([
+        fetch('/api/profile', { headers }),
+        fetch('/api/dashboard/summary', { headers }),
+        fetch('/api/network/referrals?pageSize=50', { headers })
+      ]).then(async ([profileResponse, summaryResponse, referralsResponse]) => [
+        profileResponse.ok ? await profileResponse.json() : null,
+        summaryResponse.ok ? await summaryResponse.json() : null,
+        referralsResponse.ok ? await referralsResponse.json() : null
+      ]).then(([profile, summary, referrals]) => {
+        if (profile) {
+          const fullName = `${profile.firstName} ${profile.lastName}`;
+          document.querySelector('.welcome p').textContent = `Welcome back, ${fullName}`;
+        }
+        if (summary) {
+          metricData[0][0] = `R${summary.totalEarned.toFixed(2)}`;
+          metricData[1][0] = `R${summary.totalWithdrawal.toFixed(2)}`;
+          metricData[2][0] = `R${summary.ewalletBalance.toFixed(2)}`;
+          metricData[3][0] = String(summary.directReferrals);
+          metricData[7][0] = summary.currentRank;
+          document.querySelector('#metrics').innerHTML = metricData.map(([value, label, icon, href]) => `<a class="metric" href="${href}"><i class="bi ${icon} metric-icon"></i><strong>${value}</strong><span>${label}</span></a>`).join('');
+        }
+        window.dashboardReferrals = referrals?.items || [];
+        renderReferrals(window.dashboardReferrals);
+      });
+    }
+  })();
+</script>
+}
+
+

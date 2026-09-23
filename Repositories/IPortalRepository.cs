@@ -1,0 +1,62 @@
+using VitalityPortal.Models.Common;
+using VitalityPortal.Models.Members;
+using VitalityPortal.Models.Portal;
+
+namespace VitalityPortal.Repositories;
+
+public interface IPortalRepository
+{
+    IReadOnlyList<ReferralDto> GetReferrals();
+    ReferralDto? GetReferralById(int id);
+    void AddReferral(ReferralDto referral);
+    bool UpdateReferral(int id, UpdateReferralRequest request);
+    bool DeleteReferral(int id);
+    TreeNodeDto GetTree(string userId);
+    bool IsInDownline(string ownerId, string targetUserId);
+    IReadOnlyList<GenealogySearchResultDto> SearchDownline(string ownerId, string? query);
+    TeamPerformanceDto GetTeamPerformance(string ownerId);
+    bool ReassignReferral(string userId, string newSponsorId);
+    BulkImportResultDto ImportMembers(string sponsorId, IReadOnlyList<ImportMemberRow> rows);
+    IReadOnlyList<string> GetSponsorChain(string userId, int maxDepth);
+    IReadOnlyList<CommissionDto> GetCommissions(string ownerUserId, string category);
+    void AddCommission(CreateCommissionRequest commission);
+    bool ApproveMatureCommissions(TimeSpan holdPeriod);
+    IReadOnlyList<LevelTurnoverDto> GetLevelTurnover(string ownerUserId);
+    IReadOnlyList<WalletTransactionDto> GetTransactions(string userId);
+    void AddTransaction(string userId, WalletTransactionDto transaction);
+    IReadOnlyList<WithdrawalDto> GetWithdrawals(string userId);
+    void AddWithdrawal(string userId, WithdrawalDto withdrawal);
+    bool CancelWithdrawal(string userId, int id);
+    PayoutSettingsDto GetPayoutSettings();
+    void SavePayoutSettings(PayoutSettingsDto settings);
+    IReadOnlyList<PurchaseDto> GetPurchases(string userId);
+    void AddPurchase(string userId, CreatePurchaseRequest purchase);
+    IReadOnlyList<OrderDto> GetOrders(string userId);
+    void AddOrder(string userId, CreateOrderRequest order);
+    IReadOnlyList<RankHistoryDto> GetRankHistory(string userId);
+    void AddRankHistory(string userId, RankHistoryDto history);
+    void SetReferralActive(string userId);
+    IReadOnlyList<PortalMessageDto> GetInbox(string userId);
+    IReadOnlyList<PortalMessageDto> GetSentMessages(string userId);
+    OperationResult AddMessage(string senderUserId, string senderName, SendMessageRequest message);
+    OperationResult MarkMessageAsRead(string userId, int messageId);
+    OperationResult DeleteMessage(string userId, int messageId);
+    IReadOnlyList<ZoomMeetingDto> GetMeetings();
+    IReadOnlyList<PortalContentDto> GetContent(string type);
+    void AddContent(CreateContentRequest content);
+    KycStatusDto GetKycStatus(string userId);
+    OperationResult SubmitKyc(string userId, SubmitKycRequest request);
+    void SetKycStatus(string userId, string status, string? reviewNotes = null);
+    IReadOnlyList<SupportTicketDto> GetSupportTickets(string userId);
+    SupportTicketDetailDto? GetSupportTicketDetails(string userId, int ticketId);
+    OperationResult CreateSupportTicket(string userId, string userName, CreateTicketRequest request);
+    OperationResult ReplySupportTicket(string userId, string userName, int ticketId, ReplyTicketRequest request);
+    OperationResult CloseSupportTicket(string userId, int ticketId);
+    IReadOnlyList<AutoShipDto> GetAutoShips(string userId);
+    OperationResult AddAutoShip(string userId, CreateAutoShipRequest request);
+    OperationResult UpdateAutoShipStatus(string userId, int id, string status);
+    OperationResult DeleteAutoShip(string userId, int id);
+    IReadOnlyList<TeamChatContactDto> GetChatContacts(string userId);
+    IReadOnlyList<TeamChatMessageDto> GetChatThread(string userId, string otherUserId);
+    OperationResult SendChatMessage(string userId, string senderName, SendTeamChatRequest request);
+}

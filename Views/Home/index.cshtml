@@ -1,0 +1,932 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScaleEngine &bull; Cloud MLM Software &amp; Automated Network Marketing SaaS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --dark: #0f172a;
+      --deep: #080a0d;
+      --card-bg: #11151c;
+      --card-border: #1e2633;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-blue: #0284c7;
+      --accent-green: #10b981;
+      --purple: #8b5cf6;
+      --gold: #f59e0b;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--deep);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Top Navigation */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 10, 13, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 0;
+    }
+
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #0f172a);
+      border: 1px solid #0284c7;
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 0 16px rgba(2, 132, 199, 0.35);
+    }
+
+    .brand-text strong { display: block; font-size: 18px; font-weight: 800; letter-spacing: -.02em; }
+    .brand-text span { font-size: 9.5px; font-weight: 700; letter-spacing: .14em; color: var(--accent); text-transform: uppercase; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color .15s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-login-nav {
+      padding: 8px 18px;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all .15s;
+    }
+    .btn-login-nav:hover { background: rgba(255,255,255,.08); color: #fff; }
+
+    .btn-demo-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-demo-nav:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(56,189,248,.3); color:#fff; }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 90px 24px 80px;
+      max-width: 1240px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin: 0 auto 20px;
+      max-width: 960px;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 740px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(2, 132, 199, 0.35);
+      transition: all .15s ease;
+    }
+    .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(2, 132, 199, 0.5); color:#fff; }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 52px;
+      padding: 0 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: #f1f5f9;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all .15s ease;
+    }
+    .btn-hero-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: #475569; color: #fff; }
+
+    /* Stats Grid */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .stat-pill {
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      background: var(--card-bg);
+      padding: 22px 18px;
+      text-align: center;
+    }
+
+    .stat-pill strong { display: block; font-size: 26px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+    .stat-pill span { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+
+    /* Section Global */
+    .section-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 34px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 12px;
+      letter-spacing: -.02em;
+    }
+
+    .section-desc {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* SaaS Architecture Feature Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      background: var(--card-bg);
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      transition: transform .15s, border-color .15s;
+    }
+    .feature-card:hover { transform: translateY(-4px); border-color: #38bdf8; }
+
+    .feature-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #1e293b;
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .feature-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 8px; }
+    .feature-card p { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin: 0; }
+
+    /* SaaS Subscription Pricing Grid */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .pricing-card {
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      background: var(--card-bg);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: #0284c7;
+      background: #0f172a;
+      box-shadow: 0 0 35px rgba(2, 132, 199, 0.25);
+      transform: scale(1.03);
+    }
+
+    .pricing-badge-top {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 12px;
+      border-radius: 999px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .pricing-card h3 { font-size: 20px; font-weight: 800; color: #fff; margin: 0 0 4px; }
+    .pricing-desc { font-size: 13px; color: var(--muted); margin: 0 0 20px; min-height: 38px; }
+
+    .price-value { font-size: 38px; font-weight: 900; color: #fff; margin-bottom: 6px; }
+    .price-value small { font-size: 14px; color: var(--muted); font-weight: 600; }
+
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13.5px;
+      color: #cbd5e1;
+    }
+    .pricing-features li { display: flex; align-items: center; gap: 8px; }
+    .pricing-features li i { color: var(--accent-green); font-size: 16px; flex-shrink: 0; }
+
+    .btn-pricing-plan {
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #334155;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all .15s ease;
+    }
+    .btn-pricing-plan:hover { background: #fff; color: #0f172a; }
+    .pricing-card.featured .btn-pricing-plan {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border: 0;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4);
+    }
+    .pricing-card.featured .btn-pricing-plan:hover { filter: brightness(1.1); color: #fff; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      background: #080a0d;
+      padding: 60px 24px 30px;
+    }
+
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul a { color: var(--muted); text-decoration: none; font-size: 13px; }
+    .footer-col ul a:hover { color: #fff; }
+
+    .footer-bottom {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @@media (max-width: 980px) {
+      .features-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 36px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .pricing-card.featured { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand-logo" href="/">
+        <div class="brand-badge"><i class="bi bi-cpu-fill"></i></div>
+        <div class="brand-text">
+          <strong>ScaleEngine</strong>
+          <span>MLM SAAS PLATFORM</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features">Architecture</a>
+        <a href="#pricing">SaaS Subscriptions</a>
+        <a href="#faq">FAQ</a>
+        <a href="support.html">Contact Us</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-demo-nav" id="topRequestDemoBtn" type="button"><i class="bi bi-rocket-takeoff-fill"></i> Request 30-Day Demo</button>
+        <a class="btn-login-nav" href="login.html"><i class="bi bi-box-arrow-in-right"></i> Sign In</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-badge"><i class="bi bi-clouds-fill"></i> Next-Gen Multi-Tenant MLM Cloud Engine</div>
+      <h1>Launch &amp; Scale Your Own Multi-Level Marketing Company</h1>
+      <p>ScaleEngine is the all-in-one White-Label MLM SaaS platform. Automate matrix &amp; binary compensation plans, real-time commission payouts, downline trees, PayFast gateways, and AI-powered partner coaching.</p>
+
+      <div class="hero-ctas">
+        <button class="btn-hero-primary" id="heroRequestDemoBtn" type="button">
+          <i class="bi bi-rocket-takeoff-fill"></i> Request 30-Day Free Demo Sandbox
+        </button>
+        <a class="btn-hero-secondary" href="#features">
+          <i class="bi bi-cpu-fill" style="color:#38bdf8;"></i> Explore SaaS Architecture
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-pill">
+          <strong>100% White-Label</strong>
+          <span>Your Brand, Logo &amp; Colors</span>
+        </div>
+        <div class="stat-pill">
+          <strong>7-Level Matrix</strong>
+          <span>Real-Time Commission Math</span>
+        </div>
+        <div class="stat-pill">
+          <strong>Built-In AI</strong>
+          <span>GPT-4o Partner Copilot</span>
+        </div>
+        <div class="stat-pill">
+          <strong>30 Days Free</strong>
+          <span>Instant Sandboxed Tenant</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SaaS Features & Architecture -->
+    <section id="features" style="border-top: 1px solid var(--card-border); background: #0c0f14;">
+      <div class="section-container">
+        <div class="section-head">
+          <span class="section-label">Enterprise Architecture</span>
+          <h2 class="section-title">Everything You Need to Run a Global MLM</h2>
+          <p class="section-desc">From complex qualification rules to automated SARS tax invoices and PayFast payments, ScaleEngine handles the complete backoffice infrastructure.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-box"><i class="bi bi-diagram-3-fill"></i></div>
+            <h3>Dynamic Compensation Engine</h3>
+            <p>Configure direct sponsor bonuses, unilevel overrides (up to 7 levels), leadership salaries, rank advancement incentives, and auto-ship qualification rules with zero code.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box"><i class="bi bi-palette-fill"></i></div>
+            <h3>Instant Multi-Tenant Rebranding</h3>
+            <p>White-label every aspect of the portal. Set your company name, custom HEX palette, currency symbols, starter kit products, and domain with a single click.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box"><i class="bi bi-robot"></i></div>
+            <h3>AI Partner Copilot (GPT-4o)</h3>
+            <p>Every partner gets a 24/7 AI business mentor grounded in their live downline stats, sales turnover, qualification gap analysis, and WhatsApp prospecting scripts.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box"><i class="bi bi-credit-card-2-front-fill"></i></div>
+            <h3>South African &amp; Global Gateways</h3>
+            <p>Built-in integration for PayFast, Credit/Debit Cards, Instant EFT, Capitec Pay, SnapScan, and internal E-Wallet peer-to-peer settlement.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box"><i class="bi bi-file-earmark-check-fill"></i></div>
+            <h3>FICA, KYC &amp; Tax Compliance</h3>
+            <p>Document verification portal for partner identity checks, SARS-compliant automated tax invoices, and printable leadership salary payslips.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box"><i class="bi bi-chat-left-text-fill"></i></div>
+            <h3>Internal Messaging &amp; Blue Tickets</h3>
+            <p>Built-in partner mailbox with read/verified blue ticket tracking, real-time team chat channels, and automated push notification counters.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SaaS Subscription Pricing -->
+    <section id="pricing">
+      <div class="section-container">
+        <div class="section-head">
+          <span class="section-label">Flexible SaaS Licensing</span>
+          <h2 class="section-title">Transparent Monthly Subscriptions</h2>
+          <p class="section-desc">Start with our 30-day free sandbox demo, then choose the plan that matches your network distributor volume.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Starter Plan -->
+          <div class="pricing-card">
+            <h3>Starter MLM</h3>
+            <p class="pricing-desc">For emerging network marketing startups and direct sales brands.</p>
+            <div class="price-value">R 1,499 <small>/ month</small></div>
+            <ul class="pricing-features">
+              <li><i class="bi bi-check-circle-fill"></i> Up to 500 Active Members</li>
+              <li><i class="bi bi-check-circle-fill"></i> 5-Level Compensation Plan</li>
+              <li><i class="bi bi-check-circle-fill"></i> PayFast &amp; Card Gateway</li>
+              <li><i class="bi bi-check-circle-fill"></i> Custom Brand &amp; Colors</li>
+              <li><i class="bi bi-check-circle-fill"></i> E-Wallet &amp; Direct Withdrawals</li>
+              <li><i class="bi bi-check-circle-fill"></i> Standard Email Support</li>
+            </ul>
+            <button type="button" class="btn-pricing-plan" onclick="window.openRequestDemoModal('Starter Plan')">Request 30-Day Demo</button>
+          </div>
+
+          <!-- Growth / Pro Plan -->
+          <div class="pricing-card featured">
+            <span class="pricing-badge-top">Most Popular</span>
+            <h3>Scale Pro</h3>
+            <p class="pricing-desc">For established MLM companies scaling across South Africa and Africa.</p>
+            <div class="price-value">R 3,999 <small>/ month</small></div>
+            <ul class="pricing-features">
+              <li><i class="bi bi-check-circle-fill"></i> Up to 5,000 Active Members</li>
+              <li><i class="bi bi-check-circle-fill"></i> 7-Level Matrix &amp; Binary Plans</li>
+              <li><i class="bi bi-check-circle-fill"></i> GPT-4o AI Partner Copilot</li>
+              <li><i class="bi bi-check-circle-fill"></i> Custom Domain (e.g. yourbrand.com)</li>
+              <li><i class="bi bi-check-circle-fill"></i> Auto-Ship Subscriptions Engine</li>
+              <li><i class="bi bi-check-circle-fill"></i> FICA / KYC Document Portal</li>
+              <li><i class="bi bi-check-circle-fill"></i> Priority 24/7 WhatsApp Support</li>
+            </ul>
+            <button type="button" class="btn-pricing-plan" onclick="window.openRequestDemoModal('Scale Pro Plan')">Launch 30-Day Trial</button>
+          </div>
+
+          <!-- Enterprise Plan -->
+          <div class="pricing-card">
+            <h3>Enterprise Global</h3>
+            <p class="pricing-desc">For high-volume international multi-tier organizations.</p>
+            <div class="price-value">R 8,999 <small>/ month</small></div>
+            <ul class="pricing-features">
+              <li><i class="bi bi-check-circle-fill"></i> Unlimited Members &amp; Transactions</li>
+              <li><i class="bi bi-check-circle-fill"></i> Custom Rank &amp; Incentive Engine</li>
+              <li><i class="bi bi-check-circle-fill"></i> Multi-Currency (ZAR, USD, NGN, EUR)</li>
+              <li><i class="bi bi-check-circle-fill"></i> Dedicated Cloud Database Instance</li>
+              <li><i class="bi bi-check-circle-fill"></i> Custom API Webhooks &amp; ERP Sync</li>
+              <li><i class="bi bi-check-circle-fill"></i> Dedicated Account Manager &amp; SLA</li>
+            </ul>
+            <button type="button" class="btn-pricing-plan" onclick="window.openRequestDemoModal('Enterprise Plan')">Contact Enterprise Sales</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" style="border-top: 1px solid var(--card-border); background: #0c0f14;">
+      <div class="section-container">
+        <div class="section-head">
+          <span class="section-label">Common Questions</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+          <div style="padding: 22px 26px; border: 1px solid var(--card-border); border-radius: 10px; background: var(--card-bg);">
+            <h4 style="margin:0 0 8px; font-size:16px; color:#fff;">How does the 30-Day Free Demo Sandbox work?</h4>
+            <p style="margin:0; font-size:13.5px; color:var(--muted); line-height:1.5;">When you request a demo, you answer a few quick questions (company name, industry, preferred color theme, and test admin credentials). Our engine automatically rebrands the entire platform, seeds sample downlines and store products, and gives you full administrative access for 30 days.</p>
+          </div>
+
+          <div style="padding: 22px 26px; border: 1px solid var(--card-border); border-radius: 10px; background: var(--card-bg);">
+            <h4 style="margin:0 0 8px; font-size:16px; color:#fff;">Can I customize the compensation plan rules?</h4>
+            <p style="margin:0; font-size:13.5px; color:var(--muted); line-height:1.5;">Yes. The compensation engine calculates multi-tier overrides, direct bonuses, maturity hold periods (e.g. 7-day commission vesting), and monthly leadership qualification salaries according to your business rules.</p>
+          </div>
+
+          <div style="padding: 22px 26px; border: 1px solid var(--card-border); border-radius: 10px; background: var(--card-bg);">
+            <h4 style="margin:0 0 8px; font-size:16px; color:#fff;">What payment gateways are supported?</h4>
+            <p style="margin:0; font-size:13.5px; color:var(--muted); line-height:1.5;">ScaleEngine supports PayFast for South African credit/debit cards, Instant EFT, Capitec Pay, SnapScan, and peer-to-peer wallet balances, as well as Stripe and PayPal for international payments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 30-Day Demo Request & Rebrand Modal -->
+  <div class="scale-modal-backdrop" id="requestDemoModal" aria-hidden="true" style="display:none; position:fixed; inset:0; z-index:999999; background:rgba(8,10,13,0.8); backdrop-filter:blur(6px); justify-content:center; align-items:center; padding:16px;">
+    <div class="scale-modal-dialog" style="position:relative; width:100%; max-width:680px; max-height:92vh; overflow-y:auto; background:#fff; border-radius:14px; border:1px solid #cbd5e1; box-shadow:0 25px 60px -15px rgba(0,0,0,.5); color:#1e293b;">
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 24px; border-bottom:1px solid #e2e8f0; background:#f8fafc;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px; height:40px; border-radius:10px; background:#0284c7; color:#fff; display:grid; place-items:center; font-size:20px;">
+            <i class="bi bi-rocket-takeoff-fill"></i>
+          </div>
+          <div>
+            <h2 style="margin:0; font-size:18px; font-weight:800; color:#0f172a;">Request 30-Day Free MLM Sandbox Demo</h2>
+            <small style="color:#64748b; font-size:12px;">Rebrand the platform and generate your 30-day credentials instantly</small>
+          </div>
+        </div>
+        <button type="button" id="closeRequestDemoBtn" style="border:0; background:transparent; font-size:24px; cursor:pointer; color:#64748b; line-height:1;">&times;</button>
+      </div>
+
+      <form id="demoRequestForm" style="padding:24px;">
+        <!-- Step 1: Industry Preset -->
+        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em;">
+          1. What industry will your MLM run in?
+        </label>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px; margin-bottom:20px;">
+          <button type="button" class="demo-niche-btn selected" data-niche="wellness" style="padding:12px 8px; border:2px solid #0284c7; border-radius:8px; background:#f0f9ff; cursor:pointer; text-align:center; font-size:12px; font-weight:700; color:#0f172a;">
+            <i class="bi bi-heart-pulse-fill" style="color:#10b981; font-size:20px; display:block; margin-bottom:4px;"></i>
+            Health &amp; Wellness
+          </button>
+          <button type="button" class="demo-niche-btn" data-niche="beauty" style="padding:12px 8px; border:1px solid #cbd5e1; border-radius:8px; background:#f8fafc; cursor:pointer; text-align:center; font-size:12px; font-weight:700; color:#0f172a;">
+            <i class="bi bi-gem" style="color:#e11d48; font-size:20px; display:block; margin-bottom:4px;"></i>
+            Beauty &amp; Cosmetics
+          </button>
+          <button type="button" class="demo-niche-btn" data-niche="crypto" style="padding:12px 8px; border:1px solid #cbd5e1; border-radius:8px; background:#f8fafc; cursor:pointer; text-align:center; font-size:12px; font-weight:700; color:#0f172a;">
+            <i class="bi bi-currency-bitcoin" style="color:#8b5cf6; font-size:20px; display:block; margin-bottom:4px;"></i>
+            Crypto &amp; Forex
+          </button>
+          <button type="button" class="demo-niche-btn" data-niche="solar" style="padding:12px 8px; border:1px solid #cbd5e1; border-radius:8px; background:#f8fafc; cursor:pointer; text-align:center; font-size:12px; font-weight:700; color:#0f172a;">
+            <i class="bi bi-sun-fill" style="color:#f59e0b; font-size:20px; display:block; margin-bottom:4px;"></i>
+            Solar &amp; Energy
+          </button>
+        </div>
+
+        <!-- Step 2: Custom Company Name & Slogan -->
+        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em;">
+          2. Your MLM Company Name &amp; Slogan
+        </label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px;">
+          <div>
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#475569; margin-bottom:5px;">Company / Brand Name *</label>
+            <input id="demoCompanyName" style="width:100%; height:42px; padding:0 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" placeholder="e.g. Aura Vitality Network" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#475569; margin-bottom:5px;">Company Slogan *</label>
+            <input id="demoCompanySlogan" style="width:100%; height:42px; padding:0 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" placeholder="e.g. HEALTH & WEALTH REVOLUTION" required>
+          </div>
+        </div>
+
+        <!-- Step 3: Color Palette -->
+        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em;">
+          3. Brand Primary Color
+        </label>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap;">
+          <button type="button" class="demo-color-choice" data-color="#0284c7" data-accent="#38bdf8" style="width:34px; height:34px; border-radius:50%; background:#0284c7; border:2px solid #fff; box-shadow:0 0 0 2px #0284c7; cursor:pointer;" title="Royal Blue"></button>
+          <button type="button" class="demo-color-choice" data-color="#10b981" data-accent="#34d399" style="width:34px; height:34px; border-radius:50%; background:#10b981; border:2px solid #fff; box-shadow:0 0 0 1px #cbd5e1; cursor:pointer;" title="Emerald Green"></button>
+          <button type="button" class="demo-color-choice" data-color="#8b5cf6" data-accent="#a78bfa" style="width:34px; height:34px; border-radius:50%; background:#8b5cf6; border:2px solid #fff; box-shadow:0 0 0 1px #cbd5e1; cursor:pointer;" title="Violet Purple"></button>
+          <button type="button" class="demo-color-choice" data-color="#e11d48" data-accent="#fb7185" style="width:34px; height:34px; border-radius:50%; background:#e11d48; border:2px solid #fff; box-shadow:0 0 0 1px #cbd5e1; cursor:pointer;" title="Ruby Red"></button>
+          <button type="button" class="demo-color-choice" data-color="#f59e0b" data-accent="#fbbf24" style="width:34px; height:34px; border-radius:50%; background:#f59e0b; border:2px solid #fff; box-shadow:0 0 0 1px #cbd5e1; cursor:pointer;" title="Amber Gold"></button>
+          <label style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:#64748b; margin-left:8px; cursor:pointer;">
+            Custom: <input type="color" id="demoCustomColor" value="#0284c7" style="width:34px; height:34px; border:0; padding:0; border-radius:6px; cursor:pointer;">
+          </label>
+        </div>
+
+        <!-- Step 4: 30-Day Credentials -->
+        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em;">
+          4. Create Your 30-Day Demo Administrator Account
+        </label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px;">
+          <div>
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#475569; margin-bottom:5px;">Admin Username *</label>
+            <input id="demoAdminUser" style="width:100%; height:42px; padding:0 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" value="samkelisojam" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#475569; margin-bottom:5px;">Admin Password *</label>
+            <input id="demoAdminPass" type="password" style="width:100%; height:42px; padding:0 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" value="password1" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#475569; margin-bottom:5px;">Your Email *</label>
+            <input id="demoAdminEmail" type="email" style="width:100%; height:42px; padding:0 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" value="samkelisojam285@gmail.com" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#475569; margin-bottom:5px;">Currency Code</label>
+            <select id="demoCurrency" style="width:100%; height:42px; padding:0 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px; background:#fff;">
+              <option value="R">ZAR (R) &mdash; South African Rand</option>
+              <option value="$">USD ($) &mdash; US Dollar</option>
+              <option value="�">EUR (�) &mdash; Euro</option>
+              <option value="�">GBP (�) &mdash; British Pound</option>
+              <option value="?">NGN (?) &mdash; Nigerian Naira</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 30-Day Expiry Notice -->
+        <div style="padding:12px 16px; border-radius:8px; background:#f0fdf4; border:1px solid #bbf7d0; display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+          <i class="bi bi-clock-history text-success" style="font-size:20px;"></i>
+          <span style="font-size:12.5px; color:#166534;"><strong>30-Day Sandbox Guarantee:</strong> Full backoffice access with live downline trees, commission simulations, and AI copilot active until <strong>October 18, 2026</strong>.</span>
+        </div>
+
+        <button type="submit" id="submitDemoRequestBtn" style="width:100%; height:48px; border:0; border-radius:8px; background:linear-gradient(135deg, #0284c7, #38bdf8); color:#fff; font-size:14.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+          <i class="bi bi-rocket-takeoff-fill"></i> Provision 30-Day Rebranded Sandbox &amp; Enter
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="brand-logo" style="margin-bottom:14px;">
+          <div class="brand-badge"><i class="bi bi-cpu-fill"></i></div>
+          <div class="brand-text">
+            <strong>ScaleEngine</strong>
+            <span>MLM SAAS PLATFORM</span>
+          </div>
+        </div>
+        <p style="color:var(--muted); font-size:13px; max-width:320px;">
+          Next-generation White-Label MLM cloud platform. Empowering direct sales companies with automated matrix compensation, e-wallet payouts, and GPT-4o partner coaching.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Product &amp; SaaS</h4>
+        <ul>
+          <li><a href="#features">Architecture Overview</a></li>
+          <li><a href="#pricing">SaaS Subscriptions</a></li>
+          <li><a href="javascript:void(0)" onclick="window.openRequestDemoModal()">Request 30-Day Demo</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Partner Portal</h4>
+        <ul>
+          <li><a href="login.html">Distributor Login</a></li>
+          <li><a href="vitality-registration.html">Register Account</a></li>
+          <li><a href="support.html">Partner Support Desk</a></li>
+          <li><a href="ai-assistant.html">AI Business Copilot</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact &amp; Sales</h4>
+        <ul>
+          <li><a href="mailto:sales@scaleengine.io"><i class="bi bi-envelope"></i> sales@scaleengine.io</a></li>
+          <li><a href="https://wa.me/27849416298" target="_blank"><i class="bi bi-whatsapp"></i> +27 84 941 6298</a></li>
+          <li><a href="tel:+27633115155"><i class="bi bi-telephone"></i> +27 633 11 5155</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 ScaleEngine SaaS Platform Pty Ltd. All rights reserved.</div>
+      <div>PCI-DSS Level 1 &bull; SSL 256-Bit Encrypted &bull; FICA/AML Compliant &bull; Cloud Matrix Engine</div>
+    </div>
+  </footer>
+
+  <script>
+    const modal = document.querySelector('#requestDemoModal');
+    const closeBtn = document.querySelector('#closeRequestDemoBtn');
+    const form = document.querySelector('#demoRequestForm');
+
+    const inputName = document.querySelector('#demoCompanyName');
+    const inputSlogan = document.querySelector('#demoCompanySlogan');
+    const customColor = document.querySelector('#demoCustomColor');
+    const currencySelect = document.querySelector('#demoCurrency');
+
+    const nichePresets = {
+      wellness: { name: 'Aura Vitality Network', slogan: 'ORGANIC WELLNESS & HIGH-YIELD COMPENSATION', color: '#10b981', accent: '#34d399', icon: 'bi-heart-pulse-fill' },
+      beauty: { name: 'Luxe Glow Cosmetics', slogan: 'PREMIUM SKINCARE & BEAUTY REVOLUTION', color: '#e11d48', accent: '#fb7185', icon: 'bi-gem' },
+      crypto: { name: 'Apex FX & Crypto Academy', slogan: 'DIGITAL WEALTH & TRADING SIGNALS', color: '#8b5cf6', accent: '#a78bfa', icon: 'bi-currency-bitcoin' },
+      solar: { name: 'SolarPeak Clean Energy', slogan: 'RENEWABLE ENERGY & CLEAN POWER COMMISSIONS', color: '#f59e0b', accent: '#fbbf24', icon: 'bi-sun-fill' }
+    };
+
+    let selectedColor = '#10b981';
+    let selectedAccent = '#34d399';
+    let selectedIcon = 'bi-heart-pulse-fill';
+    let selectedNiche = 'wellness';
+
+    inputName.value = nichePresets.wellness.name;
+    inputSlogan.value = nichePresets.wellness.slogan;
+
+    window.openRequestDemoModal = (planName) => {
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+        if (planName) {
+          inputSlogan.value = `${planName.toUpperCase()} - 30-DAY ACTIVE SANDBOX`;
+        }
+      }
+    };
+
+    document.querySelector('#topRequestDemoBtn')?.addEventListener('click', () => window.openRequestDemoModal());
+    document.querySelector('#heroRequestDemoBtn')?.addEventListener('click', () => window.openRequestDemoModal());
+
+    closeBtn?.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    });
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // Niche Preset Switcher
+    document.querySelectorAll('.demo-niche-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.demo-niche-btn').forEach(b => {
+          b.style.border = '1px solid #cbd5e1';
+          b.style.background = '#f8fafc';
+        });
+        btn.style.border = '2px solid #0284c7';
+        btn.style.background = '#f0f9ff';
+
+        selectedNiche = btn.dataset.niche;
+        const preset = nichePresets[selectedNiche];
+        if (preset) {
+          inputName.value = preset.name;
+          inputSlogan.value = preset.slogan;
+          selectedColor = preset.color;
+          selectedAccent = preset.accent;
+          selectedIcon = preset.icon;
+          customColor.value = preset.color;
+        }
+      });
+    });
+
+    // Color Swatches
+    document.querySelectorAll('.demo-color-choice').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        selectedColor = pill.dataset.color;
+        selectedAccent = pill.dataset.accent;
+        customColor.value = selectedColor;
+      });
+    });
+
+    customColor?.addEventListener('input', (e) => {
+      selectedColor = e.target.value;
+      selectedAccent = e.target.value;
+    });
+
+    // Submit Demo Request & Launch Rebranded Sandbox
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const brandName = inputName.value.trim() || 'Custom MLM Network';
+      const slogan = inputSlogan.value.trim() || 'GLOBAL PARTNER NETWORK';
+
+      const customBrand = {
+        brandName,
+        slogan,
+        niche: selectedNiche,
+        primaryColor: selectedColor,
+        accentColor: selectedAccent,
+        currencySymbol: currencySelect.value,
+        iconClass: selectedIcon,
+        demoExpiresAt: '2026-10-18T23:59:59Z'
+      };
+
+      // Save to localStorage
+      localStorage.setItem('scale_tenant_brand', JSON.stringify(customBrand));
+
+      // Attempt login with admin credentials provided
+      const adminUser = document.querySelector('#demoAdminUser').value.trim();
+      const adminPass = document.querySelector('#demoAdminPass').value.trim();
+
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: adminUser, password: adminPass, captcha: 'epWb' })
+      })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.accessToken) {
+          localStorage.setItem('vitality.accessToken', data.accessToken);
+        }
+        modal.style.display = 'none';
+        window.location.href = 'dashboard.html';
+      })
+      .catch(() => {
+        modal.style.display = 'none';
+        window.location.href = 'login.html';
+      });
+    });
+  </script>
+</body>
+</html>

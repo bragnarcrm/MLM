@@ -1,0 +1,323 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Profile";
+}
+
+<section class="profile-head">
+  <div class="cover"></div>
+  <div class="identity">
+    <div class="avatar" id="profileAvatar">SN</div>
+    <div>
+      <h1 id="profileDisplayName">Partner Account</h1>
+      <p id="profileEmail">partner@scaleengine.io</p>
+    </div>
+  </div>
+  <nav class="tabs" id="profileTabs">
+    <a class="tab-link active" data-tab="info" href="#info"><i class="bi bi-person"></i> Personal Details</a>
+    <a class="tab-link" data-tab="kyc" href="#kyc"><i class="bi bi-shield-check"></i> KYC &amp; ID Verification</a>
+  </nav>
+</section>
+
+<!-- Tab 1: Personal Information -->
+<section class="panel tab-pane active" id="pane-info">
+  <div class="panel-top">
+    <h2><i class="bi bi-person-lines-fill"></i> Personal Information</h2>
+    <a class="change" href="change-password.html"><i class="bi bi-key"></i> Change Password</a>
+  </div>
+  <form id="profileForm">
+    <div class="grid">
+      <div class="field"><label for="username">User ID (Permanent)</label><input id="username" value="" disabled></div>
+      <div class="field"><label for="sponsor">Sponsor ID</label><input id="sponsor" value="bhekaragnar" disabled></div>
+      <div class="field"><label for="first">First Name *</label><input id="first" required></div>
+      <div class="field"><label for="last">Last Name *</label><input id="last" required></div>
+      <div class="field"><label for="email">E-mail Address *</label><input id="email" type="email" required></div>
+      <div class="field"><label for="country">Country *</label><select id="country" required><option>South Africa</option><option>Botswana</option><option>Lesotho</option><option>Namibia</option><option>Other</option></select></div>
+      <div class="field"><label for="mobile">Mobile Number *</label><input id="mobile" type="tel" required></div>
+      <div class="field"><label for="rank">Current Rank</label><input id="rank" disabled value="Newbie"></div>
+    </div>
+    <button type="submit"><i class="bi bi-save"></i> Save Profile Details</button>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<!-- Tab 2: KYC & ID Verification -->
+<section class="panel tab-pane" id="pane-kyc" style="display:none;">
+  <div class="panel-top">
+    <h2><i class="bi bi-shield-check"></i> FICA / AML &amp; KYC Verification</h2>
+    <span class="kyc-badge-pill" id="kycBadge">Checking...</span>
+  </div>
+
+  <p class="section-hint">Financial regulations require partner identity and residence verification before processing e-wallet bank withdrawals.</p>
+
+  <div class="kyc-notice" id="kycNotice">
+    <i class="bi bi-info-circle-fill"></i>
+    <div id="kycNoticeText">Please upload a clear copy of your National ID / Passport and a recent utility bill or bank statement (proof of address).</div>
+  </div>
+
+  <form id="kycForm">
+    <div class="grid">
+      <div class="field">
+        <label for="idType">Identification Document Type *</label>
+        <select id="idType" required>
+          <option>National ID Document / Smart Card</option>
+          <option>Passport</option>
+          <option>Driver's License</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="idNumber">ID / Passport Number *</label>
+        <input id="idNumber" placeholder="e.g. 9001015009087" required>
+      </div>
+
+      <div class="field">
+        <label for="idDoc">Upload ID / Passport Document *</label>
+        <div class="file-drop">
+          <input type="file" id="idDoc" accept=".pdf,.png,.jpg,.jpeg">
+          <span class="file-hint" id="idDocName">Choose file or drag &amp; drop (PDF, PNG, JPG)</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="addressDoc">Upload Proof of Residence (Utility / Bank Statement) *</label>
+        <div class="file-drop">
+          <input type="file" id="addressDoc" accept=".pdf,.png,.jpg,.jpeg">
+          <span class="file-hint" id="addressDocName">Choose file or drag &amp; drop (PDF, PNG, JPG)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="kyc-actions">
+      <button type="submit" id="submitKycBtn"><i class="bi bi-upload"></i> Submit Documents for Review</button>
+      <button type="button" class="btn-demo-verify" id="demoVerifyBtn" title="Instant Verify for Demo"><i class="bi bi-check-circle-fill"></i> Instant Demo Approval</button>
+    </div>
+    <p class="status" id="kycStatus" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+@section Styles {
+<style>
+  :root { --dark: #0f172a; --deep: #0d0f12; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0; --paper: #fff; --bg: #f8fafc; --success: #16a34a; --warning: #d97706; --danger: #dc2626; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: var(--ink); background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  
+  .profile-head { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); box-shadow: 0 4px 18px rgba(0, 0, 0, .04); overflow: hidden; margin-bottom: 22px; }
+  .cover { height: 100px; background: linear-gradient(135deg, #0d0f12, #1e293b); }
+  .identity { display: flex; align-items: center; gap: 18px; padding: 0 28px 20px; }
+  .avatar { display: grid; place-items: center; width: 84px; height: 84px; margin-top: -42px; border: 4px solid white; border-radius: 50%; color: white; background: #334155; font-size: 26px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+  h1 { margin: 14px 0 3px; font-size: 20px; font-weight: 700; color: var(--dark); }
+  .identity p { margin: 0; color: var(--muted); font-size: 13px; }
+  
+  .tabs { display: flex; gap: 28px; padding: 0 28px; border-top: 1px solid var(--line); background: #fafbfc; }
+  .tabs a { display: inline-flex; align-items: center; gap: 7px; padding: 14px 4px; color: var(--muted); font-size: 13px; font-weight: 500; text-decoration: none; border-bottom: 2px solid transparent; transition: all .15s; }
+  .tabs a:hover { color: var(--dark); }
+  .tabs a.active { border-bottom-color: var(--dark); color: var(--dark); font-weight: 700; }
+
+  .panel { padding: 28px 32px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); box-shadow: 0 4px 18px rgba(0, 0, 0, .04); }
+  .panel-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  h2 { margin: 0; font-size: 16px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  .change { color: #0284c7; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  .change:hover { text-decoration: underline; }
+
+  .section-hint { margin: -10px 0 18px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+  .kyc-badge-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .kyc-badge-pill.status-verified { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+  .kyc-badge-pill.status-pending { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+  .kyc-badge-pill.status-unverified { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+
+  .kyc-notice { display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; border-radius: 8px; background: #f1f5f9; border: 1px solid #e2e8f0; color: #334155; margin-bottom: 22px; font-size: 13px; line-height: 1.5; }
+  .kyc-notice i { font-size: 18px; color: #0284c7; flex-shrink: 0; margin-top: 1px; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 22px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label { font-size: 13px; font-weight: 600; color: #334155; }
+  input, select { width: 100%; height: 44px; padding: 0 13px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: #fdfdfd; font: 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; outline: none; }
+  input:focus, select:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(15, 23, 42, .1); background: #fff; }
+  input:disabled { color: var(--muted); background: #f1f5f9; cursor: not-allowed; }
+
+  .file-drop { position: relative; border: 1.5px dashed var(--line); border-radius: 6px; padding: 10px 14px; background: #fafbfc; min-height: 44px; display: flex; align-items: center; cursor: pointer; }
+  .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+  .file-hint { font-size: 12.5px; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .kyc-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  button[type="submit"] { display: inline-flex; align-items: center; gap: 7px; height: 44px; padding: 0 22px; border: 0; border-radius: 6px; color: white; background: var(--dark); cursor: pointer; font-size: 13.5px; font-weight: 600; transition: background .15s; }
+  button[type="submit"]:hover { background: #000; }
+
+  .btn-demo-verify { display: inline-flex; align-items: center; gap: 7px; height: 44px; padding: 0 18px; border: 1px solid #bbf7d0; border-radius: 6px; color: #166534; background: #f0fdf4; cursor: pointer; font-size: 13px; font-weight: 600; transition: all .15s; }
+  .btn-demo-verify:hover { background: #dcfce7; border-color: #86efac; }
+
+  .status { min-height: 20px; margin: 14px 0 0; color: var(--success); font-size: 13px; font-weight: 600; }
+  .status.error { color: var(--danger); }
+
+  @@media (max-width: 650px) {
+    .grid { grid-template-columns: 1fr; gap: 14px; }
+    .tabs { gap: 12px; padding: 0 16px; }
+    .identity { padding: 0 16px 16px; }
+    .panel { padding: 22px 18px; }
+    .kyc-actions { flex-direction: column; }
+    .kyc-actions button { width: 100%; justify-content: center; }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+
+  // Tab switcher
+  document.querySelectorAll('.tab-link').forEach((tab) => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.tab-link').forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.tab;
+      document.querySelector('#pane-info').style.display = target === 'info' ? 'block' : 'none';
+      document.querySelector('#pane-kyc').style.display = target === 'kyc' ? 'block' : 'none';
+      window.location.hash = target;
+    });
+  });
+
+  if (window.location.hash === '#kyc') {
+    document.querySelector('.tab-link[data-tab="kyc"]')?.click();
+  }
+
+  // Load Profile
+  if (token) {
+    fetch('/api/profile', { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => r.ok ? r.json() : null)
+      .then((profile) => {
+        if (!profile) return;
+        const fullName = `${profile.firstName} ${profile.lastName}`.trim();
+        document.querySelector('#profileDisplayName').textContent = fullName || profile.username;
+        document.querySelector('#profileEmail').textContent = profile.email;
+        document.querySelector('#profileAvatar').textContent = `${profile.firstName[0] || 'U'}${profile.lastName[0] || ''}`.toUpperCase();
+        
+        document.querySelector('#username').value = profile.username;
+        document.querySelector('#first').value = profile.firstName;
+        document.querySelector('#last').value = profile.lastName;
+        document.querySelector('#email').value = profile.email;
+        document.querySelector('#country').value = profile.country || 'South Africa';
+        document.querySelector('#mobile').value = profile.mobile;
+        document.querySelector('#rank').value = profile.rank || 'Newbie';
+      });
+
+    // Load KYC
+    const loadKyc = () => {
+      fetch('/api/kyc/status', { headers: { Authorization: `Bearer ${token}` } })
+        .then((r) => r.ok ? r.json() : null)
+        .then((kyc) => {
+          if (!kyc) return;
+          const badge = document.querySelector('#kycBadge');
+          const notice = document.querySelector('#kycNoticeText');
+          const statusLower = (kyc.status || 'unverified').toLowerCase();
+
+          badge.className = `kyc-badge-pill status-${statusLower}`;
+          badge.textContent = kyc.status;
+
+          if (kyc.idNumber) document.querySelector('#idNumber').value = kyc.idNumber;
+          if (kyc.idType) document.querySelector('#idType').value = kyc.idType;
+          if (kyc.idDocumentName) document.querySelector('#idDocName').textContent = `Uploaded: ${kyc.idDocumentName}`;
+          if (kyc.addressDocumentName) document.querySelector('#addressDocName').textContent = `Uploaded: ${kyc.addressDocumentName}`;
+
+          if (kyc.status === 'Verified') {
+            notice.innerHTML = `<strong><i class="bi bi-patch-check-fill" style="color:#16a34a"></i> KYC Verified &amp; Compliant</strong> &mdash; Your account is approved for full e-wallet payouts.`;
+          } else if (kyc.status === 'Pending') {
+            notice.innerHTML = `<strong><i class="bi bi-clock-history" style="color:#d97706"></i> Verification in Progress</strong> &mdash; Documents submitted. Payout compliance review takes 1-2 business days.`;
+          } else {
+            notice.textContent = 'Please upload your ID / Passport and Proof of Address to unlock commission withdrawals.';
+          }
+        });
+    };
+    loadKyc();
+
+    // File input listeners
+    document.querySelector('#idDoc').addEventListener('change', (e) => {
+      if (e.target.files[0]) document.querySelector('#idDocName').textContent = e.target.files[0].name;
+    });
+    document.querySelector('#addressDoc').addEventListener('change', (e) => {
+      if (e.target.files[0]) document.querySelector('#addressDocName').textContent = e.target.files[0].name;
+    });
+
+    // Submit KYC
+    document.querySelector('#kycForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = document.querySelector('#kycStatus');
+      const idFile = document.querySelector('#idDoc').files[0];
+      const addrFile = document.querySelector('#addressDoc').files[0];
+
+      statusEl.className = 'status';
+      statusEl.textContent = 'Submitting verification documents...';
+
+      try {
+        const res = await fetch('/api/kyc/submit', {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({
+            idType: document.querySelector('#idType').value,
+            idNumber: document.querySelector('#idNumber').value,
+            idDocumentFileName: idFile ? idFile.name : null,
+            addressDocumentFileName: addrFile ? addrFile.name : null
+          })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          statusEl.textContent = data.message || 'KYC submitted successfully.';
+          loadKyc();
+        } else {
+          statusEl.className = 'status error';
+          statusEl.textContent = data.message || 'KYC submission failed.';
+        }
+      } catch {
+        statusEl.className = 'status error';
+        statusEl.textContent = 'Unable to connect to the server.';
+      }
+    });
+
+    // Demo Verify Button
+    document.querySelector('#demoVerifyBtn').addEventListener('click', async () => {
+      const statusEl = document.querySelector('#kycStatus');
+      statusEl.className = 'status';
+      statusEl.textContent = 'Verifying account...';
+      const res = await fetch('/api/kyc/verify-demo', { method: 'POST', headers: authHeaders() });
+      const data = await res.json();
+      statusEl.textContent = data.message;
+      loadKyc();
+    });
+  }
+
+  // Save Profile Details
+  document.querySelector('#profileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = document.querySelector('#status');
+    status.className = 'status';
+    status.textContent = 'Saving changes...';
+    try {
+      const res = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: authHeaders(),
+        body: JSON.stringify({
+          firstName: document.querySelector('#first').value,
+          lastName: document.querySelector('#last').value,
+          email: document.querySelector('#email').value,
+          country: document.querySelector('#country').value,
+          mobile: document.querySelector('#mobile').value
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        status.textContent = data.message || 'Profile updated successfully.';
+      } else {
+        status.className = 'status error';
+        status.textContent = data.message || 'Failed to update profile.';
+      }
+    } catch {
+      status.className = 'status error';
+      status.textContent = 'Unable to contact the server.';
+    }
+  });
+</script>
+}
+
+

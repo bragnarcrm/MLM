@@ -1,0 +1,55 @@
+<aside class="sidebar" id="sidebar" aria-label="Portal navigation">
+  <div class="brand brand-wide">
+    <div class="brand-badge"><i class="bi bi-cpu-fill"></i></div>
+    <div class="brand-text">
+      <strong>ScaleEngine</strong>
+      <span>MLM PLATFORM</span>
+    </div>
+  </div>
+  <nav>
+    <a href="dashboard.html"><i class="bi bi-house-door icon"></i><span>Dashboard</span></a>
+    <a href="add-member.html"><i class="bi bi-person-plus icon"></i><span>Register New Member</span></a>
+    <a href="tree-view.html"><i class="bi bi-diagram-3 icon"></i><span>Team Structure</span></a>
+    <div class="subnav"><a href="tree-view.html"><b>○</b><span>Tree View</span></a><a href="referral-tree.html"><b>○</b><span>Referral Tree</span></a><a href="my-referrals.html"><b>○</b><span>My Referrals</span></a></div>
+    <div class="nav-label">Account Details</div>
+    <a href="profile.html"><i class="bi bi-person-circle icon"></i><span>Account</span></a>
+    <div class="subnav"><a href="profile.html"><b>○</b><span>Profile</span></a><a href="profile.html#kyc"><b>○</b><span>KYC Verification</span></a><a href="change-trans-password.html"><b>○</b><span>Transaction Password</span></a><a href="change-password.html"><b>○</b><span>Change Password</span></a><a href="reset-password.html"><b>○</b><span>Reset Transaction Password</span></a><a href="activation.html"><b>○</b><span>Activation</span></a></div>
+    <a href="my-income.html"><i class="bi bi-cash-coin icon"></i><span>My Income</span></a>
+    <div class="subnav"><a href="my-commission.html"><b>○</b><span>All Commission</span></a><a href="direct-referral-bonus.html"><b>○</b><span>Direct Referral Bonus</span></a><a href="level-bonus.html"><b>○</b><span>Level Bonus</span></a><a href="rank-bonus.html"><b>○</b><span>Rank Bonuses</span></a><a href="rank-history.html"><b>○</b><span>Rank History</span></a><a href="level-turnover.html"><b>○</b><span>Level Turnover</span></a><a href="monthly-salary.html"><b>○</b><span>Monthly Salary</span></a><a href="tax-irp5.html"><b>○</b><span>SARS IRP5 Tax</span></a></div>
+    <a href="shopping.html"><i class="bi bi-bag icon"></i><span>Shopping</span></a>
+    <div class="subnav"><a href="shopping.html"><b>○</b><span>Business Kit</span></a><a href="product_cart.html"><b>○</b><span>Shopping Cart</span></a><a href="replicated-store.html"><b>○</b><span>Distributor Store</span></a><a href="autoship.html"><b>○</b><span>Auto-Ship Subscriptions</span></a><a href="purchase-list.html"><b>○</b><span>Purchase List</span></a><a href="order-list.html"><b>○</b><span>Orders</span></a></div>
+    <a href="ewallet.html"><i class="bi bi-wallet2 icon"></i><span>Ewallet</span></a>
+    <div class="subnav"><a href="ewallet.html"><b>○</b><span>Summary</span></a><a href="withdraw-money.html"><b>○</b><span>Withdraw Money</span></a><a href="withdrawal-summary.html"><b>○</b><span>Withdrawal Summary</span></a><a href="cancelled-withdrawal.html"><b>○</b><span>Cancelled Withdrawals</span></a></div>
+    <a href="payout-settings.html"><i class="bi bi-bank icon"></i><span>Add Bank Account</span></a>
+    <div class="nav-label">More Details</div>
+    <a href="team-chat.html"><i class="bi bi-chat-dots icon"></i><span>Team Chat</span></a>
+    <a href="support.html"><i class="bi bi-headset icon"></i><span>Support Tickets</span></a>
+    <a href="messages.html"><i class="bi bi-envelope icon"></i><span>Messages</span></a>
+    <div class="subnav"><a href="messages.html#compose"><b>○</b><span>Compose Mail</span></a><a href="messages.html#inbox"><b>○</b><span>Inbox</span></a><a href="messages.html#sent"><b>○</b><span>Sent</span></a></div>
+    <a href="zoom-meetings.html"><i class="bi bi-camera-video icon"></i><span>Zoom Meetings</span></a>
+    <a href="compensation-plan.html" target="_blank"><i class="bi bi-file-earmark-pdf icon"></i><span>Compensation Plan</span></a>
+    <a href="tutorials.html"><i class="bi bi-question-circle icon"></i><span>Tutorials</span></a>
+    <a href="rules.html"><i class="bi bi-journal-text icon"></i><span>Rules &amp; Regulations</span></a>
+    <a href="notifications.html"><i class="bi bi-bell icon"></i><span>Notifications</span></a>
+    <a href="blog.html"><i class="bi bi-newspaper icon"></i><span>Blog</span></a>
+    <a href="compliance-audit.html"><i class="bi bi-shield-check icon" style="color:#10b981;"></i><span>Compliance Audit (70%)</span></a>
+    <a href="plan-builder.html"><i class="bi bi-diagram-3 icon" style="color:#f59e0b;"></i><span>Plan Builder Canvas</span></a>
+    <a href="ai-assistant.html" class="nav-ai-item"><i class="bi bi-robot icon" style="color:#38bdf8;"></i><span>AI Partner Assistant</span><span class="nav-ai-badge">AI</span></a>
+    <a href="login.html"><i class="bi bi-box-arrow-right icon"></i><span>Logout</span></a>
+    <button class="portal-share-trigger" id="shareInvite" type="button"><i class="bi bi-share"></i> <span>Share Invite</span></button>
+  </nav>
+</aside>
+<div class="portal-share-backdrop" id="shareInviteModal" role="dialog" aria-modal="true" aria-labelledby="shareInviteTitle" aria-hidden="true">
+  <section class="portal-share-modal">
+    <header><h2 id="shareInviteTitle">Share your invite</h2><button class="portal-share-close" id="closeShareInvite" type="button" aria-label="Close share invite">&times;</button></header>
+    <p class="portal-share-hint">Anyone opening this link will see your name and recruiter reference already filled in on registration.</p>
+    <div class="portal-share-copy"><input id="shareInviteLink" readonly aria-label="Registration invite link"><button class="portal-share-action" id="copyInvite" type="button">Copy link</button></div>
+    <img class="portal-share-qr" id="shareInviteQr" alt="QR code for the registration invite">
+    <div class="portal-share-actions"><button class="portal-share-action secondary" id="nativeShare" type="button">Share link</button><button class="portal-share-action secondary" id="scanInvite" type="button">Scan QR</button></div>
+    <div class="portal-share-scan" id="shareScanner"><p class="portal-share-hint">Allow camera access to scan a registration QR code, or paste a link below.</p><input id="scanInviteInput" placeholder="Paste invite link"><video id="shareCamera" playsinline></video></div>
+    <p class="portal-share-status" id="shareInviteStatus" role="status" aria-live="polite"></p>
+  </section>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('link[href*="portal-navigation.css?v=3"]').forEach((link) => link.remove()));
+</script>

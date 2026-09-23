@@ -1,0 +1,407 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScaleEngine Compensation Plan &bull; Official Partner Business Guide</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --dark: #0f172a;
+      --deep: #080a0d;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --accent: #0284c7;
+      --accent-green: #16a34a;
+      --gold: #d97706;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      padding: 30px 16px 60px;
+    }
+
+    .plan-container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .top-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-action-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+    .btn-action-back:hover { background: #f8fafc; color: #000; }
+
+    .btn-print {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border: 0;
+      border-radius: 6px;
+      background: var(--dark);
+      color: #fff;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 700;
+      transition: background .15s;
+    }
+    .btn-print:hover { background: #000; }
+
+    /* The Printable Document */
+    .plan-doc {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
+      padding: 48px;
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--dark);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--dark);
+    }
+
+    .brand-badge {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #fff;
+      font-size: 22px;
+    }
+
+    .doc-title-right { text-align: right; }
+    .doc-title-right h1 { font-size: 26px; font-weight: 800; color: var(--dark); margin: 0 0 4px; }
+    .doc-title-right p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 500; }
+
+    .plan-section { margin-bottom: 40px; }
+    .plan-section h2 { font-size: 18px; font-weight: 800; color: var(--dark); border-bottom: 1.5px solid #f1f5f9; padding-bottom: 8px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .plan-section p { font-size: 14px; color: #475569; margin-bottom: 14px; }
+
+    /* Tables */
+    .plan-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13.5px; }
+    .plan-table th, .plan-table td { padding: 12px 14px; border: 1px solid #e2e8f0; text-align: left; }
+    .plan-table th { background: #0f172a; color: #fff; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    .plan-table tr:nth-child(even) { background: #f8fafc; }
+
+    .highlight-cell { font-weight: 800; color: var(--accent-green); }
+    .gold-cell { font-weight: 800; color: var(--gold); }
+
+    .feature-list { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: #334155; }
+    .feature-list li i { color: var(--accent-green); margin-top: 2px; }
+
+    .banner-callout {
+      padding: 18px 22px;
+      border-radius: 8px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+    .banner-callout strong { display: block; font-size: 14.5px; margin-bottom: 2px; }
+
+    .doc-footer {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 24px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @@media print {
+      body { background: #fff; padding: 0; color: #000; }
+      .top-action-bar { display: none; }
+      .plan-doc { border: none; box-shadow: none; padding: 0; }
+      .plan-table th { background: #000 !important; color: #fff !important; }
+    }
+
+    @@media (max-width: 640px) {
+      .plan-doc { padding: 24px 18px; }
+      .doc-header { flex-direction: column; gap: 14px; }
+      .doc-title-right { text-align: left; }
+      .feature-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="plan-container">
+    <div class="top-action-bar">
+      <a href="index.html" class="btn-action-back"><i class="bi bi-arrow-left"></i> Return to Main Website</a>
+      <div style="display:flex; gap:10px;">
+        <a href="vitality-registration.html" class="btn-action-back" style="background:#0f172a; color:#fff; border-color:#0f172a;"><i class="bi bi-person-plus-fill"></i> Register Now</a>
+        <button type="button" class="btn-print" onclick="window.print()"><i class="bi bi-printer-fill"></i> Print / Download PDF</button>
+      </div>
+    </div>
+
+    <!-- Official Document -->
+    <article class="plan-doc">
+      <header class="doc-header">
+        <div class="brand-title">
+          <div class="brand-badge"><i class="bi bi-cpu-fill"></i></div>
+          <div>
+            <div>ScaleEngine</div>
+            <div style="font-size:12px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.12em;">Official Business Presentation Deck</div>
+          </div>
+        </div>
+        <div class="doc-title-right">
+          <h1>Compensation Plan</h1>
+          <p>Version 2026.1 &bull; High-Yield Multi-Tier Residual Model</p>
+        </div>
+      </header>
+
+      <div class="banner-callout">
+        <strong>7 Lucrative Streams of Income:</strong>
+        <span>1) Retail Profit &bull; 2) Direct Referral Bonus &bull; 3) 7-Level Overrides &bull; 4) Rank Milestone Bonuses &bull; 5) Monthly Leadership Salary &bull; 6) Fast Start Sprints &bull; 7) Global Turnover Pool</span>
+      </div>
+
+      <!-- Section 1: Retail Profit & Starter Kits -->
+      <section class="plan-section">
+        <h2><i class="bi bi-basket3-fill"></i> 1. Retail Profit &amp; Starter Launch Packages</h2>
+        <p>Distributors earn immediate cash flow through retail markups (up to 100% margin) by purchasing at wholesale pricing and selling directly to consumers.</p>
+
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th>Launch Package</th>
+              <th>Price (ZAR)</th>
+              <th>Included Products</th>
+              <th>Direct Bonus</th>
+              <th>Override Eligibility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Activation Kit</strong></td>
+              <td>R 720.00</td>
+              <td>Distributor product choice worth R720+</td>
+              <td class="highlight-cell">10% Direct</td>
+              <td>Level 1 Overrides</td>
+            </tr>
+            <tr>
+              <td><strong>Growth Builder Kit</strong></td>
+              <td>R 1,500.00</td>
+              <td>Inventory pack worth R1,500+</td>
+              <td class="highlight-cell">15% Direct</td>
+              <td>Levels 1 &ndash; 3 Overrides</td>
+            </tr>
+            <tr>
+              <td><strong>Pro Builder Package</strong></td>
+              <td>R 2,000.00</td>
+              <td>Multi-pack bundle worth R2,000+</td>
+              <td class="highlight-cell">20% Direct</td>
+              <td>Levels 1 &ndash; 5 Overrides</td>
+            </tr>
+            <tr>
+              <td><strong>Elite Executive</strong></td>
+              <td>R 3,000.00</td>
+              <td>Full commercial inventory worth R3,000+</td>
+              <td class="highlight-cell">20% Direct</td>
+              <td>All 7 Levels + Pool Share</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Section 2: Direct & Level Overrides -->
+      <section class="plan-section">
+        <h2><i class="bi bi-diagram-3-fill"></i> 2. Multi-Level Unilevel Overrides (Levels 1 &ndash; 7)</h2>
+        <p>As your team members place retail reorders or activate new packages, you receive recurring percentage overrides on downline sales volume (calculated excluding 15% VAT):</p>
+
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th>Generation Level</th>
+              <th>Override Percentage</th>
+              <th>Payout Basis</th>
+              <th>Example (On R1,000 Excl. VAT)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Direct Sponsor (Personal Enrollments)</strong></td>
+              <td class="highlight-cell">10.0% &ndash; 20.0%</td>
+              <td>Direct Referral Volume</td>
+              <td><strong>R 100.00 &ndash; R 200.00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Level 1 (Direct Downlines)</strong></td>
+              <td class="highlight-cell">5.0%</td>
+              <td>Team Repurchases</td>
+              <td><strong>R 50.00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Level 2</strong></td>
+              <td class="highlight-cell">3.0%</td>
+              <td>Team Repurchases</td>
+              <td><strong>R 30.00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Level 3</strong></td>
+              <td class="highlight-cell">2.0%</td>
+              <td>Team Repurchases</td>
+              <td><strong>R 20.00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Level 4</strong></td>
+              <td class="highlight-cell">1.0%</td>
+              <td>Team Repurchases</td>
+              <td><strong>R 10.00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Level 5</strong></td>
+              <td class="highlight-cell">1.0%</td>
+              <td>Team Repurchases</td>
+              <td><strong>R 10.00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Levels 6 &amp; 7 (Leadership Tiers)</strong></td>
+              <td class="highlight-cell">0.5% &ndash; 1.0%</td>
+              <td>Expanded Downline Volume</td>
+              <td><strong>R 10.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Section 3: Rank Milestones & Incentives -->
+      <section class="plan-section">
+        <h2><i class="bi bi-trophy-fill"></i> 3. Rank Advancement Milestones &amp; Monthly Salaries</h2>
+        <p>Rank advancements reward personal leadership and cumulative downline team production. Qualifying partners receive recurring monthly salaries plus one-time lump-sum milestone bonuses.</p>
+
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th>Rank Title</th>
+              <th>Personal Sales / mo</th>
+              <th>Team Sales Threshold</th>
+              <th>One-Time Bonus</th>
+              <th>Monthly Salary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Newbie</strong></td>
+              <td>R 720</td>
+              <td>R 0</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td><strong>Builder</strong></td>
+              <td>R 720</td>
+              <td>R 2,000+</td>
+              <td class="gold-cell">R 250</td>
+              <td class="highlight-cell">R 300 / month</td>
+            </tr>
+            <tr>
+              <td><strong>Leader</strong></td>
+              <td>R 720</td>
+              <td>R 10,000+</td>
+              <td class="gold-cell">R 1,500</td>
+              <td class="highlight-cell">R 1,200 / month</td>
+            </tr>
+            <tr>
+              <td><strong>Ambassador</strong></td>
+              <td>R 720</td>
+              <td>R 50,000+</td>
+              <td class="gold-cell">R 7,500</td>
+              <td class="highlight-cell">R 6,000 / month</td>
+            </tr>
+            <tr>
+              <td><strong>Vice President</strong></td>
+              <td>R 720</td>
+              <td>R 200,000+</td>
+              <td class="gold-cell">R 25,000</td>
+              <td class="highlight-cell">R 20,000 / month</td>
+            </tr>
+            <tr>
+              <td><strong>President</strong></td>
+              <td>R 720</td>
+              <td>R 500,000+</td>
+              <td class="gold-cell">R 60,000</td>
+              <td class="highlight-cell">R 45,000 / month</td>
+            </tr>
+            <tr>
+              <td><strong>Crown Diamond</strong></td>
+              <td>R 720</td>
+              <td>R 1,000,000+</td>
+              <td class="gold-cell">R 150,000 + Luxury Car</td>
+              <td class="highlight-cell">R 70,000+ / month</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Section 4: Rules & Guidelines -->
+      <section class="plan-section">
+        <h2><i class="bi bi-shield-check"></i> 4. Compliance &amp; Payout Rules</h2>
+        <ul class="feature-list">
+          <li><i class="bi bi-check-circle-fill"></i> <strong>Payday Schedule:</strong> Disbursed on the 2nd of each month via direct bank transfer or e-wallet.</li>
+          <li><i class="bi bi-check-circle-fill"></i> <strong>Salary Protection:</strong> Salaries are awarded according to the highest qualified team sales level met that month.</li>
+          <li><i class="bi bi-check-circle-fill"></i> <strong>Multi-Rank Bonuses:</strong> Achieving multiple ranks in a single month unlocks all corresponding rank bonuses.</li>
+          <li><i class="bi bi-check-circle-fill"></i> <strong>VAT Handling:</strong> Retail prices include 15% VAT. Residual level overrides calculate net of VAT.</li>
+          <li><i class="bi bi-check-circle-fill"></i> <strong>Qualification Cut-Off:</strong> Last calendar day of each month at 23:00 SAST.</li>
+          <li><i class="bi bi-check-circle-fill"></i> <strong>FICA/KYC Verification:</strong> Bank withdrawals require verified National ID/Passport and Proof of Residence.</li>
+        </ul>
+      </section>
+
+      <footer class="doc-footer">
+        <div>&copy; 2026 ScaleEngine Partner Platform. Confidential distributor documentation.</div>
+        <div>Support: <strong>info@scaleengine.io</strong> &bull; +27 84 941 6298</div>
+      </footer>
+    </article>
+  </div>
+
+</body>
+</html>

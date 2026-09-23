@@ -1,0 +1,52 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Ewallet Summary";
+}
+
+<section class="panel"><h1>Ewallet Summary</h1><div class="balance-grid"><table><thead><tr><th>Type</th><th>Amount(R)</th><th>Total</th></tr></thead><tbody><tr><th>Admin Transfer to eWallet</th><td id="adminTransfer">R0.00</td><td>R0</td></tr><tr><th>Total earnings</th><td id="totalEarnings">R0.00</td><td id="totalEarningsTotal">R0.00</td></tr><tr><th>Pending earnings (not yet approved)</th><td id="pendingEarnings">R0.00</td><td>-</td></tr><tr class="total"><td>Total =</td><td colspan="2" id="earningsSum">R0.00</td></tr></tbody></table><table><thead><tr><th>Type</th><th>Amount(R)</th><th>Total</th></tr></thead><tbody><tr><th>Amount Withdrawn</th><td id="amountWithdrawn">R0.00</td><td>R0</td></tr><tr><th>Admin debit</th><td>R0.00</td><td>R0.00</td></tr><tr class="total"><td>TOTAL =</td><td colspan="2" id="withdrawnTotal">R0.00</td></tr><tr class="total"><td colspan="3" id="availableBalance">Your Total Balance Is = R0</td></tr></tbody></table></div><h2>Transaction</h2><div class="tools"><label>Show <select id="entries"><option>10</option><option>25</option><option>50</option><option>100</option></select> entries</label><label>Search: <input id="search" placeholder="Search"></label></div><table><thead><tr><th>Date</th><th>Transaction Category</th><th>Amount (R)</th><th>Comments</th></tr></thead><tbody id="rows"><tr><td class="empty" colspan="4" id="empty">No data available in table</td></tr></tbody></table><div class="tools" style="margin-top:14px"><span id="count">Showing 0 to 0 of 0 entries</span><span class="pager"><button type="button" id="prevPage">Previous</button> &nbsp; <button type="button" id="nextPage">Next</button></span></div></section>
+
+@section Styles {
+<style>
+:root { --green: #24272b; --deep: #14161a; --ink: #27372f; --muted: #7b857e; --paper: #fff; --bg: #f4f7f4; --line: #dce6de; }
+    * { box-sizing: border-box; } body { margin: 0; color: var(--ink); background: var(--bg); font-family: 'Segoe UI', Tahoma, sans-serif; } .sidebar { position: fixed; inset: 0 auto 0 0; width: 248px; padding: 22px 14px; overflow-y: auto; color: #dce9de; background: var(--deep); } .brand { display: flex; align-items: center; gap: 11px; padding: 8px 10px 27px; color: white; font: italic 700 25px Georgia, serif; } .leaf { width: 28px; height: 35px; border-radius: 100% 0 100% 0; background: #3a3f45; transform: rotate(-25deg); }
+    nav a, .nav-label { display: flex; align-items: center; gap: 12px; min-height: 39px; padding: 0 12px; border-radius: 5px; color: inherit; text-decoration: none; font-size: 13px; } nav a:hover, nav a.active { color: white; background: rgba(255,255,255,.13); } .icon { width: 19px; text-align: center; font-size: 16px; } .nav-label { min-height: 30px; margin-top: 12px; color: #8daf98; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; } .subnav { margin: 0 0 8px 31px; padding-left: 11px; border-left: 1px solid #466953; } .subnav a { min-height: 36px; padding-left: 7px; font-size: 12px; } .subnav a.active { color: white; background: rgba(255,255,255,.13); }
+    .top { min-height: 68px; margin-left: 248px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; color: white; background: var(--deep); } .top a { color: #d8e9da; font-size: 13px; text-decoration: none; } main { width: min(calc(100% - 280px), 1080px); margin: 28px auto 50px; } .panel { padding: 25px 30px 30px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); box-shadow: 0 8px 24px rgba(30, 59, 39, .06); } h1, h2 { margin: 0 0 18px; font-size: 21px; } h2 { margin-top: 25px; padding-top: 25px; border-top: 1px solid var(--line); font-size: 17px; } .balance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; } table { width: 100%; border-collapse: collapse; font-size: 12px; } th, td { padding: 12px 9px; border-bottom: 1px solid var(--line); text-align: left; } th { color: var(--muted); background: #f8fbf8; font-size: 11px; } td:last-child, th:last-child { text-align: right; } .total td { color: var(--green); font-weight: 700; } .tools { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; color: var(--muted); font-size: 12px; } select, input { min-height: 35px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--paper); font: 13px 'Segoe UI', sans-serif; } input { width: 190px; } td.empty { padding: 27px; color: var(--muted); text-align: center; } footer { margin-left: 248px; padding: 20px; color: var(--muted); text-align: center; font-size: 11px; }
+    @@media (max-width: 800px) { .sidebar { width: 62px; padding-left: 14px; padding-right: 14px; } .sidebar .brand span, .sidebar nav a span, .sidebar .nav-label, .sidebar .subnav { display: none; } nav a { justify-content: center; padding: 0; } .top, footer { margin-left: 62px; } main { width: min(calc(100% - 94px), 1080px); } } @@media (max-width: 620px) { .sidebar { display: none; } .top, footer { margin-left: 0; } main { width: calc(100% - 20px); margin-top: 14px; } .panel { padding: 21px 16px 25px; } .balance-grid { grid-template-columns: 1fr; } .tools { align-items: flex-start; flex-direction: column; gap: 10px; } input { width: 100%; } .top { padding: 0 16px; } }
+</style>
+}
+
+@section Scripts {
+<script src="/js/portal-table.js"></script>
+<script>
+  fetch('/api/wallet/balance', { headers: { Authorization: `Bearer ${localStorage.getItem('vitality.accessToken') || ''}` } })
+    .then((response) => response.ok ? response.json() : Promise.reject())
+    .then((balance) => {
+      document.querySelector('#adminTransfer').textContent = `R${Number(balance.adminTransfer).toFixed(2)}`;
+      document.querySelector('#totalEarnings').textContent = `R${Number(balance.totalEarnings).toFixed(2)}`;
+      document.querySelector('#totalEarningsTotal').textContent = `R${Number(balance.totalEarnings).toFixed(2)}`;
+      document.querySelector('#pendingEarnings').textContent = `R${Number(balance.pendingEarnings).toFixed(2)}`;
+      document.querySelector('#earningsSum').textContent = `R${Number(balance.totalEarnings).toFixed(2)}`;
+      document.querySelector('#amountWithdrawn').textContent = `R${Number(balance.amountWithdrawn).toFixed(2)}`;
+      document.querySelector('#withdrawnTotal').textContent = `R${Number(balance.amountWithdrawn).toFixed(2)}`;
+      document.querySelector('#availableBalance').textContent = `Your Total Balance Is = R${Number(balance.availableBalance).toFixed(2)}`;
+    })
+    .catch(() => {});
+
+  initPortalTable({
+    url: '/api/wallet/transactions?page=1&pageSize=100',
+    tbody: document.querySelector('#rows'),
+    countEl: document.querySelector('#count'),
+    searchEl: document.querySelector('#search'),
+    entriesEl: document.querySelector('#entries'),
+    columnCount: 4,
+    prevBtn: document.querySelector('#prevPage'),
+    nextBtn: document.querySelector('#nextPage'),
+    matches: (item, term) => `${item.category} ${item.comments}`.toLowerCase().includes(term),
+    searchMessage: 'No matching transactions',
+    errorMessage: 'Unable to load transactions.',
+    renderRow: (item) => `<tr><td>${item.date}</td><td>${item.category}</td><td>R${Number(item.amount).toFixed(2)}</td><td>${item.comments}</td></tr>`
+  });
+</script>
+}
+
+

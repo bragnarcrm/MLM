@@ -1,0 +1,483 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PayFast Secure Checkout | ScaleEngine</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --dark: #0f172a;
+      --deep: #0d0f12;
+      --text: #1e293b;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --bg: #f8fafc;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+    }
+
+    .checkout-wrap {
+      width: min(100%, 560px);
+      animation: appear .4s ease both;
+    }
+
+    .checkout-brands {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding: 0 4px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 19px;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .brand-title .badge-icon {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      color: #fff;
+      background: #0f172a;
+      font-size: 16px;
+    }
+
+    .payfast-logo {
+      font-weight: 800;
+      font-size: 20px;
+      color: #bf1e2e;
+      letter-spacing: -.02em;
+    }
+
+    .payfast-logo span { color: #000; font-weight: 600; }
+
+    .card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+    }
+
+    .order-summary {
+      padding: 24px 28px;
+      background: linear-gradient(135deg, #0d0f12, #1e293b);
+      color: #fff;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      color: #94a3b8;
+      font-size: 12.5px;
+      font-weight: 500;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .total-label { color: #cbd5e1; font-size: 13px; }
+    .amount { font-size: 32px; font-weight: 800; color: #fff; line-height: 1; }
+    .currency-pill { padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.1); font-size: 12px; font-weight: 600; color: #e2e8f0; }
+
+    .payer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .payer-bar strong { color: var(--text); }
+    .payer-bar button { border: 0; background: transparent; color: #0284c7; font-weight: 600; cursor: pointer; font-size: 12.5px; }
+
+    .methods-section { padding: 26px 28px; }
+    .methods-section h2 { margin: 0 0 16px; font-size: 16px; font-weight: 700; color: var(--dark); }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .method-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 8px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+
+    .method-btn i { font-size: 22px; color: #475569; }
+    .method-btn:hover { border-color: #94a3b8; background: #f8fafc; }
+    .method-btn.selected { border-color: #0f172a; background: #f1f5f9; color: #0f172a; box-shadow: 0 0 0 2px rgba(15, 23, 42, .12); }
+    .method-btn.selected i { color: #0f172a; }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 48px;
+      border: 0;
+      border-radius: 6px;
+      color: #fff;
+      background: #0f172a;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+
+    .action-btn:hover { background: #000; transform: translateY(-1px); }
+    .action-btn:disabled { cursor: wait; opacity: .7; transform: none; }
+
+    .security-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 28px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11.5px;
+      background: #fdfdfd;
+      text-align: center;
+    }
+
+    .security-notice i { color: #16a34a; font-size: 14px; }
+
+    .cancel-link {
+      display: block;
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .cancel-link:hover { color: #0f172a; text-decoration: underline; }
+
+    .status-msg {
+      min-height: 20px;
+      margin: 14px 0 0;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status-msg.error { color: #dc2626; }
+    .status-msg.success { color: var(--success); }
+
+    .receipt-view {
+      display: none;
+      padding: 36px 28px 30px;
+      text-align: center;
+    }
+
+    .receipt-view.visible { display: block; }
+    .receipt-icon {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--success);
+      font-size: 32px;
+      box-shadow: 0 6px 18px rgba(22, 163, 74, .25);
+    }
+
+    .receipt-details {
+      max-width: 420px;
+      margin: 20px auto 26px;
+      padding: 16px 20px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .receipt-row:last-child { margin-bottom: 0; padding-top: 8px; border-top: 1px solid var(--line); font-weight: 700; }
+
+    @@keyframes appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @@media (max-width: 480px) {
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <main class="checkout-wrap">
+    <div class="checkout-brands">
+      <a class="brand-title" href="dashboard.html">
+        <span class="badge-icon"><i class="bi bi-cpu-fill"></i></span>
+        <span>ScaleEngine</span>
+      </a>
+      <div class="payfast-logo">pay<span>fast</span></div>
+    </div>
+
+    <section class="card" id="checkoutCard">
+      <div id="paymentFlow">
+        <div class="order-summary">
+          <div class="order-header">
+            <span><i class="bi bi-shield-lock-fill"></i> Secure SSL Checkout</span>
+            <span id="orderRef">Item: Activation</span>
+          </div>
+          <div class="total-row">
+            <div>
+              <div class="total-label">Payment Total</div>
+              <div class="amount" id="displayAmount">R 90.00</div>
+            </div>
+            <span class="currency-pill">ZAR</span>
+          </div>
+        </div>
+
+        <div class="payer-bar">
+          <div>Payer: <strong id="payerEmail">samkelisojam285@gmail.com</strong></div>
+          <button type="button" id="changeEmail">Change</button>
+        </div>
+
+        <div class="methods-section">
+          <h2>Select Payment Option</h2>
+          <div class="method-grid">
+            <button class="method-btn selected" type="button" data-method="Card">
+              <i class="bi bi-credit-card-2-front"></i>
+              <span>Credit / Debit</span>
+            </button>
+            <button class="method-btn" type="button" data-method="Instant EFT">
+              <i class="bi bi-bank"></i>
+              <span>Instant EFT</span>
+            </button>
+            <button class="method-btn" type="button" data-method="Capitec Pay">
+              <i class="bi bi-phone"></i>
+              <span>Capitec Pay</span>
+            </button>
+            <button class="method-btn" type="button" data-method="SnapScan">
+              <i class="bi bi-qr-code-scan"></i>
+              <span>SnapScan</span>
+            </button>
+            <button class="method-btn" type="button" data-method="PayFast Gateway">
+              <i class="bi bi-globe2"></i>
+              <span>PayFast Web</span>
+            </button>
+            <button class="method-btn" type="button" data-method="Wallet">
+              <i class="bi bi-wallet2"></i>
+              <span>Scale Wallet</span>
+            </button>
+          </div>
+
+          <button class="action-btn" id="payBtn" type="button">
+            <i class="bi bi-lock-fill"></i>
+            <span id="payBtnText">Pay R 90.00 Now</span>
+          </button>
+
+          <p class="status-msg" id="status" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="security-notice">
+          <i class="bi bi-shield-check"></i>
+          <span>256-Bit Encrypted &amp; PCI-DSS Level 1 Compliant Transaction</span>
+        </div>
+      </div>
+
+      <div class="receipt-view" id="receiptView">
+        <div class="receipt-icon"><i class="bi bi-check-lg"></i></div>
+        <h2 style="margin:0 0 6px; font-weight:800;">Payment Successful!</h2>
+        <p style="color:var(--muted); margin:0 0 16px; font-size:14px;">Your payment has been processed and verified.</p>
+        
+        <div class="receipt-details">
+          <div class="receipt-row"><span>Transaction Ref:</span><strong id="receiptTx">TX_...</strong></div>
+          <div class="receipt-row"><span>Item:</span><span id="receiptItem">Account Activation</span></div>
+          <div class="receipt-row"><span>Payment Method:</span><span id="receiptMethod">Card</span></div>
+          <div class="receipt-row"><span>Date &amp; Time:</span><span id="receiptDate">...</span></div>
+          <div class="receipt-row"><span>Total Paid:</span><strong id="receiptAmount">R 90.00</strong></div>
+        </div>
+
+        <button class="action-btn" id="returnBtn" type="button" style="max-width:320px; margin:0 auto;">
+          <i class="bi bi-speedometer2"></i> Return to Dashboard
+        </button>
+      </div>
+    </section>
+
+    <a class="cancel-link" href="dashboard.html">&larr; Return to Dashboard</a>
+  </main>
+
+  <script>
+  (() => {
+    const params = new URLSearchParams(window.location.search);
+    const paymentType = params.get('type') || 'activation';
+    const amount = Number(params.get('amount') || 90);
+    const productName = params.get('product') || 'ScaleEngine Activation';
+
+    const displayAmount = document.querySelector('#displayAmount');
+    const payBtnText = document.querySelector('#payBtnText');
+    const orderRef = document.querySelector('#orderRef');
+    const status = document.querySelector('#status');
+    const payBtn = document.querySelector('#payBtn');
+    const payerEmail = document.querySelector('#payerEmail');
+
+    displayAmount.textContent = `R ${amount.toFixed(2)}`;
+    payBtnText.textContent = `Pay R ${amount.toFixed(2)} Now`;
+    orderRef.textContent = `Item: ${productName}`;
+
+    const token = localStorage.getItem('vitality.accessToken');
+    if (token) {
+      fetch('/api/profile', { headers: { Authorization: `Bearer ${token}` } })
+        .then((r) => r.ok ? r.json() : null)
+        .then((profile) => {
+          if (profile?.email) payerEmail.textContent = profile.email;
+        })
+        .catch(() => {});
+    }
+
+    let selectedMethod = 'Card';
+    document.querySelectorAll('.method-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.method-btn').forEach((b) => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedMethod = btn.dataset.method;
+      });
+    });
+
+    document.querySelector('#changeEmail').addEventListener('click', () => {
+      const email = prompt('Enter billing email address:', payerEmail.textContent);
+      if (email) payerEmail.textContent = email;
+    });
+
+    payBtn.addEventListener('click', async () => {
+      payBtn.disabled = true;
+      status.className = 'status-msg';
+      status.style.color = '#0f172a';
+      status.textContent = `Authorizing ${selectedMethod} payment...`;
+
+      try {
+        if (selectedMethod === 'PayFast Gateway') {
+          const initRes = await fetch('/api/payments/payfast/initiate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken || ''}`
+            },
+            body: JSON.stringify({
+              amount,
+              itemName: productName,
+              paymentType
+            })
+          });
+
+          if (!initRes.ok) throw new Error('PayFast session could not be initialized.');
+          const initData = await initRes.json();
+
+          // Create hidden auto-submitting form for PayFast gateway redirection
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = initData.processUrl;
+          for (const [key, val] of Object.entries(initData.parameters)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = val;
+            form.appendChild(input);
+          }
+          document.body.appendChild(form);
+          form.submit();
+          return;
+        }
+
+        // Direct Payment (Card, Instant EFT, Capitec Pay, SnapScan, Wallet)
+        const response = await fetch('/api/payments/direct', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token || ''}`
+          },
+          body: JSON.stringify({
+            amount,
+            paymentMethod: selectedMethod,
+            paymentType,
+            productName,
+            quantity: 1
+          })
+        });
+
+        const result = await response.json();
+        if (!response.ok || !result.succeeded) {
+          throw new Error(result.message || 'Payment processing failed.');
+        }
+
+        // Show Success Receipt
+        document.querySelector('#receiptTx').textContent = result.transactionId;
+        document.querySelector('#receiptItem').textContent = productName;
+        document.querySelector('#receiptMethod').textContent = selectedMethod;
+        document.querySelector('#receiptDate').textContent = result.paidAt;
+        document.querySelector('#receiptAmount').textContent = `R ${amount.toFixed(2)}`;
+
+        document.querySelector('#paymentFlow').style.display = 'none';
+        document.querySelector('#receiptView').classList.add('visible');
+
+      } catch (err) {
+        status.className = 'status-msg error';
+        status.textContent = err.message || 'Unable to process payment.';
+        payBtn.disabled = false;
+      }
+    });
+
+    document.querySelector('#returnBtn').addEventListener('click', () => {
+      window.location.href = 'dashboard.html';
+    });
+  })();
+  </script>
+</body>
+</html>

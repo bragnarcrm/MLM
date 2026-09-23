@@ -1,0 +1,571 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "AI Partner Assistant";
+}
+
+<div class="ai-assistant-wrapper">
+  <!-- Top Bar -->
+  <div class="ai-header-panel">
+    <div class="ai-header-info">
+      <div class="ai-avatar-badge"><i class="bi bi-robot"></i></div>
+      <div>
+        <h1>ScaleEngine AI Copilot</h1>
+        <p class="subtitle">Personalized business mentor powered by OpenAI GPT-4o with real-time database context.</p>
+      </div>
+    </div>
+    <div class="ai-header-badges">
+      <span class="badge-model"><i class="bi bi-cpu"></i> GPT-4o</span>
+      <button type="button" class="btn-toggle-context" id="toggleContextBtn" title="Toggle Partner Database Context">
+        <i class="bi bi-database-check"></i> <span id="ctxToggleLabel">Live Context</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Collapsible Live Context Drawer (Hidden by default) -->
+  <div class="ai-context-drawer" id="contextDrawer" style="display:none;">
+    <div class="context-drawer-card">
+      <div class="drawer-header">
+        <h3><i class="bi bi-database-fill-gear text-primary"></i> Live Database Context Summary</h3>
+        <button type="button" class="btn-close-drawer" id="closeDrawerBtn" aria-label="Close context">&times;</button>
+      </div>
+      <p class="context-desc">This live database snapshot is automatically passed in the background to the AI on every prompt to personalize guidance.</p>
+      
+      <div class="context-chips-grid">
+        <div class="context-chip">
+          <small>CURRENT RANK</small>
+          <strong id="ctxRank">Builder</strong>
+        </div>
+        <div class="context-chip">
+          <small>DIRECT REFERRALS</small>
+          <strong id="ctxReferrals">18 Partners</strong>
+        </div>
+        <div class="context-chip">
+          <small>TEAM MONTHLY SALES</small>
+          <strong id="ctxSales">R 0.00</strong>
+        </div>
+        <div class="context-chip">
+          <small>ESTIMATED EARNINGS</small>
+          <strong id="ctxEarnings">R 0.00</strong>
+        </div>
+        <div class="context-chip">
+          <small>LINKED BANK</small>
+          <strong id="ctxBank">Capitec Bank (Linked)</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Full-Width Chat Card -->
+  <div class="ai-chat-card">
+    <!-- Quick Prompt Pills -->
+    <div class="quick-prompts-bar">
+      <span class="quick-title"><i class="bi bi-lightning-charge-fill"></i> Suggested:</span>
+      <button type="button" class="prompt-chip" data-query="What is my current rank, qualification status, and monthly team turnover?">
+        🏆 My Rank &amp; Turnover
+      </button>
+      <button type="button" class="prompt-chip" data-query="Give me a full breakdown of my earned commissions, referral bonuses, and monthly salary.">
+        💰 My Earnings Breakdown
+      </button>
+      <button type="button" class="prompt-chip" data-query="Who are my active direct referrals and how can I help them level up?">
+        👥 My Downline Team
+      </button>
+      <button type="button" class="prompt-chip" data-query="Explain the ScaleEngine compensation plan levels and how to qualify for the Leader rank.">
+        📈 Compensation Plan Strategy
+      </button>
+      <button type="button" class="prompt-chip" data-query="Draft an engaging WhatsApp message I can send to prospective partners to join my team.">
+        📱 WhatsApp Prospecting Script
+      </button>
+      <button type="button" class="prompt-chip" data-query="What starter packs and products are available in the store with prices?">
+        📦 Store Products &amp; Kits
+      </button>
+    </div>
+
+    <!-- Messages Stream -->
+    <div class="chat-messages-box" id="chatStream">
+      <!-- Initial Assistant Message -->
+      <div class="chat-message assistant">
+        <div class="chat-avatar"><i class="bi bi-robot"></i></div>
+        <div class="chat-bubble">
+          <div class="bubble-header">
+            <strong>ScaleEngine AI Assistant</strong>
+            <small>Just now</small>
+          </div>
+          <div class="bubble-content">
+            Hello partner! I am your <strong>ScaleEngine AI Business Copilot</strong>. I have real-time access to your downline statistics, wallet balance, sales figures, and platform compensation rules.
+            <br><br>
+            How can I help you grow your business and increase your earnings today?
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="typing-indicator" id="typingIndicator" style="display:none;">
+      <div class="chat-avatar"><i class="bi bi-robot"></i></div>
+      <div class="typing-bubble">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="typing-text">Analyzing database context &amp; generating insights...</span>
+      </div>
+    </div>
+
+    <!-- Chat Input Toolbar (Optimized for Mobile & Desktop) -->
+    <form class="chat-input-panel" id="aiChatForm">
+      <div class="input-wrap">
+        <textarea id="aiUserInput" rows="1" placeholder="Ask AI about your downline, earnings, compensation plan, or business strategy..." required></textarea>
+      </div>
+      <button type="submit" class="btn-ai-send" id="aiSendBtn" aria-label="Send query">
+        <i class="bi bi-send-fill"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+@section Styles {
+<style>
+  :root {
+    --dark: #0f172a;
+    --deep: #080a0d;
+    --card-bg: #ffffff;
+    --line: #e2e8f0;
+    --muted: #64748b;
+    --ink: #1e293b;
+    --accent: #0284c7;
+    --accent-light: #e0f2fe;
+    --success: #16a34a;
+  }
+  * { box-sizing: border-box; }
+
+  .ai-assistant-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .ai-header-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.04);
+    gap: 14px;
+  }
+
+  .ai-header-info { display: flex; align-items: center; gap: 14px; }
+  .ai-avatar-badge {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #fff;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, .25);
+  }
+  .ai-header-info h1 { margin: 0 0 2px; font-size: 19px; font-weight: 700; color: var(--dark); }
+  .subtitle { margin: 0; color: var(--muted); font-size: 12.5px; }
+
+  .ai-header-badges { display: flex; gap: 8px; align-items: center; }
+  .badge-model { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 999px; background: #0f172a; color: #38bdf8; font-size: 11.5px; font-weight: 700; }
+  
+  .btn-toggle-context {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .btn-toggle-context:hover, .btn-toggle-context.active {
+    background: #e0f2fe;
+    color: #0284c7;
+    border-color: #bae6fd;
+  }
+
+  /* Collapsible Context Drawer */
+  .ai-context-drawer {
+    animation: slideDown .2s ease-out;
+  }
+  .context-drawer-card {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.04);
+  }
+  .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .drawer-header h3 { margin: 0; font-size: 14px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 7px; }
+  .btn-close-drawer { border: 0; background: transparent; font-size: 20px; cursor: pointer; color: var(--muted); line-height: 1; }
+  .context-desc { margin: 0 0 12px; font-size: 12px; color: var(--muted); }
+
+  .context-chips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .context-chip { padding: 8px 12px; border-radius: 6px; background: #f8fafc; border: 1px solid var(--line); }
+  .context-chip small { display: block; font-size: 9.5px; font-weight: 700; color: #64748b; letter-spacing: .05em; margin-bottom: 2px; }
+  .context-chip strong { font-size: 13px; color: var(--dark); }
+
+  /* Full-Width Chat Card */
+  .ai-chat-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.04);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 210px);
+    min-height: 540px;
+    max-height: 780px;
+    overflow: hidden;
+  }
+
+  /* Quick Prompts Bar */
+  .quick-prompts-bar {
+    padding: 10px 16px;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .quick-prompts-bar::-webkit-scrollbar { display: none; }
+  .quick-title { font-size: 11.5px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+  .prompt-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s;
+    flex-shrink: 0;
+  }
+  .prompt-chip:hover {
+    background: var(--dark);
+    color: #fff;
+    border-color: var(--dark);
+  }
+
+  /* Chat Messages Stream */
+  .chat-messages-box {
+    flex: 1;
+    padding: 20px 22px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #fdfdfd;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chat-message { display: flex; gap: 10px; max-width: 85%; }
+  .chat-message.assistant { align-self: flex-start; }
+  .chat-message.user { align-self: flex-end; flex-direction: row-reverse; max-width: 82%; }
+
+  .chat-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .chat-message.assistant .chat-avatar { background: #0f172a; color: #38bdf8; }
+  .chat-message.user .chat-avatar { background: #0284c7; color: #fff; font-weight: 700; font-size: 12px; }
+
+  .chat-bubble {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+  .chat-message.assistant .chat-bubble {
+    background: #f1f5f9;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    border-top-left-radius: 2px;
+  }
+  .chat-message.user .chat-bubble {
+    background: #0f172a;
+    color: #fff;
+    border-top-right-radius: 2px;
+  }
+
+  .bubble-header { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 4px; font-size: 11px; color: #64748b; }
+  .chat-message.user .bubble-header { color: #94a3b8; }
+  
+  .bubble-content p { margin: 0 0 6px; }
+  .bubble-content p:last-child { margin-bottom: 0; }
+  .bubble-content ul, .bubble-content ol { margin: 4px 0 6px; padding-left: 18px; }
+  .bubble-content code { background: rgba(0,0,0,.08); padding: 2px 5px; border-radius: 4px; font-size: 12px; font-family: monospace; }
+  .chat-message.user .bubble-content code { background: rgba(255,255,255,.18); color: #fff; }
+
+  /* Typing Indicator */
+  .typing-indicator { display: flex; gap: 10px; padding: 0 22px 10px; }
+  .typing-bubble { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 10px; background: #f1f5f9; border: 1px solid #e2e8f0; font-size: 12px; color: #64748b; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: #0284c7; animation: bounce 1.4s infinite ease-in-out both; }
+  .dot:nth-child(1) { animation-delay: -0.32s; }
+  .dot:nth-child(2) { animation-delay: -0.16s; }
+  @@keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+  /* Input Panel */
+  .chat-input-panel {
+    padding: 12px 16px;
+    background: #fff;
+    border-top: 1px solid var(--line);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .input-wrap { flex: 1; }
+  .input-wrap textarea {
+    width: 100%;
+    max-height: 90px;
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font: 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    outline: none;
+    resize: none;
+    background: #fdfdfd;
+  }
+  .input-wrap textarea:focus { border-color: var(--dark); background: #fff; }
+  
+  .btn-ai-send {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--dark);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background .15s;
+    flex-shrink: 0;
+  }
+  .btn-ai-send:hover { background: #000; }
+  .btn-ai-send:disabled { opacity: .5; cursor: not-allowed; }
+
+  @@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Mobile Responsive Optimization */
+  @@media (max-width: 768px) {
+    .ai-assistant-wrapper { gap: 10px; padding: 0 4px; }
+    .ai-header-panel { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .ai-header-info { gap: 10px; }
+    .ai-avatar-badge { width: 38px; height: 38px; font-size: 18px; }
+    .ai-header-info h1 { font-size: 17px; }
+    .ai-header-badges { width: 100%; justify-content: space-between; }
+    .ai-chat-card { height: calc(100vh - 220px); min-height: 460px; }
+    .chat-messages-box { padding: 14px 12px; gap: 12px; }
+    .chat-message { max-width: 94%; }
+    .chat-message.user { max-width: 92%; }
+    .chat-bubble { padding: 10px 14px; font-size: 13px; }
+    .chat-input-panel { padding: 10px 12px; }
+    .input-wrap textarea { font-size: 13px; }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+(() => {
+  const token = () => localStorage.getItem('vitality.accessToken') || localStorage.getItem('vitality.token');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token() || ''}` });
+
+  const chatStream = document.querySelector('#chatStream');
+  const form = document.querySelector('#aiChatForm');
+  const input = document.querySelector('#aiUserInput');
+  const sendBtn = document.querySelector('#aiSendBtn');
+  const typingIndicator = document.querySelector('#typingIndicator');
+
+  const contextDrawer = document.querySelector('#contextDrawer');
+  const toggleContextBtn = document.querySelector('#toggleContextBtn');
+  const closeDrawerBtn = document.querySelector('#closeDrawerBtn');
+
+  const ctxRank = document.querySelector('#ctxRank');
+  const ctxReferrals = document.querySelector('#ctxReferrals');
+  const ctxSales = document.querySelector('#ctxSales');
+  const ctxEarnings = document.querySelector('#ctxEarnings');
+  const ctxBank = document.querySelector('#ctxBank');
+
+  let messageHistory = [];
+
+  // Toggle Context Drawer
+  const toggleDrawer = () => {
+    const isVisible = contextDrawer.style.display !== 'none';
+    contextDrawer.style.display = isVisible ? 'none' : 'block';
+    toggleContextBtn.classList.toggle('active', !isVisible);
+  };
+
+  toggleContextBtn.addEventListener('click', toggleDrawer);
+  closeDrawerBtn.addEventListener('click', () => {
+    contextDrawer.style.display = 'none';
+    toggleContextBtn.classList.remove('active');
+  });
+
+  // Load Context Data in background
+  const loadContextData = async () => {
+    if (!token) return;
+    try {
+      const [profileRes, summaryRes, bankRes] = await Promise.all([
+        fetch('/api/profile', { headers: authHeaders() }),
+        fetch('/api/dashboard/summary', { headers: authHeaders() }),
+        fetch('/api/payout-settings', { headers: authHeaders() })
+      ]);
+
+      const profile = profileRes.ok ? await profileRes.json() : null;
+      const summary = summaryRes.ok ? await summaryRes.json() : null;
+      const bank = bankRes.ok ? await bankRes.json() : null;
+
+      if (profile) {
+        ctxRank.textContent = profile.rank || 'Builder';
+      }
+      if (summary) {
+        ctxReferrals.textContent = `${summary.directReferrals} Partners`;
+        ctxSales.textContent = `R ${Number(summary.monthlySales || 0).toFixed(2)}`;
+        ctxEarnings.textContent = `R ${Number(summary.totalEarned || 0).toFixed(2)}`;
+      }
+      if (bank && bank.bankName) {
+        ctxBank.textContent = `${bank.bankName} (Linked)`;
+      }
+    } catch { }
+  };
+
+  loadContextData();
+
+  // Markdown simple parser for AI responses
+  const formatMarkdown = (text) => {
+    return text
+      .replace(/^### (.*$)/gim, '<h4 style="margin:8px 0 4px; font-size:14px; font-weight:700; color:#0f172a;">$1</h4>')
+      .replace(/^## (.*$)/gim, '<h3 style="margin:10px 0 6px; font-size:15px; font-weight:700; color:#0f172a;">$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/^\- (.*$)/gim, '<li>$1</li>')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+  };
+
+  const appendMessage = (role, content) => {
+    const isUser = role === 'user';
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-message ${isUser ? 'user' : 'assistant'}`;
+
+    const formattedContent = isUser ? content : formatMarkdown(content);
+    const initial = isUser ? 'U' : '<i class="bi bi-robot"></i>';
+    const senderName = isUser ? 'You' : 'ScaleEngine AI Assistant';
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    msgDiv.innerHTML = `
+      <div class="chat-avatar">${initial}</div>
+      <div class="chat-bubble">
+        <div class="bubble-header">
+          <strong>${senderName}</strong>
+          <small>${timeStr}</small>
+        </div>
+        <div class="bubble-content">${formattedContent}</div>
+      </div>
+    `;
+
+    chatStream.appendChild(msgDiv);
+    chatStream.scrollTop = chatStream.scrollHeight;
+  };
+
+  // Submit Query
+  const submitQuery = async (queryText) => {
+    const query = (queryText || input.value).trim();
+    if (!query) return;
+
+    appendMessage('user', query);
+    input.value = '';
+    sendBtn.disabled = true;
+    typingIndicator.style.display = 'flex';
+    chatStream.scrollTop = chatStream.scrollHeight;
+
+    try {
+      const res = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({
+          message: query,
+          history: messageHistory
+        })
+      });
+
+      typingIndicator.style.display = 'none';
+
+      if (res.status === 401) {
+        appendMessage('assistant', '⚠️ **Session Expired or Login Required**<br>Your login session has expired or you are not logged in. Please <a href="/login.html" style="color:#0284c7;font-weight:700;text-decoration:underline;">Click here to log in</a> to access your AI Assistant.');
+        return;
+      }
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.reply) {
+          appendMessage('assistant', data.reply);
+          messageHistory.push({ role: 'user', content: query });
+          messageHistory.push({ role: 'assistant', content: data.reply });
+        } else {
+          appendMessage('assistant', 'Sorry, I encountered an issue retrieving the response. Please try again.');
+        }
+      } else {
+        const errorText = await res.text();
+        appendMessage('assistant', 'Sorry, an error occurred while processing your request. Please try again.');
+      }
+    } catch (err) {
+      typingIndicator.style.display = 'none';
+      appendMessage('assistant', 'Unable to reach the AI service. Please verify your connection or refresh the page.');
+    } finally {
+      sendBtn.disabled = false;
+      input.focus();
+    }
+  };
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitQuery();
+  });
+
+  // Handle Shift+Enter vs Enter
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      submitQuery();
+    }
+  });
+
+  // Prompt Pills Click
+  document.querySelectorAll('.prompt-chip').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      submitQuery(btn.dataset.query);
+    });
+  });
+})();
+</script>
+}

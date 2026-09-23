@@ -1,0 +1,366 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Visual Compensation Plan Builder";
+}
+
+<div class="plan-builder-container">
+  <!-- Header Bar -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-icon"><i class="bi bi-diagram-3-fill"></i></div>
+      <div>
+        <h1>Visual Compensation Plan Builder &amp; Matrix Designer</h1>
+        <p class="subtitle">Design, customize, and simulate multi-tier unilevel and binary compensation plans on an interactive visual canvas.</p>
+      </div>
+      <div class="builder-actions">
+        <button type="button" class="btn-builder-action" id="resetPlanBtn"><i class="bi bi-arrow-counterclockwise"></i> Reset Nodes</button>
+        <button type="button" class="btn-builder-primary" id="exportPlanBtn"><i class="bi bi-floppy-fill"></i> Save &amp; Export Plan Rules</button>
+      </div>
+    </div>
+
+    <!-- Live Simulation Analytics Bar -->
+    <div class="simulation-bar">
+      <div class="sim-left">
+        <span class="sim-label"><i class="bi bi-speedometer2"></i> Live Turnover Simulator:</span>
+        <input type="range" id="simTurnoverRange" min="10000" max="500000" step="10000" value="100000" style="width:200px; accent-color:#0284c7;">
+        <strong id="simTurnoverVal">R 100,000.00</strong>
+      </div>
+      <div class="sim-stats">
+        <div class="sim-stat">
+          <small>TOTAL COMMISSIONS PAID</small>
+          <strong id="simTotalPaid" style="color:#0284c7;">R 21,300.00</strong>
+        </div>
+        <div class="sim-stat">
+          <small>PAYOUT RATIO</small>
+          <strong id="simPayoutRatio" class="text-success">21.3%</strong>
+        </div>
+        <div class="sim-stat">
+          <small>COMPANY GROSS PROFIT</small>
+          <strong id="simCompanyProfit">R 78,700.00</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Canvas Layout: Node Palette + Interactive Workspace -->
+  <div class="builder-workspace-layout">
+    <!-- Node Palette Toolset -->
+    <aside class="palette-sidebar">
+      <h3><i class="bi bi-puzzle-fill"></i> Plan Nodes Palette</h3>
+      <p class="palette-hint">Drag or click to add compensation tiers and bonus rules into your active plan canvas.</p>
+
+      <div class="palette-nodes-list">
+        <div class="palette-node" draggable="true" data-type="unilevel" data-title="Unilevel Override Tier" data-rate="10">
+          <div class="p-node-icon unilevel"><i class="bi bi-layers-fill"></i></div>
+          <div>
+            <strong>Unilevel Level Tier</strong>
+            <small>Set override % per generation level</small>
+          </div>
+        </div>
+
+        <div class="palette-node" draggable="true" data-type="direct" data-title="Direct Sponsor Bonus" data-rate="20">
+          <div class="p-node-icon direct"><i class="bi bi-gift-fill"></i></div>
+          <div>
+            <strong>Direct Referral Bonus</strong>
+            <small>Instant payout on personal recruits</small>
+          </div>
+        </div>
+
+        <div class="palette-node" draggable="true" data-type="salary" data-title="Monthly Leadership Salary" data-rate="300">
+          <div class="p-node-icon salary"><i class="bi bi-wallet2"></i></div>
+          <div>
+            <strong>Leadership Salary Pool</strong>
+            <small>Guaranteed recurring monthly salary</small>
+          </div>
+        </div>
+
+        <div class="palette-node" draggable="true" data-type="binary" data-title="Binary Matching Override" data-rate="10">
+          <div class="p-node-icon binary"><i class="bi bi-shuffle"></i></div>
+          <div>
+            <strong>Binary Pair Match</strong>
+            <small>Lesser-leg volume cycle bonus</small>
+          </div>
+        </div>
+
+        <div class="palette-node" draggable="true" data-type="retail" data-title="Retail Margin Bonus" data-rate="30">
+          <div class="p-node-icon retail"><i class="bi bi-cart-check-fill"></i></div>
+          <div>
+            <strong>Customer Retail Margin</strong>
+            <small>Direct profit markup on e-commerce sales</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Visual Canvas Board -->
+    <main class="canvas-board" id="canvasBoard">
+      <div class="canvas-header">
+        <div class="canvas-title-box">
+          <i class="bi bi-node-plus"></i>
+          <span>Active Compensation Graph: <strong>ScaleEngine 7-Tier Hybrid Unilevel</strong></span>
+        </div>
+        <button type="button" class="btn-clear-canvas" id="clearCanvasBtn">Clear Canvas</button>
+      </div>
+
+      <!-- Dropzone Nodes Container -->
+      <div class="canvas-dropzone" id="canvasDropzone">
+        <!-- Default Initial Active Nodes -->
+        <div class="canvas-node" data-id="1">
+          <div class="c-node-head direct">
+            <span><i class="bi bi-gift-fill"></i> Direct Referral Bonus</span>
+            <button type="button" class="btn-remove-node">&times;</button>
+          </div>
+          <div class="c-node-body">
+            <label>Bonus Percentage (%):</label>
+            <input type="number" class="node-rate-input" value="20" min="1" max="100">
+            <small>Applies to personal Level 1 sponsor orders</small>
+          </div>
+        </div>
+
+        <div class="canvas-node" data-id="2">
+          <div class="c-node-head unilevel">
+            <span><i class="bi bi-layers-fill"></i> Level 1 Team Override</span>
+            <button type="button" class="btn-remove-node">&times;</button>
+          </div>
+          <div class="c-node-body">
+            <label>Level 1 Commission (%):</label>
+            <input type="number" class="node-rate-input" value="10" min="1" max="100">
+            <small>Turnover generated by immediate direct downlines</small>
+          </div>
+        </div>
+
+        <div class="canvas-node" data-id="3">
+          <div class="c-node-head unilevel">
+            <span><i class="bi bi-layers-fill"></i> Level 2 Team Override</span>
+            <button type="button" class="btn-remove-node">&times;</button>
+          </div>
+          <div class="c-node-body">
+            <label>Level 2 Commission (%):</label>
+            <input type="number" class="node-rate-input" value="5" min="1" max="100">
+            <small>Turnover generated by 2nd generation downlines</small>
+          </div>
+        </div>
+
+        <div class="canvas-node" data-id="4">
+          <div class="c-node-head salary">
+            <span><i class="bi bi-wallet2"></i> Builder Leadership Salary</span>
+            <button type="button" class="btn-remove-node">&times;</button>
+          </div>
+          <div class="c-node-body">
+            <label>Monthly Fixed Payout (ZAR):</label>
+            <input type="number" class="node-rate-input" value="300" min="50" max="10000">
+            <small>Requires 3 active directs &amp; R2,500 team volume</small>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+@section Styles {
+<style>
+  :root {
+    --dark: #0f172a;
+    --line: #e2e8f0;
+    --paper: #fff;
+    --muted: #64748b;
+    --success: #16a34a;
+  }
+  * { box-sizing: border-box; }
+
+  .plan-builder-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+  .panel { padding: 24px 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; }
+  .panel-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #0f172a; color: #fff; font-size: 20px; flex-shrink: 0; }
+  h1 { margin: 0 0 4px; font-size: 20px; font-weight: 700; color: var(--dark); }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13px; }
+
+  .builder-actions { display: flex; gap: 10px; }
+  .btn-builder-action { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--dark); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+  .btn-builder-primary { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px; border: 0; border-radius: 6px; background: var(--dark); color: #fff; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+
+  /* Simulation Bar */
+  .simulation-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--line); flex-wrap: wrap; gap: 16px; }
+  .sim-left { display: flex; align-items: center; gap: 12px; }
+  .sim-label { font-size: 12.5px; font-weight: 700; color: #334155; }
+  .sim-stats { display: flex; gap: 24px; }
+  .sim-stat small { display: block; font-size: 10px; font-weight: 800; color: #64748b; letter-spacing: .06em; margin-bottom: 2px; }
+  .sim-stat strong { font-size: 16px; font-weight: 800; color: var(--dark); }
+
+  /* Workspace Layout */
+  .builder-workspace-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
+
+  /* Palette Sidebar */
+  .palette-sidebar { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px; box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .palette-sidebar h3 { font-size: 14px; font-weight: 800; color: var(--dark); margin: 0 0 6px; display: flex; align-items: center; gap: 6px; }
+  .palette-hint { font-size: 11.5px; color: var(--muted); margin: 0 0 16px; line-height: 1.4; }
+
+  .palette-nodes-list { display: flex; flex-direction: column; gap: 10px; }
+  .palette-node { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 8px; border: 1px dashed #cbd5e1; background: #f8fafc; cursor: grab; transition: all .15s; }
+  .palette-node:hover { border-color: #0284c7; background: #f0f9ff; transform: translateX(2px); }
+  
+  .p-node-icon { width: 34px; height: 34px; border-radius: 6px; color: #fff; display: grid; place-items: center; font-size: 16px; flex-shrink: 0; }
+  .p-node-icon.unilevel { background: #0284c7; }
+  .p-node-icon.direct { background: #10b981; }
+  .p-node-icon.salary { background: #8b5cf6; }
+  .p-node-icon.binary { background: #f59e0b; }
+  .p-node-icon.retail { background: #0f172a; }
+
+  .palette-node strong { display: block; font-size: 12.5px; color: var(--dark); }
+  .palette-node small { font-size: 11px; color: var(--muted); }
+
+  /* Canvas Board */
+  .canvas-board { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; min-height: 520px; box-shadow: 0 4px 18px rgba(0,0,0,.04); }
+  .canvas-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 18px; }
+  .canvas-title-box { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--dark); }
+  .btn-clear-canvas { border: 0; background: transparent; color: #dc2626; font-size: 12px; font-weight: 600; cursor: pointer; }
+
+  .canvas-dropzone { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+
+  .canvas-node { border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.04); overflow: hidden; }
+  .c-node-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; color: #fff; font-size: 12px; font-weight: 700; }
+  .c-node-head.unilevel { background: #0284c7; }
+  .c-node-head.direct { background: #10b981; }
+  .c-node-head.salary { background: #8b5cf6; }
+  .c-node-head.binary { background: #f59e0b; }
+  .c-node-head.retail { background: #0f172a; }
+  
+  .btn-remove-node { border: 0; background: transparent; color: rgba(255,255,255,.8); font-size: 18px; cursor: pointer; line-height: 1; }
+  .btn-remove-node:hover { color: #fff; }
+
+  .c-node-body { padding: 14px; }
+  .c-node-body label { display: block; font-size: 11.5px; font-weight: 600; color: #475569; margin-bottom: 4px; }
+  .node-rate-input { width: 100%; height: 36px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; font-weight: 700; outline: none; margin-bottom: 6px; }
+  .c-node-body small { font-size: 11px; color: var(--muted); line-height: 1.3; display: block; }
+
+  @@media (max-width: 820px) {
+    .builder-workspace-layout { grid-template-columns: 1fr; }
+    .simulation-bar { flex-direction: column; align-items: flex-start; }
+    .sim-stats { width: 100%; justify-content: space-between; }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+(() => {
+  const rangeInput = document.querySelector('#simTurnoverRange');
+  const turnoverVal = document.querySelector('#simTurnoverVal');
+  const totalPaid = document.querySelector('#simTotalPaid');
+  const payoutRatio = document.querySelector('#simPayoutRatio');
+  const companyProfit = document.querySelector('#simCompanyProfit');
+  const dropzone = document.querySelector('#canvasDropzone');
+  const exportBtn = document.querySelector('#exportPlanBtn');
+  const resetBtn = document.querySelector('#resetPlanBtn');
+  const clearBtn = document.querySelector('#clearCanvasBtn');
+
+  let nodeCounter = 5;
+
+  const calculateSimulation = () => {
+    const turnover = Number(rangeInput.value);
+    turnoverVal.textContent = `R ${turnover.toLocaleString()}.00`;
+
+    // Sum all node inputs
+    let totalPct = 0;
+    let fixedTotal = 0;
+
+    dropzone.querySelectorAll('.canvas-node').forEach(node => {
+      const input = node.querySelector('.node-rate-input');
+      const val = Number(input.value) || 0;
+      const isSalary = node.querySelector('.c-node-head.salary');
+      if (isSalary) {
+        fixedTotal += val;
+      } else {
+        totalPct += val;
+      }
+    });
+
+    const percentagePaid = (turnover * (totalPct / 100));
+    const grossPaid = percentagePaid + fixedTotal;
+    const ratio = Math.min(100, Math.round((grossPaid / turnover) * 1000) / 10);
+    const profit = Math.max(0, turnover - grossPaid);
+
+    totalPaid.textContent = `R ${grossPaid.toLocaleString()}.00`;
+    payoutRatio.textContent = `${ratio}%`;
+    companyProfit.textContent = `R ${profit.toLocaleString()}.00`;
+  };
+
+  rangeInput.addEventListener('input', calculateSimulation);
+
+  // Wire existing node removals & inputs
+  const wireNodeEvents = (node) => {
+    node.querySelector('.btn-remove-node')?.addEventListener('click', () => {
+      node.remove();
+      calculateSimulation();
+    });
+    node.querySelector('.node-rate-input')?.addEventListener('input', calculateSimulation);
+  };
+
+  dropzone.querySelectorAll('.canvas-node').forEach(wireNodeEvents);
+
+  // Add node from palette
+  document.querySelectorAll('.palette-node').forEach(item => {
+    item.addEventListener('click', () => {
+      const type = item.dataset.type;
+      const title = item.dataset.title;
+      const rate = item.dataset.rate;
+      nodeCounter++;
+
+      const isSalary = type === 'salary';
+      const labelText = isSalary ? 'Monthly Fixed Payout (ZAR):' : `${title} (%):`;
+      const descText = isSalary ? 'Guaranteed recurring leadership pool payout' : `Commission rate for ${title}`;
+
+      const newNode = document.createElement('div');
+      newNode.className = 'canvas-node';
+      newNode.dataset.id = String(nodeCounter);
+      newNode.innerHTML = `
+        <div class="c-node-head ${type}">
+          <span><i class="bi bi-layers-fill"></i> ${title}</span>
+          <button type="button" class="btn-remove-node">&times;</button>
+        </div>
+        <div class="c-node-body">
+          <label>${labelText}</label>
+          <input type="number" class="node-rate-input" value="${rate}" min="1" max="10000">
+          <small>${descText}</small>
+        </div>
+      `;
+
+      dropzone.appendChild(newNode);
+      wireNodeEvents(newNode);
+      calculateSimulation();
+    });
+  });
+
+  clearBtn.addEventListener('click', () => {
+    dropzone.innerHTML = '';
+    calculateSimulation();
+  });
+
+  resetBtn.addEventListener('click', () => window.location.reload());
+
+  exportBtn.addEventListener('click', () => {
+    const rules = [];
+    dropzone.querySelectorAll('.canvas-node').forEach(node => {
+      const title = node.querySelector('.c-node-head span').innerText.trim();
+      const val = Number(node.querySelector('.node-rate-input').value);
+      rules.push({ ruleName: title, rateValue: val });
+    });
+
+    const exportData = {
+      planName: "ScaleEngine Custom MLM Compensation Model",
+      exportedAt: new Date().toISOString(),
+      nodes: rules
+    };
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `Compensation_Plan_${new Date().toISOString().slice(0,10)}.json`;
+    link.click();
+    alert('Plan rules configuration JSON exported successfully!');
+  });
+
+  calculateSimulation();
+})();
+</script>
+}

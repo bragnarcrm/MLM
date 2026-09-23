@@ -1,0 +1,537 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Support Tickets";
+}
+
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h1><i class="bi bi-headset"></i> Partner Support Desk</h1>
+      <p class="subtitle">Open, track, and resolve support inquiries regarding delivery, payouts, orders, and commissions.</p>
+    </div>
+    <button type="button" class="btn-primary-action" id="openCreateModalBtn">
+      <i class="bi bi-plus-lg"></i> Open New Ticket
+    </button>
+  </div>
+
+  <div class="support-stats">
+    <div class="stat-card">
+      <div class="stat-icon open"><i class="bi bi-envelope-open"></i></div>
+      <div><strong id="statOpen">0</strong><span>Open Tickets</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon in-progress"><i class="bi bi-clock-history"></i></div>
+      <div><strong id="statProgress">0</strong><span>In Progress</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon answered"><i class="bi bi-chat-dots-fill"></i></div>
+      <div><strong id="statAnswered">0</strong><span>Answered</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon closed"><i class="bi bi-check-circle-fill"></i></div>
+      <div><strong id="statClosed">0</strong><span>Resolved</span></div>
+    </div>
+  </div>
+
+  <!-- Tickets Table -->
+  <div class="table-wrap">
+    <table class="tickets-table">
+      <thead>
+        <tr>
+          <th>Ticket #</th>
+          <th>Subject</th>
+          <th>Category</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Messages</th>
+          <th>Last Update</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="ticketRows">
+        <tr><td colspan="8" class="empty-cell">Loading your support tickets...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Create Ticket Modal -->
+<div class="modal-backdrop" id="createModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <header class="modal-header">
+      <h2><i class="bi bi-plus-circle"></i> Create Support Ticket</h2>
+      <button class="modal-close" type="button" id="closeCreateModalBtn">&times;</button>
+    </header>
+    <form id="createTicketForm">
+      <div class="modal-body">
+        <div class="field">
+          <label for="ticketCategory">Category *</label>
+          <select id="ticketCategory" required>
+            <option value="Delivery &amp; Courier">Delivery &amp; Courier Shipping</option>
+            <option value="Payout &amp; Withdrawals">Payout &amp; Withdrawals</option>
+            <option value="Commissions &amp; Bonuses">Commissions &amp; Bonuses</option>
+            <option value="Account &amp; KYC">Account &amp; KYC Compliance</option>
+            <option value="Technical Issue">Technical / Website Issue</option>
+            <option value="General Inquiry" selected>General Inquiry</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="ticketPriority">Priority</label>
+          <select id="ticketPriority" required>
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High (Urgent)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="ticketSubject">Subject *</label>
+          <input id="ticketSubject" placeholder="Brief summary of your query" required>
+        </div>
+
+        <div class="field">
+          <label for="ticketMessage">Message Details *</label>
+          <textarea id="ticketMessage" rows="4" placeholder="Explain your issue or question in detail..." required></textarea>
+        </div>
+      </div>
+      <footer class="modal-footer">
+        <button type="submit" class="btn-primary-action" id="submitTicketBtn"><i class="bi bi-send-fill"></i> Submit Ticket</button>
+        <button type="button" class="btn-secondary-action" id="cancelCreateModalBtn">Cancel</button>
+        <span class="status-msg" id="createStatus"></span>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<!-- View / Reply Ticket Modal -->
+<div class="modal-backdrop" id="viewModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <header class="modal-header">
+      <div>
+        <h2 id="viewSubject">Ticket #TICK-00000000</h2>
+        <div class="ticket-meta" id="viewMeta">Category: General &bull; Priority: Medium</div>
+      </div>
+      <button class="modal-close" type="button" id="closeViewModalBtn">&times;</button>
+    </header>
+
+    <div class="modal-body">
+      <!-- Conversation Message Stream -->
+      <div class="conversation-stream" id="messageStream">
+        <p class="empty-cell">Loading conversation...</p>
+      </div>
+
+      <!-- AI Diagnosis & Auto-Assist Card -->
+      <div class="ai-assist-box" id="aiAssistContainer">
+        <div class="ai-assist-header">
+          <div class="ai-assist-title">
+            <i class="bi bi-robot" style="color: #0284c7;"></i>
+            <strong>AI Ticket Diagnostic Assistant</strong>
+            <span class="ai-badge">GPT-4o</span>
+          </div>
+          <button type="button" class="btn-ai-trigger" id="btnAiDiagnose">
+            <i class="bi bi-magic"></i> Diagnose &amp; Explain Issue
+          </button>
+        </div>
+        <div class="ai-diagnosis-result" id="aiDiagnosisResult" style="display:none;">
+          <div class="ai-diagnosis-content" id="aiDiagnosisText"></div>
+          <div class="ai-diagnosis-actions">
+            <button type="button" class="btn-insert-reply" id="btnInsertAiReply">
+              <i class="bi bi-box-arrow-in-down"></i> Insert Draft Into Reply Box
+            </button>
+            <button type="button" class="btn-dismiss-ai" id="btnDismissAi">
+              <i class="bi bi-x"></i> Dismiss
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply Box -->
+      <form id="replyForm" class="reply-box">
+        <label for="replyMessage"><strong>Reply to this ticket</strong></label>
+        <textarea id="replyMessage" rows="3" placeholder="Type your reply here..." required></textarea>
+        <div class="reply-actions">
+          <button type="submit" class="btn-primary-action"><i class="bi bi-reply-fill"></i> Send Reply</button>
+          <button type="button" class="btn-close-ticket" id="closeTicketBtn"><i class="bi bi-check2-circle"></i> Mark as Resolved</button>
+          <span class="status-msg" id="replyStatus"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section Styles {
+<style>
+  :root { --dark: #0f172a; --deep: #0d0f12; --ink: #1e293b; --muted: #64748b; --line: #e2e8f0; --paper: #fff; --bg: #f8fafc; --success: #16a34a; --warning: #d97706; --danger: #dc2626; }
+  * { box-sizing: border-box; }
+
+  .panel { padding: 30px 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 4px 18px rgba(0, 0, 0, .04); }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; }
+  h1 { margin: 0 0 4px; font-size: 21px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 9px; }
+  h1 i { color: var(--dark); }
+  .subtitle { margin: 0; color: var(--muted); font-size: 13.5px; }
+
+  .btn-primary-action { display: inline-flex; align-items: center; gap: 7px; height: 42px; padding: 0 18px; border: 0; border-radius: 6px; color: white; background: var(--dark); cursor: pointer; font-size: 13.5px; font-weight: 600; transition: background .15s; }
+  .btn-primary-action:hover { background: #000; }
+  .btn-secondary-action { display: inline-flex; align-items: center; height: 42px; padding: 0 16px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); background: #fff; cursor: pointer; font-size: 13.5px; font-weight: 500; }
+  .btn-secondary-action:hover { background: #f8fafc; color: var(--dark); }
+  .btn-close-ticket { display: inline-flex; align-items: center; gap: 6px; height: 42px; padding: 0 16px; border: 1px solid #bbf7d0; border-radius: 6px; color: #15803d; background: #f0fdf4; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .btn-close-ticket:hover { background: #dcfce7; }
+
+  /* Stats cards */
+  .support-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat-card { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 8px; background: #fdfdfd; }
+  .stat-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #fff; font-size: 18px; flex-shrink: 0; }
+  .stat-icon.open { background: #0284c7; }
+  .stat-icon.in-progress { background: #d97706; }
+  .stat-icon.answered { background: #7c3aed; }
+  .stat-icon.closed { background: #16a34a; }
+  .stat-card strong { display: block; font-size: 20px; color: var(--dark); line-height: 1.1; }
+  .stat-card span { color: var(--muted); font-size: 12px; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; }
+  .tickets-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tickets-table th, .tickets-table td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  .tickets-table th { background: #f8fafc; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .tickets-table tbody tr:hover { background: #f8fafc; }
+  .empty-cell { padding: 32px 14px; text-align: center; color: var(--muted); }
+
+  /* Badges */
+  .badge-status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .badge-status.open { background: #e0f2fe; color: #0369a1; }
+  .badge-status.in-progress { background: #fef3c7; color: #b45309; }
+  .badge-status.answered { background: #ede9fe; color: #6d28d9; }
+  .badge-status.closed { background: #dcfce7; color: #15803d; }
+  
+  .badge-priority { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .badge-priority.high { color: #dc2626; background: #fee2e2; }
+  .badge-priority.medium { color: #d97706; background: #fef3c7; }
+  .badge-priority.low { color: #64748b; background: #f1f5f9; }
+
+  .btn-view { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 4px; color: var(--dark); background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; }
+  .btn-view:hover { background: #f1f5f9; border-color: #cbd5e1; }
+
+  /* Modals */
+  .modal-backdrop { position: fixed; inset: 0; z-index: 200; display: none; place-items: center; padding: 18px; background: rgba(0, 0, 0, .6); backdrop-filter: blur(2px); }
+  .modal-backdrop.is-open { display: grid; animation: appear .2s ease-out both; }
+  .modal-dialog { position: relative; z-index: 201; width: min(100%, 540px); background: #fff; border-radius: 10px; border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0, 0, 0, .25); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; pointer-events: auto; }
+  .modal-dialog.modal-lg { width: min(100%, 720px); }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+  .modal-header h2 { margin: 0; font-size: 16px; font-weight: 700; color: var(--dark); }
+  .ticket-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .modal-close { border: 0; background: transparent; font-size: 22px; cursor: pointer; color: var(--muted); }
+  .modal-body { padding: 20px 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+  .modal-footer { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-top: 1px solid var(--line); background: #f8fafc; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 600; color: #334155; }
+  .field input, .field select, .field textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px; font: 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); background: #fff; outline: none; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(15, 23, 42, .1); }
+
+  /* Conversation stream */
+  .conversation-stream { display: flex; flex-direction: column; gap: 14px; max-height: 380px; overflow-y: auto; padding-right: 4px; margin-bottom: 14px; }
+  .msg-item { display: flex; gap: 12px; max-width: 88%; }
+  .msg-item.staff { align-self: flex-start; }
+  .msg-item.user { align-self: flex-end; flex-direction: row-reverse; }
+  
+  .msg-avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #fff; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .msg-item.staff .msg-avatar { background: #0f172a; }
+  .msg-item.user .msg-avatar { background: #3b82f6; }
+
+  .msg-bubble { padding: 12px 16px; border-radius: 8px; font-size: 13.5px; line-height: 1.5; }
+  .msg-item.staff .msg-bubble { background: #f1f5f9; border: 1px solid var(--line); color: var(--ink); border-top-left-radius: 2px; }
+  .msg-item.user .msg-bubble { background: #0f172a; color: #fff; border-top-right-radius: 2px; }
+  
+  .msg-info { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 4px; font-size: 11.5px; color: var(--muted); }
+  .msg-item.user .msg-info { color: #94a3b8; }
+
+  .reply-box { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .reply-box textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; font: 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; outline: none; }
+  .reply-box textarea:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(15, 23, 42, .1); }
+  .reply-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  /* AI Assistant Box */
+  .ai-assist-box { border: 1px solid #bae6fd; background: #f0f9ff; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .ai-assist-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .ai-assist-title { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #0369a1; }
+  .ai-badge { padding: 2px 7px; border-radius: 999px; background: #0284c7; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+  .btn-ai-trigger { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid #0284c7; background: #0284c7; color: #fff; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s ease; }
+  .btn-ai-trigger:hover { background: #0369a1; border-color: #0369a1; }
+  .btn-ai-trigger:disabled { opacity: 0.6; cursor: not-allowed; }
+  .ai-diagnosis-result { background: #fff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 12px 14px; font-size: 13px; line-height: 1.55; color: #1e293b; max-height: 220px; overflow-y: auto; box-shadow: inset 0 1px 3px rgba(0,0,0,0.03); }
+  .ai-diagnosis-result h3, .ai-diagnosis-result h4 { margin: 8px 0 4px; font-size: 13.5px; color: #0f172a; }
+  .ai-diagnosis-result ul { margin: 4px 0 8px 18px; padding: 0; }
+  .ai-diagnosis-actions { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .btn-insert-reply { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: #0f172a; color: #fff; border: 0; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; }
+  .btn-insert-reply:hover { background: #000; }
+  .btn-dismiss-ai { display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; background: transparent; border: 1px solid var(--line); color: var(--muted); border-radius: 4px; font-size: 12px; cursor: pointer; }
+  .btn-dismiss-ai:hover { background: #f8fafc; color: var(--dark); }
+
+  .status-msg { font-size: 12.5px; font-weight: 600; color: var(--success); }
+  .status-msg.error { color: var(--danger); }
+
+  @@keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @@media (max-width: 800px) {
+    .support-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+}
+
+@section Scripts {
+<script>
+  const token = localStorage.getItem('vitality.accessToken');
+  const authHeaders = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${token || ''}` });
+  let activeTicketId = null;
+
+  const createModal = document.querySelector('#createModal');
+  const viewModal = document.querySelector('#viewModal');
+
+  const openCreateModal = () => { createModal.classList.add('is-open'); createModal.setAttribute('aria-hidden', 'false'); };
+  const closeCreateModal = () => { createModal.classList.remove('is-open'); createModal.setAttribute('aria-hidden', 'true'); document.querySelector('#createTicketForm').reset(); document.querySelector('#createStatus').textContent = ''; };
+
+  const closeViewModal = () => { 
+    viewModal.classList.remove('is-open'); 
+    viewModal.setAttribute('aria-hidden', 'true'); 
+    activeTicketId = null; 
+    document.querySelector('#aiDiagnosisResult').style.display = 'none';
+    document.querySelector('#aiDiagnosisText').innerHTML = '';
+  };
+
+  document.querySelector('#openCreateModalBtn').addEventListener('click', openCreateModal);
+  document.querySelector('#closeCreateModalBtn').addEventListener('click', closeCreateModal);
+  document.querySelector('#cancelCreateModalBtn').addEventListener('click', closeCreateModal);
+  document.querySelector('#closeViewModalBtn').addEventListener('click', closeViewModal);
+
+  // AI Diagnostic Button in Ticket View
+  let rawAiReplyDraft = '';
+  const btnAiDiagnose = document.querySelector('#btnAiDiagnose');
+  const aiDiagnosisResult = document.querySelector('#aiDiagnosisResult');
+  const aiDiagnosisText = document.querySelector('#aiDiagnosisText');
+
+  btnAiDiagnose.addEventListener('click', async () => {
+    if (!activeTicketId) return;
+    btnAiDiagnose.disabled = true;
+    btnAiDiagnose.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Analyzing ticket...';
+    aiDiagnosisResult.style.display = 'block';
+    aiDiagnosisText.innerHTML = '<em>Consulting AI Copilot to analyze ticket history and generate diagnostic breakdown...</em>';
+
+    try {
+      const res = await fetch(`/api/support-tickets/${activeTicketId}/ai-diagnose`, {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ note: 'Explain the issue and provide troubleshooting fix.' })
+      });
+      const data = await res.json();
+      if (res.ok && data.reply) {
+        // Simple markdown formatter
+        let formatted = data.reply
+          .replace(/### (.*)/g, '<h4 style="margin:8px 0 4px;color:#0369a1;">$1</h4>')
+          .replace(/## (.*)/g, '<h3 style="margin:10px 0 4px;color:#0f172a;">$1</h3>')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.*?)\*/g, '<em>$1</em>')
+          .replace(/\n\n/g, '<p style="margin-bottom:6px;"></p>')
+          .replace(/\n/g, '<br>');
+
+        aiDiagnosisText.innerHTML = formatted;
+        
+        // Extract draft response quote or text if present
+        rawAiReplyDraft = data.reply;
+        const draftMatch = data.reply.match(/> \*"?(.*?)"?\*/s);
+        if (draftMatch && draftMatch[1]) {
+          rawAiReplyDraft = draftMatch[1].replace(/\\"/g, '"');
+        }
+      } else {
+        aiDiagnosisText.innerHTML = '<span style="color:var(--danger)">AI diagnostic temporarily unavailable. Please try again.</span>';
+      }
+    } catch {
+      aiDiagnosisText.innerHTML = '<span style="color:var(--danger)">Failed to connect to AI Assistant service.</span>';
+    } finally {
+      btnAiDiagnose.disabled = false;
+      btnAiDiagnose.innerHTML = '<i class="bi bi-magic"></i> Diagnose &amp; Explain Issue';
+    }
+  });
+
+  document.querySelector('#btnInsertAiReply').addEventListener('click', () => {
+    const replyInput = document.querySelector('#replyMessage');
+    if (rawAiReplyDraft) {
+      replyInput.value = rawAiReplyDraft;
+      replyInput.focus();
+    }
+  });
+
+  document.querySelector('#btnDismissAi').addEventListener('click', () => {
+    aiDiagnosisResult.style.display = 'none';
+  });
+
+  // Render tickets table
+  const loadTickets = async () => {
+    if (!token) return;
+    try {
+      const res = await fetch('/api/support-tickets', { headers: authHeaders() });
+      const tickets = res.ok ? await res.json() : [];
+
+      let openCount = 0, progressCount = 0, answeredCount = 0, closedCount = 0;
+      tickets.forEach((t) => {
+        const s = t.status.toLowerCase();
+        if (s === 'open') openCount++;
+        else if (s === 'in progress') progressCount++;
+        else if (s === 'answered') answeredCount++;
+        else if (s === 'closed') closedCount++;
+      });
+
+      document.querySelector('#statOpen').textContent = String(openCount);
+      document.querySelector('#statProgress').textContent = String(progressCount);
+      document.querySelector('#statAnswered').textContent = String(answeredCount);
+      document.querySelector('#statClosed').textContent = String(closedCount);
+
+      const rowsEl = document.querySelector('#ticketRows');
+      if (tickets.length === 0) {
+        rowsEl.innerHTML = '<tr><td colspan="8" class="empty-cell">No support tickets found. Click "Open New Ticket" above to submit an inquiry.</td></tr>';
+        return;
+      }
+
+      rowsEl.innerHTML = tickets.map((t) => {
+        const statusClass = t.status.toLowerCase().replace(' ', '-');
+        const prioClass = t.priority.toLowerCase();
+        const updated = new Date(t.updatedAt).toLocaleDateString();
+        return `<tr>
+          <td><strong>#${t.ticketNumber}</strong></td>
+          <td>${t.subject}</td>
+          <td>${t.category}</td>
+          <td><span class="badge-priority ${prioClass}">${t.priority}</span></td>
+          <td><span class="badge-status ${statusClass}">${t.status}</span></td>
+          <td><i class="bi bi-chat-text"></i> ${t.messageCount}</td>
+          <td>${updated}</td>
+          <td><button type="button" class="btn-view" data-id="${t.id}"><i class="bi bi-eye"></i> View</button></td>
+        </tr>`;
+      }).join('');
+
+      // Wire view buttons
+      document.querySelectorAll('.btn-view').forEach((btn) => {
+        btn.addEventListener('click', () => openTicketConversation(Number(btn.dataset.id)));
+      });
+    } catch {
+      document.querySelector('#ticketRows').innerHTML = '<tr><td colspan="8" class="empty-cell">Unable to load support tickets.</td></tr>';
+    }
+  };
+
+  // Open ticket conversation view
+  const openTicketConversation = async (ticketId) => {
+    activeTicketId = ticketId;
+    viewModal.classList.add('is-open');
+    viewModal.setAttribute('aria-hidden', 'false');
+    const stream = document.querySelector('#messageStream');
+    stream.innerHTML = '<p class="empty-cell">Loading conversation thread...</p>';
+
+    try {
+      const res = await fetch(`/api/support-tickets/${ticketId}`, { headers: authHeaders() });
+      if (!res.ok) throw new Error('Could not load ticket');
+      const data = await res.json();
+
+      document.querySelector('#viewSubject').textContent = `#${data.ticketNumber} - ${data.subject}`;
+      document.querySelector('#viewMeta').innerHTML = `Category: <strong>${data.category}</strong> &bull; Priority: <strong>${data.priority}</strong> &bull; Status: <span class="badge-status ${data.status.toLowerCase().replace(' ', '-')}">${data.status}</span>`;
+
+      stream.innerHTML = data.messages.map((m) => {
+        const isStaff = m.isStaff;
+        const cls = isStaff ? 'staff' : 'user';
+        const initial = isStaff ? 'S' : (m.senderName ? m.senderName[0].toUpperCase() : 'U');
+        const timeStr = new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return `<div class="msg-item ${cls}">
+          <div class="msg-avatar">${initial}</div>
+          <div class="msg-bubble">
+            <div class="msg-info">
+              <strong>${m.senderName}</strong>
+              <span>${timeStr}</span>
+            </div>
+            <div>${m.message}</div>
+          </div>
+        </div>`;
+      }).join('');
+
+      stream.scrollTop = stream.scrollHeight;
+    } catch {
+      stream.innerHTML = '<p class="empty-cell" style="color:var(--danger)">Failed to load conversation.</p>';
+    }
+  };
+
+  // Submit new ticket
+  document.querySelector('#createTicketForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const statusEl = document.querySelector('#createStatus');
+    statusEl.className = 'status-msg';
+    statusEl.textContent = 'Submitting ticket...';
+
+    try {
+      const res = await fetch('/api/support-tickets', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({
+          category: document.querySelector('#ticketCategory').value,
+          priority: document.querySelector('#ticketPriority').value,
+          subject: document.querySelector('#ticketSubject').value,
+          initialMessage: document.querySelector('#ticketMessage').value
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        statusEl.textContent = data.message || 'Ticket created!';
+        setTimeout(() => {
+          closeCreateModal();
+          loadTickets();
+        }, 600);
+      } else {
+        statusEl.className = 'status-msg error';
+        statusEl.textContent = data.message || 'Failed to create ticket.';
+      }
+    } catch {
+      statusEl.className = 'status-msg error';
+      statusEl.textContent = 'Unable to contact the server.';
+    }
+  });
+
+  // Reply to ticket
+  document.querySelector('#replyForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!activeTicketId) return;
+    const msgInput = document.querySelector('#replyMessage');
+    const statusEl = document.querySelector('#replyStatus');
+    statusEl.className = 'status-msg';
+    statusEl.textContent = 'Sending...';
+
+    try {
+      const res = await fetch(`/api/support-tickets/${activeTicketId}/reply`, {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify({ message: msgInput.value })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        msgInput.value = '';
+        statusEl.textContent = '';
+        openTicketConversation(activeTicketId);
+        loadTickets();
+      } else {
+        statusEl.className = 'status-msg error';
+        statusEl.textContent = data.message || 'Reply failed.';
+      }
+    } catch {
+      statusEl.className = 'status-msg error';
+      statusEl.textContent = 'Unable to send reply.';
+    }
+  });
+
+  // Close ticket
+  document.querySelector('#closeTicketBtn').addEventListener('click', async () => {
+    if (!activeTicketId) return;
+    if (!confirm('Mark this ticket as resolved and closed?')) return;
+    const res = await fetch(`/api/support-tickets/${activeTicketId}/close`, { method: 'PUT', headers: authHeaders() });
+    if (res.ok) {
+      openTicketConversation(activeTicketId);
+      loadTickets();
+    }
+  });
+
+  loadTickets();
+</script>
+}

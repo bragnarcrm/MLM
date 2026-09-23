@@ -1,0 +1,64 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/css/portal-navigation.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\portal-navigation.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-FnGV91o9LY54HsRM5kDBEIj0MwN341Y\u002Baxsc7zcl44M="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"13999"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022FnGV91o9LY54HsRM5kDBEIj0MwN341Y\u002Baxsc7zcl44M=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 14:04:06 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/css/portal-navigation.qnkmvg6txu.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\portal-navigation.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"qnkmvg6txu"},{"Name":"integrity","Value":"sha256-FnGV91o9LY54HsRM5kDBEIj0MwN341Y\u002Baxsc7zcl44M="},{"Name":"label","Value":"_content/VitalityPortal/css/portal-navigation.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"13999"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022FnGV91o9LY54HsRM5kDBEIj0MwN341Y\u002Baxsc7zcl44M=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 14:04:06 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/portal-session.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\portal-session.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-o4HNMP4bRSCKFkbiHyrtewR4d/4SXg6pVkt7kVv2t1k="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"10602"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022o4HNMP4bRSCKFkbiHyrtewR4d/4SXg6pVkt7kVv2t1k=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 12:56:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/portal-session.pl972cqzkz.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\portal-session.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"pl972cqzkz"},{"Name":"integrity","Value":"sha256-o4HNMP4bRSCKFkbiHyrtewR4d/4SXg6pVkt7kVv2t1k="},{"Name":"label","Value":"_content/VitalityPortal/js/portal-session.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"10602"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022o4HNMP4bRSCKFkbiHyrtewR4d/4SXg6pVkt7kVv2t1k=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 12:56:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/portal-table.5nmvx113ja.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\portal-table.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"5nmvx113ja"},{"Name":"integrity","Value":"sha256-n0aM4/G2Xl/2VyTtxHApuIN6xtAWSUhVBlubWokwo30="},{"Name":"label","Value":"_content/VitalityPortal/js/portal-table.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2954"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022n0aM4/G2Xl/2VyTtxHApuIN6xtAWSUhVBlubWokwo30=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Sep 2026 08:17:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/portal-table.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\portal-table.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-n0aM4/G2Xl/2VyTtxHApuIN6xtAWSUhVBlubWokwo30="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2954"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022n0aM4/G2Xl/2VyTtxHApuIN6xtAWSUhVBlubWokwo30=\u0022"},{"Name":"Last-Modified","Value":"Thu, 17 Sep 2026 08:17:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/saas-engine.h5wzr24k42.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\saas-engine.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"h5wzr24k42"},{"Name":"integrity","Value":"sha256-hRBYiO3\u002BekY7ecvWXj/ANE8yrn6szW/\u002BkMR1jcUoWEI="},{"Name":"label","Value":"_content/VitalityPortal/js/saas-engine.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"24494"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022hRBYiO3\u002BekY7ecvWXj/ANE8yrn6szW/\u002BkMR1jcUoWEI=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 13:06:09 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/saas-engine.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\saas-engine.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-hRBYiO3\u002BekY7ecvWXj/ANE8yrn6szW/\u002BkMR1jcUoWEI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"24494"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022hRBYiO3\u002BekY7ecvWXj/ANE8yrn6szW/\u002BkMR1jcUoWEI=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 13:06:09 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/translator-engine.hc1wx6y0lu.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\translator-engine.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"hc1wx6y0lu"},{"Name":"integrity","Value":"sha256-L3iu2XaL4vuZ0Dcpq1cdYWqxKaPlLL02BFGTBEjhGMQ="},{"Name":"label","Value":"_content/VitalityPortal/js/translator-engine.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9398"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022L3iu2XaL4vuZ0Dcpq1cdYWqxKaPlLL02BFGTBEjhGMQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 13:41:56 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/VitalityPortal/js/translator-engine.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\translator-engine.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-L3iu2XaL4vuZ0Dcpq1cdYWqxKaPlLL02BFGTBEjhGMQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"9398"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022L3iu2XaL4vuZ0Dcpq1cdYWqxKaPlLL02BFGTBEjhGMQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Sep 2026 13:41:56 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>
