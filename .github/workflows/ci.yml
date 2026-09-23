@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore
+        run: dotnet restore VitalityPortal.slnx
+
+      - name: Build
+        run: dotnet build VitalityPortal.slnx --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test VitalityPortal.slnx --configuration Release --no-build --logger trx
+
+  deployed-smoke-test:
+    if: ${{ vars.DEPLOYMENT_URL != '' }}
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Run deployed smoke test
+        shell: pwsh
+        env:
+          DEPLOYMENT_URL: ${{ vars.DEPLOYMENT_URL }}
+        run: ./scripts/smoke-test.ps1 -DeploymentUrl $env:DEPLOYMENT_URL

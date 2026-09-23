@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/VitalityPortal.Tests/VitalityPortal.Tests.csproj" />
+  </Folder>
+  <Project Path="VitalityPortal.csproj" />
+</Solution>
