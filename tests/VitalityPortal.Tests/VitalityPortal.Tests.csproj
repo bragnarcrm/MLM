@@ -13,4 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\VitalityPortal.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
 </Project>

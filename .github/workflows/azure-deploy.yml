@@ -1,0 +1,68 @@
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: 9.0.x
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore VitalityPortal.slnx
+
+      - name: Build
+        run: dotnet build VitalityPortal.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test VitalityPortal.slnx --configuration Release --no-build --logger trx
+
+      - name: Publish web app
+        run: dotnet publish VitalityPortal.csproj --configuration Release --no-build --output ./publish
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitality-portal
+          path: ./publish
+
+  deploy:
+    if: ${{ vars.AZURE_WEBAPP_NAME != '' && secrets.AZURE_WEBAPP_PUBLISH_PROFILE != '' }}
+    needs: build-test-publish
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Download deployment artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vitality-portal
+          path: ./publish
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish
+
+      - name: Smoke test deployed app
+        if: ${{ vars.DEPLOYMENT_URL != '' }}
+        shell: pwsh
+        env:
+          DEPLOYMENT_URL: ${{ vars.DEPLOYMENT_URL }}
+        run: ./scripts/smoke-test.ps1 -DeploymentUrl $env:DEPLOYMENT_URL
