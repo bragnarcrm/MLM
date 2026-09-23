@@ -14,7 +14,7 @@ var jwtOptions = builder.Configuration.GetSection(JwtOptions.SectionName).Get<Jw
 	?? throw new InvalidOperationException("JWT configuration is missing.");
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<PortalDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("PortalDatabase")));
+builder.Services.AddDbContext<PortalDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PortalDatabase")));
 builder.Services.AddIdentityCore<ApplicationUser>(options => {
 	options.Password.RequiredLength = 8;
 	options.Password.RequireDigit = true;
