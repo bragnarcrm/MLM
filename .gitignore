@@ -8,3 +8,4 @@ obj/
 *.db-wal
 appsettings.Local.json
 appsettings.Production.json
+.copilot-azure/
