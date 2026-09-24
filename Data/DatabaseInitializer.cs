@@ -8,11 +8,15 @@ public static class DatabaseInitializer
     public static async Task InitializeAsync(IServiceProvider services)
     {
         using var scope = services.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<PortalDbContext>();
-        await context.Database.EnsureCreatedAsync();
+        var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("DatabaseInitializer");
 
-        var users = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        if (await users.FindByNameAsync("samkelisojam") is null) {
+        try
+        {
+            var context = scope.ServiceProvider.GetRequiredService<PortalDbContext>();
+            await context.Database.EnsureCreatedAsync();
+
+            var users = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            if (await users.FindByNameAsync("samkelisojam") is null) {
             var user = new ApplicationUser {
                 UserName = "samkelisojam",
                 Email = "samkelisojam285@gmail.com",
@@ -26,18 +30,18 @@ public static class DatabaseInitializer
             };
             var result = await users.CreateAsync(user, "password1");
             if (!result.Succeeded) throw new InvalidOperationException(string.Join("; ", result.Errors.Select(error => error.Description)));
-        }
+            }
 
         // Add 3 dedicated downline users under samkelisojam
-        var downlineMembers = new[]
-        {
+            var downlineMembers = new[]
+            {
             new { Username = "nomsa_khumalo", First = "Nomsa", Last = "Khumalo", Email = "nomsa.khumalo@gmail.com", Mobile = "+27712345601", Rank = "Builder", Sales = 1450m },
             new { Username = "thabo_molefe", First = "Thabo", Last = "Molefe", Email = "thabo.molefe@gmail.com", Mobile = "+27823456702", Rank = "Newbie", Sales = 890m },
             new { Username = "sipho_dlamini", First = "Sipho", Last = "Dlamini", Email = "sipho.dlamini@gmail.com", Mobile = "+27734567803", Rank = "Builder", Sales = 2350m }
-        };
+            };
 
-        foreach (var m in downlineMembers)
-        {
+            foreach (var m in downlineMembers)
+            {
             if (await users.FindByNameAsync(m.Username) is null)
             {
                 var newUser = new ApplicationUser
@@ -70,11 +74,11 @@ public static class DatabaseInitializer
                     JoinedAt = DateTime.UtcNow.Date.AddDays(-2)
                 });
             }
-        }
-        await context.SaveChangesAsync();
+            }
+            await context.SaveChangesAsync();
 
-        var referralCount = await context.Referrals.CountAsync();
-        if (referralCount < 50) {
+            var referralCount = await context.Referrals.CountAsync();
+            if (referralCount < 50) {
             var names = new[] { "Amina", "Brian", "Clara", "David", "Elena", "Fikile", "Grace", "Hassan", "Ivy", "Jabu" };
             for (var index = referralCount + 1; index <= 50; index++) {
                 var sponsorId = index <= 10 ? "samkelisojam" : $"demo-member-{((index - 1) % 10) + 1:00}";
@@ -90,9 +94,9 @@ public static class DatabaseInitializer
                 });
             }
             await context.SaveChangesAsync();
-        }
+            }
 
-        if (!await context.PortalMessages.AnyAsync()) {
+            if (!await context.PortalMessages.AnyAsync()) {
             context.PortalMessages.AddRange(
                 new PortalMessageEntity {
                     SenderUserId = "system",
@@ -123,6 +127,11 @@ public static class DatabaseInitializer
                 }
             );
             await context.SaveChangesAsync();
+            }
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception, "Database initialization failed. The application will start, but database-backed features remain unavailable until the connection is fixed.");
         }
     }
 }

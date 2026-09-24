@@ -1,0 +1,530 @@
+* { box-sizing: border-box; }
+
+:root {
+  --sidebar-bg: #0d0f12;
+  --sidebar-line: #1c212a;
+  --sidebar-text: #94a3b8;
+  --sidebar-text-active: #ffffff;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.07);
+  --sidebar-active-bg: #1c222c;
+  --header-bg: #0d0f12;
+  --header-border: #1c212a;
+}
+
+/* Sidebar structure */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 100;
+  width: 252px;
+  padding: 18px 12px 28px;
+  overflow-y: auto;
+  color: var(--sidebar-text);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-line);
+  scrollbar-width: thin;
+  scrollbar-color: #272d38 transparent;
+}
+
+.sidebar::-webkit-scrollbar { width: 5px; }
+.sidebar::-webkit-scrollbar-thumb { background: #272d38; border-radius: 4px; }
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px 22px;
+  border-bottom: 1px solid var(--sidebar-line);
+  margin-bottom: 14px;
+}
+
+.brand-badge {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: #fff;
+  background: linear-gradient(135deg, #252b36, #12161f);
+  border: 1px solid #323947;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 19px;
+}
+
+.brand-text strong {
+  display: block;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.brand-text span {
+  display: block;
+  margin-top: 1px;
+  color: #64748b;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* Nav links & labels */
+nav { display: flex; flex-direction: column; gap: 2px; }
+
+.nav-label {
+  min-height: 20px;
+  margin: 14px 0 4px;
+  padding: 0 10px;
+  color: #4b5563;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 12.2px;
+  font-weight: 500;
+  transition: background .15s ease, color .15s ease;
+}
+
+nav a:hover {
+  color: #f1f5f9;
+  background: var(--sidebar-hover-bg);
+}
+
+nav a.active {
+  color: var(--sidebar-text-active);
+  background: var(--sidebar-active-bg);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 #ffffff;
+}
+
+.icon {
+  width: 16px;
+  flex: 0 0 16px;
+  text-align: center;
+  font-size: 14.5px;
+  color: #cbd5e1;
+}
+
+nav a.active .icon { color: #ffffff; }
+
+/* Submenus */
+#sidebar .subnav {
+  margin: 2px 0 4px 16px;
+  padding-left: 8px;
+  border-left: 2px solid #1f2530;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#sidebar .subnav.portal-subnav-open { display: flex; }
+
+#sidebar .subnav a {
+  min-height: 28px;
+  padding: 0 8px;
+  font-size: 11.5px;
+  color: #8896a6;
+  border-radius: 4px;
+}
+
+#sidebar .subnav a:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#sidebar .subnav a.active {
+  color: #ffffff;
+  background: #252c38;
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 #ffffff;
+}
+
+#sidebar .subnav b {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #475569;
+  font-size: 0;
+  transition: all .15s ease;
+}
+
+#sidebar .subnav a.active b {
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+#sidebar .portal-nav-parent::after {
+  content: '\F285';
+  font-family: "bootstrap-icons";
+  margin-left: auto;
+  color: #64748b;
+  font-size: 11px;
+  transition: transform .2s ease;
+}
+
+#sidebar .portal-nav-parent[aria-expanded="true"]::after {
+  transform: rotate(90deg);
+  color: #cbd5e1;
+}
+
+/* Sidebar share button */
+.portal-share-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 34px;
+  margin-top: 10px;
+  padding: 0 10px;
+  border: 1px solid #232a38;
+  border-radius: 6px;
+  color: #e2e8f0;
+  background: #141820;
+  cursor: pointer;
+  font: 500 11.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: left;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+  text-align: left;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.portal-share-trigger:hover {
+  background: #1f2532;
+  border-color: #3b4557;
+  color: #fff;
+}
+
+/* AI Navigation Item */
+.nav-ai-item {
+  position: relative;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  background: rgba(56, 189, 248, 0.05) !important;
+  margin-top: 6px !important;
+}
+.nav-ai-item:hover {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+}
+.nav-ai-badge {
+  margin-left: auto;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+
+/* Top Header */
+.portal-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  color: #fff;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+}
+
+.portal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.portal-header-toggle {
+  display: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.portal-header-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.portal-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.portal-header-badge i { color: #60a5fa; }
+
+.portal-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.portal-header-btn {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.portal-header-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.portal-header-badge-count {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--header-bg);
+}
+
+.portal-header-btn .dot {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--header-bg);
+  background: #ef4444;
+  display: none;
+}
+.portal-header-btn .dot.show { display: block; }
+
+.portal-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  transition: all .15s ease;
+}
+
+.portal-profile:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.portal-profile-avatar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #fff;
+  background: #333d4d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.portal-profile-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.portal-profile-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.portal-profile-rank {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.portal-header-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #fff;
+  background: #1f2532;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all .15s ease;
+}
+
+.portal-header-action:hover {
+  background: #2b3344;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Mobile Toggle */
+.portal-nav-toggle {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 14px;
+  z-index: 120;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #28303f;
+  border-radius: 6px;
+  color: #fff;
+  background: #131720;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Modal share dialog */
+.portal-share-backdrop { position: fixed; inset: 0; z-index: 200; display: none; place-items: center; padding: 18px; background: rgba(0, 0, 0, .68); backdrop-filter: blur(2px); }
+.portal-share-backdrop.is-open { display: grid; animation: portal-fade-in .18s ease-out both; }
+.portal-share-modal { width: min(100%, 500px); padding: 24px; border: 1px solid #dce6de; border-radius: 8px; color: #27372f; background: #fff; box-shadow: 0 20px 70px rgba(0, 0, 0, .28); }
+.portal-share-modal header { min-height: 0; margin: 0 0 16px; padding: 0; color: #27372f; background: transparent; display: flex; justify-content: space-between; align-items: center; }
+.portal-share-modal h2 { margin: 0; font-size: 18px; font-weight: 700; }
+.portal-share-close { width: 32px; height: 32px; border: 0; border-radius: 50%; color: #506258; background: #eef4ef; cursor: pointer; font-size: 20px; display: grid; place-items: center; }
+.portal-share-copy { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin: 14px 0; }
+.portal-share-copy input, .portal-share-scan input { width: 100%; min-height: 40px; padding: 8px 10px; border: 1px solid #dce6de; border-radius: 5px; color: #27372f; background: #fbfefb; font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.portal-share-qr { display: block; width: 150px; height: 150px; margin: 16px auto; padding: 6px; border: 1px solid #dce6de; border-radius: 6px; background: #fff; }
+.portal-share-action { min-height: 40px; padding: 0 15px; border: 0; border-radius: 5px; color: #fff; background: #14171a; cursor: pointer; font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; transition: background .15s ease; }
+.portal-share-action:hover { background: #000; }
+.portal-share-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.portal-share-actions .secondary { color: #1f7a34; background: #e8f3e7; }
+.portal-share-status { min-height: 18px; margin: 10px 0 0; color: #1f7a34; font-size: 12px; }
+.portal-share-scan { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid #dce6de; }
+.portal-share-scan.is-open { display: block; }
+.portal-share-scan video { width: 100%; max-height: 220px; margin-top: 10px; border-radius: 5px; background: #10271a; object-fit: cover; }
+.portal-share-hint { margin: 0; color: #7b857e; font-size: 12px; line-height: 1.5; }
+
+/* Responsive break points */
+@media (max-width: 820px) {
+  .sidebar { width: 62px; padding: 14px 8px; }
+  .sidebar .brand-text,
+  .sidebar nav a span,
+  .sidebar .nav-label,
+  .sidebar .subnav,
+  .sidebar .portal-share-trigger span,
+  .sidebar .portal-nav-parent::after { display: none !important; }
+  .sidebar .brand { padding: 4px; justify-content: center; }
+  .sidebar nav a { justify-content: center; padding: 0; min-height: 38px; }
+  .sidebar .portal-share-trigger { width: 38px; margin: 10px auto; padding: 0; justify-content: center; }
+  .portal-header-toggle { display: grid !important; }
+  body.portal-nav-active { overflow: hidden; }
+  body.portal-nav-active::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    background: rgba(0, 0, 0, .55);
+  }
+  aside.portal-nav-open,
+  #sidebar.portal-nav-open {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 auto 0 0 !important;
+    z-index: 100 !important;
+    width: min(84vw, 270px) !important;
+    max-width: 270px;
+    padding: 18px 12px 28px !important;
+    overflow-y: auto;
+  }
+  aside.portal-nav-open .brand-text,
+  aside.portal-nav-open nav a span,
+  #sidebar.portal-nav-open .brand-text,
+  #sidebar.portal-nav-open nav a span,
+  aside.portal-nav-open .nav-label,
+  #sidebar.portal-nav-open .nav-label,
+  aside.portal-nav-open .portal-share-trigger span,
+  #sidebar.portal-nav-open .portal-share-trigger span { display: initial !important; }
+  aside.portal-nav-open .brand,
+  #sidebar.portal-nav-open .brand { justify-content: flex-start !important; }
+  aside.portal-nav-open .subnav.portal-subnav-open,
+  #sidebar.portal-nav-open .subnav.portal-subnav-open { display: flex !important; }
+  aside.portal-nav-open nav,
+  #sidebar.portal-nav-open nav { display: flex !important; }
+  aside.portal-nav-open nav a,
+  #sidebar.portal-nav-open nav a { justify-content: flex-start !important; padding: 0 12px !important; }
+  aside.portal-nav-open .portal-share-trigger,
+  #sidebar.portal-nav-open .portal-share-trigger { width: 100% !important; justify-content: flex-start !important; padding: 0 12px !important; }
+  aside.portal-nav-open .portal-nav-parent::after,
+  #sidebar.portal-nav-open .portal-nav-parent::after { display: block !important; }
+}
+
+@media (max-width: 620px) {
+  .sidebar { display: none; }
+  .sidebar.portal-nav-open { display: block !important; }
+  .portal-header { padding: 0 14px 0 60px; }
+  .portal-header-badge { display: none; }
+}
+
+header.top > a, .main > header > a { display: none !important; }
+
+@keyframes portal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+main, .panel, header { animation: portal-page-enter .24s ease-out both; }
+:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+
+@keyframes portal-page-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main, .panel, header, .portal-share-backdrop { animation: none; }
+}

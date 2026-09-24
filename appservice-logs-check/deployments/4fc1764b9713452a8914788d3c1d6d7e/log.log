@@ -1,0 +1,33 @@
+2026-09-24T10:48:54.9989166Z,Updating submodules.,3eb6916e-cd79-4579-b2ef-23f7c5805445,0
+2026-09-24T10:48:55.0459187Z,Preparing deployment for commit id '4fc1764b97'.,c2e5353b-7a4c-4573-836d-e2ea1634d482,0
+2026-09-24T10:48:55.1709256Z,Running build. Project type: OneDeploy,0578ee99-3566-4410-afdd-0f1a53f57558,0
+2026-09-24T10:48:55.2021756Z,Copying the manifest,44f15952-1f10-439b-ac45-3a2fbd43839a,0
+2026-09-24T10:48:55.2490495Z,Clean deploying to C:\home\site\wwwroot,922da400-5b24-4206-bf96-fefafebd328f,0
+2026-09-24T10:48:55.2959260Z,Generating deployment script.,aba883c0-8dc8-40ce-a926-7f73e42bab72,0
+	2026-09-24T10:48:55.3427993Z,Using cached version of deployment script (command: 'azure -y --no-dot-deployment -r "C:\local\Temp\zipdeploy\extracted" -o "C:\home\site\deployments\tools" --basic --sitePath "C:\local\Temp\zipdeploy\extracted"').,,0
+2026-09-24T10:48:55.4222086Z,Running deployment command...,c1066d55-a7c6-4d00-ab5c-c6bd0ea88b6b,0
+	2026-09-24T10:48:55.4378525Z,Command: "C:\home\site\deployments\tools\deploy.cmd",,0
+	2026-09-24T10:48:55.5784754Z,Handling Basic Web Site deployment.,,0
+	2026-09-24T10:48:57.8644385Z,Creating app_offline.htm,,0
+	2026-09-24T10:48:57.8800608Z,KuduSync.NET from: 'C:\local\Temp\zipdeploy\extracted' to: 'C:\home\site\wwwroot',,0
+	2026-09-24T10:48:57.8956862Z,Copying file: 'VitalityPortal.dll',,0
+	2026-09-24T10:48:57.8956862Z,Copying file: 'VitalityPortal.exe',,0
+	2026-09-24T10:48:57.9113129Z,Copying file: 'VitalityPortal.pdb',,0
+	2026-09-24T10:48:57.9269408Z,Copying file: 'appservice-logs\deployments\latest.json',,0
+	2026-09-24T10:48:57.9425851Z,Copying file: 'appservice-logs-final\deployments\latest.json',,0
+	2026-09-24T10:48:57.9425851Z,Copying file: 'appservice-logs-new\deployments\latest.json',,0
+	2026-09-24T10:48:57.9581885Z,Copying file: 'publish\appsettings.json',,0
+	2026-09-24T10:48:57.9738108Z,Copying file: 'publish\VitalityPortal.deps.json',,0
+	2026-09-24T10:48:57.9894365Z,Copying file: 'publish\VitalityPortal.runtimeconfig.json',,0
+	2026-09-24T10:48:57.9894365Z,Copying file: 'publish\VitalityPortal.staticwebassets.endpoints.json',,0
+	2026-09-24T10:48:58.0050618Z,Copying file: 'publish\infra\main.json',,0
+	2026-09-24T10:48:58.0206862Z,Copying file: 'publish\infra\main.parameters.json',,0
+	2026-09-24T10:48:58.0363124Z,Copying file: 'publish\web.config',,0
+	2026-09-24T10:48:58.0363124Z,Deleting app_offline.htm,,0
+	2026-09-24T10:48:58.0519371Z,Finished successfully.,,0
+2026-09-24T10:48:58.0988100Z,Build completed succesfully.,eea76200-19f9-491b-9301-71149210c585,0
+2026-09-24T10:48:58.1613151Z,Running post deployment command(s)...,ef1aa8e8-1c2e-4cb5-aa51-835d9886b4b7,0
+2026-09-24T10:48:58.2238074Z,Requesting site restart,db9d872c-681c-42fb-b531-0d8f237d7e89,0
+2026-09-24T10:48:58.3331866Z,Requesting site restart. Attempt #1,b1622b87-a460-48f4-9077-4cb8251e9709,0
+2026-09-24T10:48:58.8883397Z,Successfully requested a restart. Attempt #1,881afc78-98cd-4e3e-9497-2a96c3b32dcf,0
+2026-09-24T10:48:58.9977156Z,Deployment successful.,e061e844-5d75-49cb-9590-d7a4606d86fe,0

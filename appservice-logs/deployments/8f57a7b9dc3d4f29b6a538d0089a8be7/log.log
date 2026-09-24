@@ -1,0 +1,69 @@
+2026-09-24T09:19:14.2072368Z,Updating submodules.,b6a03a6c-0ab5-4c26-abe5-a3f1a9f57024,0
+2026-09-24T09:19:14.2541084Z,Preparing deployment for commit id '8f57a7b9dc'.,94ebbd56-310a-411a-bec0-ff0f15864df4,0
+2026-09-24T09:19:14.3791093Z,Running build. Project type: OneDeploy,4df66c74-1977-40c5-b86e-3ef7a66ad487,0
+2026-09-24T09:19:14.4259835Z,Copying the manifest,f45da16c-a224-4660-ab6c-f36dd944232d,0
+2026-09-24T09:19:14.4728565Z,Clean deploying to C:\home\site\wwwroot,d56f48f5-0fc3-4968-bd35-cedfd4b86c65,0
+2026-09-24T09:19:14.5041079Z,Generating deployment script.,4730b92f-ceed-4883-ae2e-a0748fa67352,0
+	2026-09-24T09:19:14.8947437Z,Using the following command to generate deployment script: 'azure site deploymentscript -y --no-dot-deployment -r "C:\local\Temp\zipdeploy\extracted" -o "C:\home\site\deployments\tools" --basic --sitePath "C:\local\Temp\zipdeploy\extracted"'.,,0
+	2026-09-24T09:19:16.7153205Z,Generating deployment script for Web Site,,0
+2026-09-24T09:19:16.7778193Z,Running deployment command...,759693a2-a581-4c8b-b32c-1ff77e01b545,0
+	2026-09-24T09:19:16.7934462Z,Command: "C:\home\site\deployments\tools\deploy.cmd",,0
+	2026-09-24T09:19:17.1428613Z,Handling Basic Web Site deployment.,,0
+	2026-09-24T09:19:17.7522323Z,Creating app_offline.htm,,0
+	2026-09-24T09:19:17.7522323Z,KuduSync.NET from: 'C:\local\Temp\zipdeploy\extracted' to: 'C:\home\site\wwwroot',,0
+	2026-09-24T09:19:17.7725335Z,Deleting file: 'hostingstart.html',,0
+	2026-09-24T09:19:17.7881780Z,Copying file: 'appsettings.json',,0
+	2026-09-24T09:19:17.8038042Z,Copying file: 'Azure.Core.dll',,0
+	2026-09-24T09:19:17.8038042Z,Copying file: 'Azure.Identity.dll',,0
+	2026-09-24T09:19:17.8194270Z,Copying file: 'Microsoft.AspNetCore.Authentication.JwtBearer.dll',,0
+	2026-09-24T09:19:17.8350522Z,Copying file: 'Microsoft.AspNetCore.Cryptography.Internal.dll',,0
+	2026-09-24T09:19:17.8506786Z,Copying file: 'Microsoft.AspNetCore.Cryptography.KeyDerivation.dll',,0
+	2026-09-24T09:19:17.8663034Z,Copying file: 'Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll',,0
+	2026-09-24T09:19:17.9131787Z,Copying file: 'Microsoft.Bcl.AsyncInterfaces.dll',,0
+	2026-09-24T09:19:17.9288034Z,Copying file: 'Microsoft.Data.SqlClient.dll',,0
+	2026-09-24T09:19:17.9444256Z,Copying file: 'Microsoft.EntityFrameworkCore.Abstractions.dll',,0
+	2026-09-24T09:19:17.9600519Z,Copying file: 'Microsoft.EntityFrameworkCore.dll',,0
+	2026-09-24T09:19:17.9756999Z,Copying file: 'Microsoft.EntityFrameworkCore.Relational.dll',,0
+	2026-09-24T09:19:17.9756999Z,Copying file: 'Microsoft.EntityFrameworkCore.SqlServer.dll',,0
+	2026-09-24T09:19:17.9913008Z,Copying file: 'Microsoft.Extensions.Caching.Abstractions.dll',,0
+	2026-09-24T09:19:18.0069279Z,Copying file: 'Microsoft.Extensions.Caching.Memory.dll',,0
+	2026-09-24T09:19:18.0225511Z,Copying file: 'Microsoft.Extensions.Configuration.Abstractions.dll',,0
+	2026-09-24T09:19:18.0381750Z,Copying file: 'Microsoft.Extensions.DependencyInjection.Abstractions.dll',,0
+	2026-09-24T09:19:18.0538007Z,Copying file: 'Microsoft.Extensions.DependencyInjection.dll',,0
+	2026-09-24T09:19:18.0694266Z,Copying file: 'Microsoft.Extensions.Identity.Core.dll',,0
+	2026-09-24T09:19:18.0850507Z,Copying file: 'Microsoft.Extensions.Identity.Stores.dll',,0
+	2026-09-24T09:19:18.1006780Z,Copying file: 'Microsoft.Extensions.Logging.Abstractions.dll',,0
+	2026-09-24T09:19:18.1162990Z,Copying file: 'Microsoft.Extensions.Logging.dll',,0
+	2026-09-24T09:19:18.1162990Z,Copying file: 'Microsoft.Extensions.Options.dll',,0
+	2026-09-24T09:19:18.1319252Z,Copying file: 'Microsoft.Extensions.Primitives.dll',,0
+	2026-09-24T09:19:18.1475531Z,Copying file: 'Microsoft.Identity.Client.dll',,0
+	2026-09-24T09:19:18.1788008Z,Copying file: 'Microsoft.Identity.Client.Extensions.Msal.dll',,0
+	2026-09-24T09:19:18.1944273Z,Copying file: 'Microsoft.IdentityModel.Abstractions.dll',,0
+	2026-09-24T09:19:18.2100496Z,Copying file: 'Microsoft.IdentityModel.JsonWebTokens.dll',,0
+	2026-09-24T09:19:18.2256759Z,Copying file: 'Microsoft.IdentityModel.Logging.dll',,0
+	2026-09-24T09:19:18.2412993Z,Copying file: 'Microsoft.IdentityModel.Protocols.dll',,0
+	2026-09-24T09:19:18.2569250Z,Copying file: 'Microsoft.IdentityModel.Protocols.OpenIdConnect.dll',,0
+	2026-09-24T09:19:18.2725519Z,Copying file: 'Microsoft.IdentityModel.Tokens.dll',,0
+	2026-09-24T09:19:18.2881738Z,Copying file: 'Microsoft.SqlServer.Server.dll',,0
+	2026-09-24T09:19:18.3038001Z,Copying file: 'Microsoft.Win32.SystemEvents.dll',,0
+	2026-09-24T09:19:18.3194270Z,Copying file: 'System.ClientModel.dll',,0
+	2026-09-24T09:19:18.3350505Z,Copying file: 'System.Configuration.ConfigurationManager.dll',,0
+	2026-09-24T09:19:18.3506796Z,Copying file: 'System.Drawing.Common.dll',,0
+	2026-09-24T09:19:18.3819247Z,Copying file: 'System.IdentityModel.Tokens.Jwt.dll',,0
+	2026-09-24T09:19:18.3975484Z,Copying file: 'System.Memory.Data.dll',,0
+	2026-09-24T09:19:18.3975484Z,Copying file: 'System.Runtime.Caching.dll',,0
+	2026-09-24T09:19:18.4131738Z,Copying file: 'System.Security.Cryptography.ProtectedData.dll',,0
+	2026-09-24T09:19:18.4287986Z,Copying file: 'System.Security.Permissions.dll',,0
+	2026-09-24T09:19:18.4444235Z,Copying file: 'System.Windows.Extensions.dll',,0
+	2026-09-24T09:19:18.4600485Z,Copying file: 'VitalityPortal.deps.json',,0
+	2026-09-24T09:19:18.4756741Z,Copying file: 'VitalityPortal.dll',,0
+	2026-09-24T09:19:18.4912975Z,Copying file: 'VitalityPortal.exe',,0
+	2026-09-24T09:19:18.4912975Z,Copying file: 'VitalityPortal.pdb',,0
+	2026-09-24T09:19:18.5225467Z,Omitting next output lines...,,0
+	2026-09-24T09:19:18.5225467Z,Finished successfully.,,0
+2026-09-24T09:19:18.5694234Z,Build completed succesfully.,66625447-b547-4552-86d4-1e626c825067,0
+2026-09-24T09:19:18.6006725Z,Running post deployment command(s)...,426d2f0d-7614-4fb6-a649-a1a70f399dc5,0
+2026-09-24T09:19:18.6631691Z,Requesting site restart,87de2b47-137c-487f-b84b-40b92eb0e4f5,0
+2026-09-24T09:19:18.7412933Z,Requesting site restart. Attempt #1,940bdc09-6141-4783-ab46-c9c72eac6091,0
+2026-09-24T09:19:19.0694169Z,Successfully requested a restart. Attempt #1,eaa423be-0b4c-42e6-ae0b-b1b5ebdd1ba4,0
+2026-09-24T09:19:19.1319163Z,Deployment successful.,d0901e62-2a98-4cb8-b1e2-bc7adf911870,0

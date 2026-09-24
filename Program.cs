@@ -74,6 +74,7 @@ app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 await DatabaseInitializer.InitializeAsync(app.Services);
 app.Run();
