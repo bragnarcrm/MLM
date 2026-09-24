@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VitalityPortal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09eab69835cd9918a536c601b4c6157f2c2c5f88")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23df91d336512ca80869d4a4c1714a3e6ddfd7fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("VitalityPortal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VitalityPortal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

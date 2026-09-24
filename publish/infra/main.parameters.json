@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": { "value": "vitalityportal-dev-713f" },
+    "location": { "value": "eastus2" },
+    "sessionId": { "value": "713f2c97-af17-4735-947d-87f1c9eace2a" },
+    "deployedBy": { "value": "Bragnar Group" },
+    "createdAt": { "value": "2026-09-23T19:30:00Z" },
+    "appServiceName": { "value": "app-vitalityportal-dev-713f" },
+    "appServicePlanName": { "value": "asp-vitalityportal-dev-713f" },
+    "sqlServerName": { "value": "sql-vitalityportal-dev-713f" },
+    "sqlDatabaseName": { "value": "VitalityPortal" },
+    "appInsightsName": { "value": "appi-vitalityportal-dev-713f" },
+    "logAnalyticsName": { "value": "log-vitalityportal-dev-713f" }
+  }
+}
